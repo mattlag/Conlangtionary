@@ -1,18 +1,35 @@
-let pulmonicConsonants = `
-<table>
+
+export default class ChooserIPA {
+    constructor() {
+
+    }
+
+    load() {
+        let content = '<h1>Consonants (pulmonic)</h1>';
+        content += consonantsPulmonic;
+        content += '<br><br>';
+        content += '<h1>Vowels</h1>';
+        content += vowels;
+
+        return content;
+    }
+}
+
+let consonantsPulmonic = `
+<table id="tableConsonantsPulmonic">
     <thead>
     <tr>
-        <td></td>
-        <th class="place">Bilabial</th>
-        <th class="place">Labiodental</th>
+        <th></th>
+        <th class="place">Bi labial</th>
+        <th class="place">Labio dental</th>
         <th class="place">Dental</th>
         <th class="place">Alveolar</th>
-        <th class="place">Postalveolar</th>
-        <th class="place">Retroflex</th>
+        <th class="place">Post alveolar</th>
+        <th class="place">Retro flex</th>
         <th class="place">Palatal</th>
         <th class="place">Velar</th>
         <th class="place">Uvular</th>
-        <th class="place">Pharyngeal</th>
+        <th class="place">Pharyn geal</th>
         <th class="place">Glottal</th>
     </tr>
     </thead>
@@ -243,26 +260,23 @@ let pulmonicConsonants = `
 </table>
 `;
 
-
 let vowels = `
-<table>
+<table id="tableVowels">
   <tr>
     <th></th>
-    <th colspan="2">Front</th>
+    <th class="place" colspan="3">Front</th>
     <th></th>
     <th></th>
     <th></th>
     <th></th>
-    <th></th>
-    <th colspan="2">Central</th>
-    <th></th>
+    <th class="place" colspan="3">Central</th>
     <th></th>
     <th></th>
     <th></th>
-    <th colspan="2">Back</th>
+    <th class="place" colspan="2">Back</th>
   </tr>
   <tr>
-    <td>Close</td>
+    <th>Close</th>
     <td>i</td>
     <td>y</td>
     <td></td>
@@ -280,7 +294,7 @@ let vowels = `
     <td>u</td>
   </tr>
   <tr>
-    <td></td>
+    <th></th>
     <td></td>
     <td></td>
     <td>ɪ</td>
@@ -298,7 +312,7 @@ let vowels = `
     <td></td>
   </tr>
   <tr>
-    <td>Close-mid</td>
+    <th>Close-mid</th>
     <td></td>
     <td></td>
     <td>e</td>
@@ -316,7 +330,7 @@ let vowels = `
     <td>o</td>
   </tr>
   <tr>
-    <td></td>
+    <th></th>
     <td></td>
     <td></td>
     <td></td>
@@ -334,7 +348,7 @@ let vowels = `
     <td></td>
   </tr>
   <tr>
-    <td>Open-mid</td>
+    <th>Open-mid</th>
     <td></td>
     <td></td>
     <td></td>
@@ -352,7 +366,7 @@ let vowels = `
     <td>ɔ</td>
   </tr>
   <tr>
-    <td></td>
+    <th></th>
     <td></td>
     <td></td>
     <td></td>
@@ -370,7 +384,7 @@ let vowels = `
     <td></td>
   </tr>
   <tr>
-    <td>Open</td>
+    <th>Open</th>
     <td></td>
     <td></td>
     <td></td>

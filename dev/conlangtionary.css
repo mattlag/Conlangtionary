@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
 .logocontainer {
@@ -23,4 +24,40 @@
 
 #app {
     padding: 20px;
+}
+
+#tableVowels,
+#tableConsonantsPulmonic {
+    border-collapse: collapse;
+    font-size: 1.2em;
+}
+
+#tableVowels th,
+#tableConsonantsPulmonic th {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: darkgray;
+    text-align: left;
+    padding: 4px 6px;
+}
+
+#tableVowels td,
+#tableConsonantsPulmonic td {
+    width: 1.4em;
+    height: 1.4em;
+    text-align: center;
+    border: 1px solid lightgray;
+}
+
+.place {
+    text-align: center;
+}
+
+.manner {
+    width: 300px;
+}
+
+#tableConsonantsPulmonic thead tr th {
+    width: 100px;
+    overflow: hidden;
 }
