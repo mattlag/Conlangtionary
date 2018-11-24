@@ -20,17 +20,17 @@ let consonantsPulmonic = `
     <thead>
     <tr>
         <th></th>
-        <th class="place">Bi labial</th>
-        <th class="place">Labio dental</th>
-        <th class="place">Dental</th>
-        <th class="place">Alveolar</th>
-        <th class="place">Post alveolar</th>
-        <th class="place">Retro flex</th>
-        <th class="place">Palatal</th>
-        <th class="place">Velar</th>
-        <th class="place">Uvular</th>
-        <th class="place">Pharyn geal</th>
-        <th class="place">Glottal</th>
+        <th class="place" title="Bilabial">Bl</th>
+        <th class="place" title="Labiodental">Ld</th>
+        <th class="place" title="Dental">De</th>
+        <th class="place" title="Alveolar">Al</th>
+        <th class="place" title="Postalveolar">Pa</th>
+        <th class="place" title="Retroflex">Re</th>
+        <th class="place" title="Palatal">Pa</th>
+        <th class="place" title="Velar">Ve</th>
+        <th class="place" title="Uvular">Uv</th>
+        <th class="place" title="Pharyngeal">Ph</th>
+        <th class="place" title="Glottal">Gl</th>
     </tr>
     </thead>
     <tbody>
