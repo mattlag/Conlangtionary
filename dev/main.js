@@ -2,6 +2,7 @@ import ChooserIPA from './ChooserIPA.js';
 import PageAlphabet from './PageAlphabet.js';
 import PageDictionary from './PageDictionary.js';
 import PageSettings from './PageSettings.js';
+import PageHelp from './PageHelp.js';
 
 function initiate() {
     window.conlangtionary = {
@@ -48,6 +49,15 @@ function navigate(page) {
             pages.settings = new PageSettings();
         }
         target.innerHTML = pages.settings.load();
+    }
+
+    if(page === 'help') {
+        document.getElementById('navButtonHelp').setAttribute('selected', 'true');
+        console.log(`loading help`);
+        if(!pages.help) {
+            pages.help = new PageHelp();
+        }
+        target.innerHTML = pages.help.load();
     }
 }
 

@@ -21,34 +21,33 @@ body {
 .logo {
     grid-column: 1;
     grid-row: 1;
-    padding: 0px 0px 20px 20px;
     color: rgb(255, 215, 142);
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.lettermark{
-    font-family: 'Noto Serif', serif;
-    font-weight: bold;
-    display: block;
-    font-size: 48px;
-}
-
-.wordmark {
-    font-family: 'Noto Serif', serif;
-    font-size: 16px;
-    opacity: 0.7;
+.logo svg {
+    position: relative;
+    left: -36px;
 }
 
 .header {
     grid-row: 1;
     grid-column: 2;
+    vertical-align: middle;
+}
+
+.header h1 {
+    color: orange;
+    font-size: 48px;
+    font-weight: normal;
+    padding: 12px 0px 0px 20px;
 }
 
 nav {
     grid-column: 1;
     grid-row: 2;
     display: grid;
-    grid-template-rows: 40px 40px 40px 1fr;
+    grid-template-rows: repeat(8, 40px) 1fr;
     background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -58,6 +57,7 @@ nav button {
     border-style: solid;
     border-width: 0px 0px 0px 10px;
     border-color: transparent;
+    font-size: 16px;
     padding: 0px 0px 0px 10px;
     color: rgba(255, 255, 255, 0.7);
     background-color: rgba(0, 0, 0, 0.4);
@@ -77,6 +77,21 @@ nav button[selected] {
 nav button:focus {
     outline-color: orange;
     outline-offset: 2px;
+}
+
+.saveButton {
+    grid-row: auto;
+    text-align: left;
+    border: 0;
+    font-size: 14px;
+    padding: 10px 0px 0px 20px;
+    color: #ffa500;
+    opacity: 0.8;
+}
+
+.saveButton:hover {
+    cursor: pointer;
+    opacity: 1;
 }
 
 #app {
