@@ -1,13 +1,13 @@
 
 export default class PageHelp {
-    constructor() {
+	constructor() {
 
-    }
+	}
 
-    load() {
-        let content = '<h1>Help</h1>';
-        content += '<h2>About</h2>';
-        content += 'Pre-release working version';
-        return content;
-    }
+	load() {
+		let content = '<h1>Help</h1>';
+		content += '<h2>About</h2>';
+		content += 'Pre-release working version';
+		return content;
+	}
 }

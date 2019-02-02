@@ -1,12 +1,12 @@
 
 export default class PageDictionary {
-    constructor() {
+	constructor() {
 
-    }
+	}
 
-    load() {
-        let content = '<h1>Dictionary</h1>';
+	load() {
+		let content = '<h1>Dictionary</h1>';
 
-        return content;
-    }
+		return content;
+	}
 }
