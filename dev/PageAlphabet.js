@@ -13,22 +13,30 @@ export default class PageAlphabet {
 		}
 		
 		alphabet.sort(function (a, b) { return a.rank - b.rank; });
+        let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
 
 		let content = `
-		<h1>Alphabet</h1>
-		<button class="command">Add Letter</button> <button class="command" disabled>Remove Letter</button>
+        <h1>
+            Alphabet
+            &nbsp;
+		    <button class="command">Add Letter</button>
+        </h1>
 		<div class="grid">
-			<div class="gridHeader">Name</div>
+			<div class="gridHeader firstColumn">Name</div>
+			<div class="gridHeader">Letter ID</div>
 			<div class="gridHeader">Rank</div>
 			<div class="gridHeader">Romanized</div>
 			<div class="gridHeader">IPA</div>
+            <div class="gridHeader" style="display: ${showCaseVariant};">Case Variant</div>
 			${
 				alphabet.map((letter, index) => `
-					<div class="rowWrapper">
-						<div style="grid-row: ${index+2};">${letter.name}</div>
+					<div onclick="editLetter('${letter.id}');" class="rowWrapper">
+						<div style="grid-row: ${index+2};" class="firstColumn">${letter.name}</div>
+						<div style="grid-row: ${index+2};">${letter.id}</div>
 						<div style="grid-row: ${index+2};">${letter.rank}</div>
 						<div style="grid-row: ${index+2};">${letter.romanCharacter}</div>
-						<div style="grid-row: ${index+2};">${letter.ipaCharacters.join(', ')}</div>
+                        <div style="grid-row: ${index+2};">${letter.ipaCharacters.join(', ')}</div>
+						<div style="grid-row: ${index+2}; display: ${showCaseVariant};">${letter.caseVariant ? letter.caseVariant : ''}</div>
 					</div>
 				`).join('')
 			}
@@ -36,4 +44,8 @@ export default class PageAlphabet {
 		`;
 		return content;
 	}
+}
+
+window.editLetter = function(letterID) {
+    alert(`edit ${letterID}`);
 }

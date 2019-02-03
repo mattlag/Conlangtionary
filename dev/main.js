@@ -17,14 +17,14 @@ function initiate() {
 	window.conlangtionary.project = new Project(latinProject);
 
 	window.navigate = navigate;
-	navigate('alphabet');
+	navigate('settings');
 }
 
 function navigate(page) {
 	let target = document.getElementById('app');
 	let pages = window.conlangtionary.nav.pages;
 	
-	document.getElementById('langNameTitle').innerHTML = conlangtionary.project.metadata.languageName;
+	document.getElementById('langNameTitle').innerHTML = conlangtionary.project.settings.languageName;
 	
 	clearNavButtonSelectedStates();
 

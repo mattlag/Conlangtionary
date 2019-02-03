@@ -4,8 +4,8 @@
 export default class Letter {
 	/**
 	 * Initialize a Letter
-	 * @param {string} name - Name of this letter
 	 * @param {string} id - Unique identifier for this letter
+	 * @param {string} name - Name of this letter
 	 * @param {number} rank - alphabetical order for this letter
 	 * @param {string} romanCharacter - The roman character or characters to use
 	 *								  when displaying this letter
@@ -16,6 +16,7 @@ export default class Letter {
 	 *								  if this Conlang is being displayed using a custom font
 	 */
 	constructor({
+        id = false,
 		name = 'Letter Name',
 		rank = 0,
 		romanCharacter = '',
@@ -23,6 +24,7 @@ export default class Letter {
 		caseVariant = false,
 		fontCharacter = ''
 	} = {}) {
+        this.id = id;
 		this.name = name;
 		this.rank = rank;
 		this.romanCharacter = romanCharacter;

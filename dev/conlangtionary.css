@@ -4,12 +4,12 @@
 	--gray-15: hsl(200, 60%, 15%);
 	--gray-20: hsl(200, 40%, 20%);
 	--gray-30: hsl(200, 20%, 30%);
-	--gray-40: hsl(200, 18%, 40%);
-	--gray-50: hsl(200, 16%, 50%);
-	--gray-60: hsl(200, 14%, 60%);
-	--gray-70: hsl(200, 12%, 70%);
-	--gray-80: hsl(200, 11%, 80%);
-	--gray-90: hsl(200, 10%, 90%);
+	--gray-40: hsl(200, 20%, 40%);
+	--gray-50: hsl(200, 20%, 50%);
+	--gray-60: hsl(200, 20%, 60%);
+	--gray-70: hsl(200, 20%, 70%);
+	--gray-80: hsl(200, 20%, 80%);
+	--gray-90: hsl(200, 20%, 90%);
 
 	--accent-10: hsl(30, 100%, 10%);
 	--accent-20: hsl(30, 100%, 20%);
@@ -131,7 +131,7 @@ nav button:focus {
 }
 
 #app {
-	background-color: aliceblue;
+	background-color: var(--gray-90);
 	grid-column: 2;
 	grid-row: 2;
 	padding: 20px;
@@ -150,7 +150,8 @@ button {
 	color: var(--accent-80);
 	border: 2px solid var(--accent-30);
 	padding: 2px 6px;
-	margin: 0px 8px 0px 0px;
+    margin: 0px 8px 0px 0px;
+    vertical-align: middle;
 }
 
 button:hover {
@@ -161,7 +162,7 @@ button:hover {
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(8, 1fr);
 	grid-row-gap: 1px;
 	grid-column-gap: 1px;
 	margin: 12px 12px 24px 0px;
@@ -171,18 +172,69 @@ button:hover {
 	display: contents;
 }
 
+.grid .rowWrapper:hover div {
+    border-top-color: var(--accent-60);
+    border-bottom-color: var(--accent-60);
+    background-color: var(--accent-90);
+    cursor: pointer;
+}
+
+.grid .firstColumn {
+    font-size: 1.1em;
+    color: black;
+}
+
 .grid div {
-	background-color: white;
+    border: 1px solid white;
+    background-color: white;
+    color: var(--gray-40);
 	padding: 4px 8px 4px 8px;
 }
 
 .gridHeader {
 	grid-row: 1;
-	background-color: var(--gray-90) !important;
+	background-color: var(--gray-80) !important;
 	color: var(--gray-40) !important;
 	font-size: 0.8em !important;
 	font-style: italic;
 }
+
+.settingsGrid {
+    display: grid;
+    grid-template-columns: min-content min-content max-content;
+    grid-column-gap: 8px;
+    grid-row-gap: 12px;
+}
+
+.settingsGrid .name {
+    grid-column: 1;
+    text-align: right;
+    width: min-content;
+}
+
+.settingsGrid .value {
+    grid-column: 2;
+    text-align: left;
+}
+
+.settingsGrid .value input[type=text] {
+    position: relative; 
+    top: -4px;
+}
+
+.settingsGrid input {
+    padding: 4px 8px;
+}
+
+.settingsGrid .description {
+    grid-column: 3;
+    width: max-content;
+    text-align: left;
+    font-style: italic;
+    color: var(--gray-50);
+    font-size: 0.8em;
+}
+
 
 /*
 	IPA Table
@@ -197,7 +249,7 @@ button:hover {
 #tableConsonantsPulmonic th {
 	font-size: 0.8em;
 	font-weight: bold;
-	color: darkgray;
+	color: var(--gray-80);
 	text-align: center;
 	padding: 4px 6px;
 	border: 1px solid lime;
