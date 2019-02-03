@@ -3,26 +3,39 @@ import PageAlphabet from './PageAlphabet.js';
 import PageDictionary from './PageDictionary.js';
 import PageSettings from './PageSettings.js';
 import PageHelp from './PageHelp.js';
+import Project, { latinProject } from './Project.js';
+import PageWelcome from './pageWelcome.js';
 
 function initiate() {
 	window.conlangtionary = {
 		nav: {
 			currentPage: 'welcome',
 			pages: {}
-		},
-		project: {},
-		
+		}		
 	};
-	window.navigate = navigate;
 
+	window.conlangtionary.project = new Project(latinProject);
+
+	window.navigate = navigate;
 	navigate('alphabet');
 }
 
 function navigate(page) {
 	let target = document.getElementById('app');
 	let pages = window.conlangtionary.nav.pages;
-
+	
+	document.getElementById('langNameTitle').innerHTML = conlangtionary.project.metadata.languageName;
+	
 	clearNavButtonSelectedStates();
+
+	if(page === 'welcome') {
+		document.getElementById('navButtonWelcome').setAttribute('selected', 'true');
+		console.log(`loading page: welcome`);
+		if(!pages.welcome) {
+			pages.welcome = new PageWelcome();
+		}
+		target.innerHTML = pages.welcome.load();
+	}
 
 	if(page === 'alphabet') {
 		document.getElementById('navButtonAlphabet').setAttribute('selected', 'true');

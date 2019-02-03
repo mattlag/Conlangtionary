@@ -5,8 +5,17 @@ export default class PageSettings {
 	}
 
 	load() {
-		let content = '<h1>Project Settings</h1>';
-		content += `<label>Constructed Language Name: <input type="text" value="Shjo'onti"></input>`;
+		let md = conlangtionary.project.metadata;
+
+		let content = `
+		<h1>Project Settings</h1>
+
+		<label>Constructed Language Name: <input type="text" value="${md.languageName}" onchange="updateSetting('languageName', this.value);"/>
+		`;
 		return content;
 	}
+}
+
+window.updateSetting = function(prop, value) {
+	conlangtionary.project.metadata[prop] = value;
 }
