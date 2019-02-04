@@ -1,4 +1,5 @@
 import Glyph from './Glyph.js';
+import { openDialog } from './main.js';
 
 export default class PageAlphabet {
 	constructor() {
@@ -13,21 +14,21 @@ export default class PageAlphabet {
 		}
 		
 		alphabet.sort(function (a, b) { return a.rank - b.rank; });
-        let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
+		let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
 
 		let content = `
-        <h1>
-            Alphabet
-            &nbsp;
-		    <button class="command">Add Letter</button>
-        </h1>
+		<h1>
+			Alphabet
+			&nbsp;
+			<button class="command">Add Letter</button>
+		</h1>
 		<div class="grid">
 			<div class="gridHeader firstColumn">Name</div>
 			<div class="gridHeader">Letter ID</div>
 			<div class="gridHeader">Rank</div>
 			<div class="gridHeader">Romanized</div>
 			<div class="gridHeader">IPA</div>
-            <div class="gridHeader" style="display: ${showCaseVariant};">Case Variant</div>
+			<div class="gridHeader" style="display: ${showCaseVariant};">Case Variant</div>
 			${
 				alphabet.map((letter, index) => `
 					<div onclick="editLetter('${letter.id}');" class="rowWrapper">
@@ -35,7 +36,7 @@ export default class PageAlphabet {
 						<div style="grid-row: ${index+2};">${letter.id}</div>
 						<div style="grid-row: ${index+2};">${letter.rank}</div>
 						<div style="grid-row: ${index+2};">${letter.romanCharacter}</div>
-                        <div style="grid-row: ${index+2};">${letter.ipaCharacters.join(', ')}</div>
+						<div style="grid-row: ${index+2};">${letter.ipaCharacters.join(', ')}</div>
 						<div style="grid-row: ${index+2}; display: ${showCaseVariant};">${letter.caseVariant ? letter.caseVariant : ''}</div>
 					</div>
 				`).join('')
@@ -47,5 +48,7 @@ export default class PageAlphabet {
 }
 
 window.editLetter = function(letterID) {
-    alert(`edit ${letterID}`);
+	openDialog(`
+		<h2>${letterID}</h2>
+	`);
 }
