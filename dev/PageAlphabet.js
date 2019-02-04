@@ -33,12 +33,12 @@ export default class PageAlphabet {
 			${
 				alphabet.map((letter, index) => `
 					<div onclick="editLetter('${letter.id}');" class="rowWrapper">
-						<div style="grid-row: ${index+2};" class="firstColumn">${letter.name}</div>
-						<div style="grid-row: ${index+2};">${letter.id}</div>
-						<div style="grid-row: ${index+2};">${letter.rank}</div>
-						<div style="grid-row: ${index+2};">${letter.romanCharacter}</div>
-						<div style="grid-row: ${index+2};">${letter.ipaCharacters.join(', ')}</div>
-						<div style="grid-row: ${index+2}; display: ${showCaseVariant};">${letter.caseVariant ? letter.caseVariant : ''}</div>
+						<div id="alphabet-grid-${letter.id}-name" style="grid-row: ${index+2};" class="firstColumn">${letter.name}</div>
+						<div id="alphabet-grid-${letter.id}-id" style="grid-row: ${index+2};">${letter.id}</div>
+						<div id="alphabet-grid-${letter.id}-rank" style="grid-row: ${index+2};">${letter.rank}</div>
+						<div id="alphabet-grid-${letter.id}-romanCharacter" style="grid-row: ${index+2};">${letter.romanCharacter}</div>
+						<div id="alphabet-grid-${letter.id}-ipaCharacters" style="grid-row: ${index+2};">${letter.ipaCharacters.join(', ')}</div>
+						<div id="alphabet-grid-${letter.id}-showCaseVariant" style="grid-row: ${index+2}; display: ${showCaseVariant};">${letter.caseVariant ? letter.caseVariant : ''}</div>
 					</div>
 				`).join('')
 			}
@@ -98,4 +98,18 @@ function getLetter(letterID) {
 
 	console.warn(`Could not find letter with id: ${letterID}`);
 	return false;
+}
+
+window.updateLetter = function(id, prop, value) {
+	let letter = getLetter(id);
+	if(letter) {
+		letter[prop] = value;
+	}
+
+	let gridval = document.getElementById('alphabet-grid-'+id+'-'+prop);
+	console.log(gridval);
+	
+	if(gridval) {
+		gridval.innerHTML = value;
+	}
 }
