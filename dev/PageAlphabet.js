@@ -1,6 +1,6 @@
 import Glyph from './Glyph.js';
 import { openDialog } from './main.js';
-import { letterDescriptions } from './Letter.js';
+import Letter, { letterDescriptions } from './Letter.js';
 
 export default class PageAlphabet {
 	constructor() {
@@ -21,7 +21,7 @@ export default class PageAlphabet {
 		<h1>
 			Alphabet
 			&nbsp;
-			<button class="command">Add Letter</button>
+			<button onclick="editLetter('create_new_letter');">Add Letter</button>
 		</h1>
 		<div class="grid">
 			<div class="gridHeader firstColumn">Name</div>
@@ -48,7 +48,30 @@ export default class PageAlphabet {
 	}
 }
 
+function generateNewLetterID() {
+	let newID = '';
+	let suffix = 1;
+
+	while(true) {
+		if(suffix < 10) {
+			newID = '' + conlangtionary.letterPrefix + '0' + suffix;
+			if(!conlangtionary.project.alphabet[newID]) return newID;
+		} else {
+			newID = '' + conlangtionary.letterPrefix + suffix;
+			if(!conlangtionary.project.alphabet[newID]) return newID;
+		}
+
+		suffix++;
+	}
+}
+
 window.editLetter = function(letterID) {
+	if(letterID === 'create_new_letter') {
+		letterID = generateNewLetterID();
+		conlangtionary.project.alphabet[letterID] = new Letter({id: letterID});
+		document.getElementById('app').innerHTML = conlangtionary.nav.pages.alphabet.load();
+	}
+
 	let letter = getLetter(letterID);
 	let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
 

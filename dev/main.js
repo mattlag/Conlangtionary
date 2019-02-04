@@ -11,7 +11,8 @@ function initiate() {
 		nav: {
 			currentPage: 'welcome',
 			pages: {}
-		}		
+		},
+		letterPrefix: 'letter',
 	};
 
 	window.conlangtionary.project = new Project(latinProject);
