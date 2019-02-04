@@ -1,5 +1,6 @@
 import Glyph from './Glyph.js';
 import { openDialog } from './main.js';
+import { letterDescriptions } from './Letter.js';
 
 export default class PageAlphabet {
 	constructor() {
@@ -48,7 +49,53 @@ export default class PageAlphabet {
 }
 
 window.editLetter = function(letterID) {
+	let letter = getLetter(letterID);
+	let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
+
 	openDialog(`
-		<h2>${letterID}</h2>
+		<h2>${letter.name}</h2>
+		<h3>Letter ID: ${letter.id}</h3>
+		<div class="settingsGrid">
+			<label class="name">Name:</label>
+			<span class="value">
+				<input type="text" value="${letter.name}" onchange="updateLetter('${letterID}', 'name', this.value);"/>
+			</span>
+			<span class="description">${letterDescriptions.name}</span>
+
+			<label class="name">Rank:</label>
+			<span class="value">
+				<input type="text" value="${letter.rank}" onchange="updateLetter('${letterID}', 'rank', this.value);"/>
+			</span>
+			<span class="description">${letterDescriptions.rank}</span>
+
+			<label class="name">Romanized&nbsp;translation:</label>
+			<span class="value">
+				<input type="text" value="${letter.romanCharacter}" onchange="updateLetter('${letterID}', 'romanCharacter', this.value);"/>
+			</span>
+			<span class="description">${letterDescriptions.romanCharacter}</span>
+
+			<label class="name">IPA&nbsp;characters:</label>
+			<span class="value">
+				<input type="text" value="${letter.ipaCharacters}" onchange="updateLetter('${letterID}', 'ipaCharacters', this.value);"/>
+			</span>
+			<span class="description">${letterDescriptions.ipaCharacters}</span>
+
+			<div class="rowWrapper" style="display:${showCaseVariant};">
+				<label class="name">Case&nbsp;variant:</label>
+				<span class="value">
+					<input type="text" value="${letter.caseVariant}" onchange="updateLetter('${letterID}', 'caseVariant', this.value);"/>
+				</span>
+				<span class="description">${letterDescriptions.caseVariant}</span>
+			</div>
+		</div>
 	`);
+};
+
+function getLetter(letterID) {
+	if(conlangtionary.project.alphabet[letterID]) {
+		return conlangtionary.project.alphabet[letterID];
+	}
+
+	console.warn(`Could not find letter with id: ${letterID}`);
+	return false;
 }

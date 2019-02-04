@@ -53,8 +53,13 @@
 	</span>
 	<span id="dialogControl" onclick="closeDialog();">
 		<span style="grid-row: 1;"></span>
-		<span style="grid-row: 2;" id="dialogContent" onclick="nothing();"></span>
+		<span style="grid-row: 2;" id="dialogContent"></span>
 		<span style="grid-row: 3;"></span>
 	</span>
+	<script>
+		document.body.onload = function() {
+			document.getElementById('dialogContent').onclick = function(event) { event.stopPropagation(); }; 
+		}
+	</script>
 </body>
 </html>

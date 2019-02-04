@@ -16,15 +16,15 @@ export default class Letter {
 	 *								  if this Conlang is being displayed using a custom font
 	 */
 	constructor({
-        id = false,
+		id = false,
 		name = 'Letter Name',
 		rank = 0,
 		romanCharacter = '',
 		ipaCharacters = [],
-		caseVariant = false,
+		caseVariant = '',
 		fontCharacter = ''
 	} = {}) {
-        this.id = id;
+		this.id = id;
 		this.name = name;
 		this.rank = rank;
 		this.romanCharacter = romanCharacter;
@@ -32,4 +32,14 @@ export default class Letter {
 		this.caseVariant = caseVariant;
 		this.fontCharacter = fontCharacter;
 	}
+}
+
+export const letterDescriptions = {
+	id: 'Unique ID for this letter',
+	name: 'Letter Name',
+	rank: 'Sort order for alphabetization',
+	romanCharacter: 'Translate this letter to Basic Latin letter(s)',
+	ipaCharacters: 'List of IPA points',
+	caseVariant: 'ID of the uppercase or lowercase variant of this letter',
+	fontCharacter: 'Character where this letter can be found in your custom font',
 }

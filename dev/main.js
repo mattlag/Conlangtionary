@@ -85,7 +85,6 @@ function clearNavButtonSelectedStates() {
 	});
 }
 
-
 export function openDialog(content) {
 	document.getElementById('dialogContent').innerHTML = makeCloseButton('closeDialog();') + content;
 	document.getElementById('dialogControl').style.display = 'grid';
@@ -95,7 +94,7 @@ export function openDialog(content) {
 	}, 10);
 }
 
-export function nothing(event) {
+window.nothing = function(event) {
 	// console.log(event);
 	event.stopPropagation();
 }
@@ -104,7 +103,7 @@ function makeCloseButton(func) {
 	return `<div class="closeButtonWrapper"><button onclick="${func}" class="closeButton" title="Close">⨉</button></div>`;
 }
 
-export function closeDialog() {
+window.closeDialog = function() {
 	document.getElementById('dialogContent').style.opacity = '0';
 
 	window.setTimeout(function () {
@@ -116,6 +115,6 @@ export function closeDialog() {
 		}, 150);
 
 	}, 350);
-}
+};
 
 initiate();
