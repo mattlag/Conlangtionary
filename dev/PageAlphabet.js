@@ -1,4 +1,4 @@
-import Glyph from './Glyph.js';
+import Glyph, { sampleGlyph6by10 } from './Glyph.js';
 import { openDialog } from './main.js';
 import Letter, { letterDescriptions } from './Letter.js';
 
@@ -7,14 +7,16 @@ export default class PageAlphabet {
 	}
 
 	load() {
-		let alphabet = [];
-		for(let key in conlangtionary.project.alphabet) {
-			if(conlangtionary.project.alphabet.hasOwnProperty(key)) {
-				alphabet.push(conlangtionary.project.alphabet[key]);
+		let alphabetList = [];
+		let alphabet = conlangtionary.project.alphabet;
+
+		for(let key in alphabet) {
+			if(alphabet.hasOwnProperty(key)) {
+				alphabetList.push(alphabet[key]);
 			}
 		}
 		
-		alphabet.sort(function (a, b) { return a.rank - b.rank; });
+		alphabetList.sort(function (a, b) { return a.rank - b.rank; });
 		let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
 
 		let content = `
@@ -25,15 +27,17 @@ export default class PageAlphabet {
 		</h1>
 		<div class="grid">
 			<div class="gridHeader firstColumn">Name</div>
+			<div class="gridHeader">Placeholder</div>
 			<div class="gridHeader">Letter ID</div>
 			<div class="gridHeader">Rank</div>
 			<div class="gridHeader">Romanized</div>
 			<div class="gridHeader">IPA</div>
 			<div class="gridHeader" style="display: ${showCaseVariant};">Case Variant</div>
 			${
-				alphabet.map((letter, index) => `
+				alphabetList.map((letter, index) => `
 					<div onclick="editLetter('${letter.id}');" class="rowWrapper">
 						<div id="alphabet-grid-${letter.id}-name" style="grid-row: ${index+2};" class="firstColumn">${letter.name}</div>
+						<div id="alphabet-grid-${letter.id}-placeholderGlyph" style="grid-row: ${index+2};">${letter.placeholderGlyph.makePixelGrid? letter.placeholderGlyph.makePixelGrid(2, 0) : ''}</div>
 						<div id="alphabet-grid-${letter.id}-id" style="grid-row: ${index+2};">${letter.id}</div>
 						<div id="alphabet-grid-${letter.id}-rank" style="grid-row: ${index+2};">${letter.rank}</div>
 						<div id="alphabet-grid-${letter.id}-romanCharacter" style="grid-row: ${index+2};">${letter.romanCharacter}</div>
@@ -74,6 +78,7 @@ window.editLetter = function(letterID) {
 
 	let letter = getLetter(letterID);
 	let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
+	letter.placeholderGlyph = new Glyph({data: sampleGlyph6by10});
 
 	openDialog(`
 		<h2>${letter.name}</h2>
@@ -111,6 +116,12 @@ window.editLetter = function(letterID) {
 				<span class="description">${letterDescriptions.caseVariant}</span>
 			</div>
 		</div>
+		<br><br>
+
+		<h3>Placeholder glyph</h3>
+		<span class="description">This is a very simple representation of this glyph in your conlang.</span>
+		<br><br>
+		${letter.placeholderGlyph.makePixelGrid(8, 1)}
 	`);
 };
 

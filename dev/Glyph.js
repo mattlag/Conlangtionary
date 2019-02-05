@@ -7,8 +7,8 @@ export default class Glyph {
 	
 	constructor({
 		data = 0,
-		width = 12,
-		height = 20,
+		width = 6,
+		height = 10,
 	} = {}) {
 		this.data = data;
 		this.width = width;
@@ -17,7 +17,7 @@ export default class Glyph {
 	}
 
 	get data() {
-		if (!this._data) this._data = 0;
+		if (!this._data) this._data = sampleGlyph6by10;
 		return this._data;
 	}
 	
@@ -61,14 +61,13 @@ export default class Glyph {
 		}
 	}
 
-	makePixelGrid(size = 1, gap = 0) {
-		let color = 'black';
+	makePixelGrid(size = 1, gap = 0, color = 'black', bgColor = 'transparent') {
 		let con = `
-			<div
+			<div class="pixelGrid"
 				style="
 					display: grid; 
 					grid-template-columns: repeat(${this.width}, ${size}px);
-					grid-template-rows: repeat(${this.height}, ${size}px); 
+					grid-template-rows: repeat(${this.height}, ${size}px);
 					grid-column-gap: ${gap}px;
 					grid-row-gap: ${gap}px;
 				"
@@ -76,7 +75,13 @@ export default class Glyph {
 	
 		for(let row = 0; row < this.height; row++) {
 			for(let col = 0; col < this.width; col++) {
-				con += `<div title="${row} - ${col}" style="background-color:${this.getPixelAt(row, col)? 'black' : 'white'};"></div>`;
+				con += `<span style="
+					background-color:${this.getPixelAt(row, col)? color : bgColor};
+					grid-row: ${row+1};
+					grid-column: ${col+1};
+					width: ${size}px;
+					height: ${size}px;
+				"></span>`;
 			}
 		}
 
@@ -86,7 +91,7 @@ export default class Glyph {
 	}
 }
 
-export const sampleGlyphBinary = `
+export const sampleGlyph12by20 = `
 1 0 0 0 0 0 0 0 0 0 0 0 
 1 1 0 0 0 0 0 0 0 0 0 0 
 0 1 1 0 0 0 0 0 0 0 0 0 
@@ -107,6 +112,19 @@ export const sampleGlyphBinary = `
 0 0 0 0 0 0 0 0 0 0 0 0 
 0 0 0 0 0 0 0 0 0 0 0 0 
 0 0 0 0 0 0 0 0 0 0 0 0	
+`;
+
+export const sampleGlyph6by10 = `
+1 0 0 0 0 0 
+1 1 0 0 0 0 
+0 1 1 0 0 0 
+0 0 1 1 0 0 
+0 0 0 1 1 0 
+0 0 0 0 1 1 
+0 0 0 0 1 1  
+0 0 0 0 1 1  
+1 1 1 1 1 1  
+1 1 1 1 1 0  
 `;
 
 /*

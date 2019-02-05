@@ -1,3 +1,5 @@
+import Glyph from "./Glyph.js";
+
 /**
  * Represents a single letter in the Conlang Alphabet
  */
@@ -22,7 +24,8 @@ export default class Letter {
 		romanCharacter = '',
 		ipaCharacters = [],
 		caseVariant = '',
-		fontCharacter = ''
+		fontCharacter = '',
+		placeholderGlyph = false,
 	} = {}) {
 		this.id = id;
 		this.name = name;
@@ -31,6 +34,7 @@ export default class Letter {
 		this.ipaCharacters = ipaCharacters;
 		this.caseVariant = caseVariant;
 		this.fontCharacter = fontCharacter;
+		this.placeholderGlyph = placeholderGlyph? new Glyph(placeholderGlyph) : false;
 	}
 }
 
@@ -42,4 +46,5 @@ export const letterDescriptions = {
 	ipaCharacters: 'List of IPA points',
 	caseVariant: 'ID of the uppercase or lowercase variant of this letter',
 	fontCharacter: 'Character where this letter can be found in your custom font',
+	placeholderGlyph: 'A very simple representation of this glyph in your conlang.',
 }
