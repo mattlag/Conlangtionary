@@ -13,7 +13,6 @@ export default class Glyph {
 		this.data = data;
 		this.width = width;
 		this.height = height;
-		this.imgGrid = false;
 	}
 
 	get data() {
@@ -23,45 +22,35 @@ export default class Glyph {
 	
 	set data(binary) {
 		this._data = (''+binary).replace(/\s+/gi, '');
-		console.log(this.data);
-	}
-
-	get imgGrid() {
-		if (this._imgGrid === false) {
-			this._imgGrid = [];
-
-			for(let row = 0; row < this.height; row++) {
-				for(let col = 0; col < this.width; col++) {
-					if(col === 0) this._imgGrid[row] = [];
-					this._imgGrid[row][col] = this.data.charAt((row*this.width) + col) || 0;
-				}
-			}
-		
-		}
-
-		// console.log(this._imgGrid);
-		return this._imgGrid;
-	}
-
-	set imgGrid(grid) {
-		this._imgGrid = grid;
+		// console.log(`set binary data\t${this.data}`);
 	}
 
 	getPixelAt(row = 0, col = 0) {
-		return !!parseInt(this.imgGrid[row][col]);
+		if(!isNaN(row) && !isNaN(col)) {
+			let index = (row*this.width) + col;
+			let result = !!parseInt(this.data.charAt(index));
+			// console.log(`getPixelAt ${row}, ${col} returning ${result}`);
+			return result;
+		}
+
+		return undefined;
 	}
 
 	togglePixelAt(row, col) {
 		if(!isNaN(row) && !isNaN(col)) {
-			let val = getPixelAt(row, col);
+			// console.log(`togglePixelAt ${row}, ${col}`)
+			let val = this.getPixelAt(row, col);
 			let newval = val? '0' : '1';
 			let index = (row*this.width) + col;
 
+			// console.log(`binary data before\t${this.data}`);
 			this.data = this.data.substr(0,index) + newval + this.data.substr(index+1);
 		}
 	}
 
 	makePixelGrid(size = 1, gap = 0, color = 'black', bgColor = 'transparent') {
+		let pixValue;
+
 		let con = `
 			<div class="pixelGrid"
 				style="
@@ -75,13 +64,53 @@ export default class Glyph {
 	
 		for(let row = 0; row < this.height; row++) {
 			for(let col = 0; col < this.width; col++) {
-				con += `<span style="
-					background-color:${this.getPixelAt(row, col)? color : bgColor};
-					grid-row: ${row+1};
-					grid-column: ${col+1};
+				pixValue = this.getPixelAt(row, col);
+				// console.log(`makePixelGrid at ${row}, ${col} found ${pixValue}`);
+				con += `
+				<span style="
+				grid-row: ${row+1};
+				grid-column: ${col+1};
+				width: ${size}px;
+				height: ${size}px;
+				"
+				class="${pixValue? 'selected' : 'unselected'}"
+				></span>`;
+			}
+		}
+		
+		con += '</div>';
+		
+		return con;
+	}
+	
+	makeEditGrid(size = 1, gap = 0, color = 'black', bgColor = 'transparent', letterID) {
+		let pixValue;
+		
+		let con = `
+		<div class="pixelGrid"
+		style="
+		display: grid; 
+		grid-template-columns: repeat(${this.width}, ${size}px);
+		grid-template-rows: repeat(${this.height}, ${size}px);
+		grid-column-gap: ${gap}px;
+		grid-row-gap: ${gap}px;
+		"
+		>`;
+		
+		for(let row = 0; row < this.height; row++) {
+			for(let col = 0; col < this.width; col++) {
+				pixValue = this.getPixelAt(row, col);
+				// console.log(`makeEditGrid at ${row}, ${col} found ${pixValue}`);
+				con += `
+				<span style="
+				grid-row: ${row+1};
+				grid-column: ${col+1};
 					width: ${size}px;
 					height: ${size}px;
-				"></span>`;
+				"
+				class="${pixValue? 'selected' : 'unselected'}"
+				onclick="togglePixel('${letterID}', ${row}, ${col}); this.className = (this.className === 'selected'? 'unselected' : 'selected');"
+				></span>`;
 			}
 		}
 

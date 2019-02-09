@@ -78,7 +78,7 @@ window.editLetter = function(letterID) {
 
 	let letter = getLetter(letterID);
 	let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
-	letter.placeholderGlyph = new Glyph({data: sampleGlyph6by10});
+	letter.placeholderGlyph = letter.placeholderGlyph? letter.placeholderGlyph : new Glyph();
 
 	openDialog(`
 		<h2>${letter.name}</h2>
@@ -121,7 +121,7 @@ window.editLetter = function(letterID) {
 		<h3>Placeholder glyph</h3>
 		<span class="description">This is a very simple representation of this glyph in your conlang.</span>
 		<br><br>
-		${letter.placeholderGlyph.makePixelGrid(8, 1)}
+		${letter.placeholderGlyph.makeEditGrid(8, 1, 'black', 'white', letterID)}
 	`);
 };
 
@@ -130,7 +130,7 @@ function getLetter(letterID) {
 		return conlangtionary.project.alphabet[letterID];
 	}
 
-	console.warn(`Could not find letter with id: ${letterID}`);
+	// console.warn(`Could not find letter with id: ${letterID}`);
 	return false;
 }
 
@@ -141,9 +141,21 @@ window.updateLetter = function(id, prop, value) {
 	}
 
 	let gridval = document.getElementById('alphabet-grid-'+id+'-'+prop);
-	console.log(gridval);
+	// console.log(gridval);
 	
 	if(gridval) {
 		gridval.innerHTML = value;
 	}
-}
+};
+
+window.togglePixel = function(id, row, col) {
+	// console.log(`window.togglePixel ${id}, ${row}, ${col}`);
+	let letter = getLetter(id);
+	letter.placeholderGlyph.togglePixelAt(row, col);
+
+	let gridval = document.getElementById('alphabet-grid-'+id+'-placeholderGlyph');
+
+	if(gridval){
+		gridval.innerHTML = letter.placeholderGlyph.makePixelGrid(2, 0);
+	}
+};
