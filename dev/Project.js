@@ -7,8 +7,10 @@ export default class Project {
 	} = {}) {
 		this.settings = {
 			languageName: settings.languageName || 'Language Name',
-			author: settings.author || 'Author',
+			author: settings.author || '',
 			caseVariants: true,
+			placeholderGlyphHeight: settings.placeholderGlyphHeight || 10,
+			spaceWidth: 4,
 		};
 
 		this.alphabet = {};
@@ -23,14 +25,15 @@ export default class Project {
 export const settingsDescriptions = {
 	languageName: 'The name of your constructed language.',
 	author: 'Name of the person who created this language',
-	caseVariants: 'Does this language have Upper and Lower cases.  Used to enable the Case Variant property of letters.',
+	caseVariants: 'Does this language have Upper and Lower cases.<br>Used to enable the Case Variant property of letters.',
+	placeholderGlyphHeight: 'Height of all the placeholder glyphs in your alphabet',
+	spaceWidth: 'Width of a space character between placeholder glyphs',
 };
 
 export const latinProject = {
 	settings : {
 		languageName: 'Basic Latin',
 		author: 'Author',
-		caseVariants: true,
 	},
 
 	alphabet : {

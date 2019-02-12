@@ -1,5 +1,5 @@
-import Glyph, { sampleGlyph6by10 } from './Glyph.js';
-import { openDialog } from './main.js';
+import PlaceholderGlyph, { sampleGlyph6by10 } from './PlaceholderGlyph.js';
+import { openDialog, nbsp } from './main.js';
 import Letter, { letterDescriptions } from './Letter.js';
 
 export default class PageAlphabet {
@@ -36,7 +36,7 @@ export default class PageAlphabet {
 			${
 				alphabetList.map((letter, index) => `
 					<div onclick="editLetter('${letter.id}');" class="rowWrapper">
-						<div id="alphabet-grid-${letter.id}-name" style="grid-row: ${index+2};" class="firstColumn">${letter.name}</div>
+						<div id="alphabet-grid-${letter.id}-name" style="grid-row: ${index+2};" class="firstColumn">${nbsp(letter.name)}</div>
 						<div id="alphabet-grid-${letter.id}-placeholderGlyph" style="grid-row: ${index+2};">${letter.placeholderGlyph.makePixelGrid? letter.placeholderGlyph.makePixelGrid(2, 0) : ''}</div>
 						<div id="alphabet-grid-${letter.id}-id" style="grid-row: ${index+2};">${letter.id}</div>
 						<div id="alphabet-grid-${letter.id}-rank" style="grid-row: ${index+2};">${letter.rank}</div>
@@ -78,7 +78,7 @@ window.editLetter = function(letterID) {
 
 	let letter = getLetter(letterID);
 	let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
-	letter.placeholderGlyph = letter.placeholderGlyph? letter.placeholderGlyph : new Glyph();
+	letter.placeholderGlyph = letter.placeholderGlyph? letter.placeholderGlyph : new PlaceholderGlyph();
 
 	openDialog(`
 		<h2>${letter.name}</h2>
@@ -119,9 +119,26 @@ window.editLetter = function(letterID) {
 		<br><br>
 
 		<h3>Placeholder glyph</h3>
-		<span class="description">This is a very simple representation of this glyph in your conlang.</span>
+		<span class="description">
+			A very simple representation of this glyph in your conlang.<br>
+			You can adjust the height of all placeholder glyphs in Settings.
+		</span>
 		<br><br>
-		${letter.placeholderGlyph.makeEditGrid(8, 1, 'black', 'white', letterID)}
+		<div class="grid">
+			<span style="grid-column: 1;" id="edit-placeholderGlyph">
+				${letter.placeholderGlyph.makeEditGrid(10, 1, 'black', 'white', letterID)}
+			</span>
+			<span style="grid-column: 2;">
+				<button style="width: 80px; margin-bottom: 6px;" onclick="updateLetterWidth('${letter.id}', true);">width +</button><br>
+				<button style="width: 80px; margin-bottom: 6px;" onclick="updateLetterWidth('${letter.id}', false);">width -</button><br>
+			</span>
+			<span class="description" style="grid-column: 3;">
+				Click a square to toggle between black and white.<br>
+				Hold down [shift] to hover-paint black.<br>
+				Hold down [ctrl] to hover-paint white.
+			</span>
+		</div>
+
 	`);
 };
 
@@ -148,14 +165,42 @@ window.updateLetter = function(id, prop, value) {
 	}
 };
 
+window.updateLetterWidth = function(id, increase) {
+	let letter = getLetter(id);
+
+	if(increase) letter.placeholderGlyph.increaseWidth();
+	else letter.placeholderGlyph.decreaseWidth();
+
+	updatePlaceholderGrids(id, letter);
+};
+
+function updatePlaceholderGrids(id, letter) {
+	let gridval = document.getElementById('alphabet-grid-'+id+'-placeholderGlyph');
+	if(gridval) gridval.innerHTML = letter.placeholderGlyph.makePixelGrid(2, 0);
+
+	let editval = document.getElementById('edit-placeholderGlyph');
+	if(editval) editval.innerHTML = letter.placeholderGlyph.makeEditGrid(10, 1, 'black', 'white', id);
+}
+
 window.togglePixel = function(id, row, col) {
 	// console.log(`window.togglePixel ${id}, ${row}, ${col}`);
 	let letter = getLetter(id);
 	letter.placeholderGlyph.togglePixelAt(row, col);
 
-	let gridval = document.getElementById('alphabet-grid-'+id+'-placeholderGlyph');
+	updatePlaceholderGrids(id, letter);
+};
 
-	if(gridval){
-		gridval.innerHTML = letter.placeholderGlyph.makePixelGrid(2, 0);
-	}
+window.hoverPixel = function (event, id, row, col) {
+	// console.log(`window.togglePixel ${id}, ${row}, ${col}`);
+	event = event || window.event;
+	let brush;
+	
+	if(event.shiftKey) brush = 1;
+	else if(event.ctrlKey) brush = 0;
+	else return;
+	
+	let letter = getLetter(id);
+	letter.placeholderGlyph.setPixelAt(row, col, brush);
+	
+	updatePlaceholderGrids(id, letter);
 };

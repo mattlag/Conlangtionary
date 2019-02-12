@@ -118,4 +118,9 @@ window.closeDialog = function() {
 	}, 350);
 };
 
+export function nbsp(text) {
+	text = text.replace(/\s+/gi, '&nbsp;');
+	return text;
+}
+
 initiate();

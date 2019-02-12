@@ -1,4 +1,4 @@
-import Glyph from "./Glyph.js";
+import PlaceholderGlyph from "./PlaceholderGlyph.js";
 
 /**
  * Represents a single letter in the Conlang Alphabet
@@ -34,7 +34,7 @@ export default class Letter {
 		this.ipaCharacters = ipaCharacters;
 		this.caseVariant = caseVariant;
 		this.fontCharacter = fontCharacter;
-		this.placeholderGlyph = placeholderGlyph? new Glyph(placeholderGlyph) : false;
+		this.placeholderGlyph = placeholderGlyph? new PlaceholderGlyph(placeholderGlyph) : false;
 	}
 }
 

@@ -1,4 +1,5 @@
 import { settingsDescriptions } from "./Project.js";
+import { nbsp } from "./main.js";
 
 export default class PageSettings {
 	constructor() {
@@ -12,22 +13,33 @@ export default class PageSettings {
 		<h1>Project Settings</h1>
 		<div class="settingsGrid">
 
-			<label class="name">Constructed&nbsp;Language&nbsp;Name:</label>
+			<label class="name">${nbsp('Constructed Language Name:')}</label>
 			<span class="value">
 				<input type="text" value="${project.settings.languageName}" onchange="updateMetadata('languageName', this.value);"/>
 			</span>
 			<span class="description">${settingsDescriptions.languageName}</span>
 
-			<label class="name">Author:</label>
+			<label class="name">${nbsp('Author:')}</label>
 			<span class="value">
 				<input type="text" value="${project.settings.author}" onchange="updateMetadata('author', this.value);"/>
 			</span>
 			<span class="description">${settingsDescriptions.author}</span>
+		
+			<span class="name">
+				<br><br>
+				<h3>Alphabet</h3>
+			</span>
 
-			<label class="name">Case&nbsp;Variants:</label>
+			<label class="name">${nbsp('Placeholder glyph height:')}</label>
+			<span class="value">
+				<input type="number" value="${project.settings.placeholderGlyphHeight}" onchange="updateSettings('placeholderGlyphHeight', this.value);"/>
+			</span>
+			<span class="description">${settingsDescriptions.placeholderGlyphHeight}</span>
+
+			<label class="name">${nbsp('Case Variants:')}</label>
 			<span class="value">
 				<input type="checkbox" ${project.settings.caseVariants? 'checked' : ''} onchange="updateSettings('caseVariants', !!this.checked);"/>
-			</span>            
+			</span>
 			<span class="description">${settingsDescriptions.caseVariants}</span>
 
 		</div>
