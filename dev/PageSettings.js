@@ -36,11 +36,11 @@ export default class PageSettings {
 			</span>
 			<span class="description">${settingsDescriptions.placeholderGlyphHeight}</span>
 
-			<label class="name">${nbsp('Case Variants:')}</label>
+			<label class="name">${nbsp('Has Cases:')}</label>
 			<span class="value">
-				<input type="checkbox" ${project.settings.caseVariants? 'checked' : ''} onchange="updateSettings('caseVariants', !!this.checked);"/>
+				<input type="checkbox" ${project.settings.hasCases? 'checked' : ''} onchange="updateSettings('hasCases', !!this.checked);"/>
 			</span>
-			<span class="description">${settingsDescriptions.caseVariants}</span>
+			<span class="description">${settingsDescriptions.hasCases}</span>
 
 		</div>
 		`;
@@ -49,6 +49,6 @@ export default class PageSettings {
 }
 
 window.updateSettings = function(prop, value) {
-	console.log(`setting ${prop} to ${value}`);
+	console.log(`setting ${prop} to ${typeof value} ${value}`);
 	conlangtionary.project.settings[prop] = value;
 };

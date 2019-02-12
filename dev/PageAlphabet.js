@@ -17,7 +17,7 @@ export default class PageAlphabet {
 		}
 		
 		alphabetList.sort(function (a, b) { return a.rank - b.rank; });
-		let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
+		let displayCase = conlangtionary.project.settings.hasCases ? 'block' : 'none';
 
 		let content = `
 		<h1>
@@ -26,13 +26,15 @@ export default class PageAlphabet {
 			<button onclick="editLetter('create_new_letter');">Add Letter</button>
 		</h1>
 		<div class="grid">
-			<div class="gridHeader firstColumn">Name</div>
-			<div class="gridHeader">Placeholder</div>
-			<div class="gridHeader">Letter ID</div>
-			<div class="gridHeader">Rank</div>
-			<div class="gridHeader">Romanized</div>
-			<div class="gridHeader">IPA</div>
-			<div class="gridHeader" style="display: ${showCaseVariant};">Case Variant</div>
+			<div class="gridHeader firstColumn">${nbsp('Name')}</div>
+			<div class="gridHeader">${nbsp('Placeholder')}</div>
+			<div class="gridHeader">${nbsp('Letter ID')}</div>
+			<div class="gridHeader">${nbsp('Rank')}</div>
+			<div class="gridHeader">${nbsp('Romanized')}</div>
+			<div class="gridHeader">${nbsp('Type')}</div>
+			<div class="gridHeader">${nbsp('IPA')}</div>
+			<div class="gridHeader" style="display: ${displayCase};">${nbsp('Case')}</div>
+			<div class="gridHeader" style="display: ${displayCase};">${nbsp('Case Variant')}</div>
 			${
 				alphabetList.map((letter, index) => `
 					<div onclick="editLetter('${letter.id}');" class="rowWrapper">
@@ -41,8 +43,10 @@ export default class PageAlphabet {
 						<div id="alphabet-grid-${letter.id}-id" style="grid-row: ${index+2};">${letter.id}</div>
 						<div id="alphabet-grid-${letter.id}-rank" style="grid-row: ${index+2};">${letter.rank}</div>
 						<div id="alphabet-grid-${letter.id}-romanCharacter" style="grid-row: ${index+2};">${letter.romanCharacter}</div>
+						<div id="alphabet-grid-${letter.id}-type" style="grid-row: ${index+2};">${letter.type}</div>
 						<div id="alphabet-grid-${letter.id}-ipaCharacters" style="grid-row: ${index+2};">${letter.ipaCharacters.join(', ')}</div>
-						<div id="alphabet-grid-${letter.id}-showCaseVariant" style="grid-row: ${index+2}; display: ${showCaseVariant};">${letter.caseVariant ? letter.caseVariant : ''}</div>
+						<div id="alphabet-grid-${letter.id}-caseValue" style="grid-row: ${index+2}; display: ${displayCase};">${letter.caseValue ? letter.caseValue : ''}</div>
+						<div id="alphabet-grid-${letter.id}-caseVariant" style="grid-row: ${index+2}; display: ${displayCase};">${letter.caseVariant ? letter.caseVariant : ''}</div>
 					</div>
 				`).join('')
 			}
@@ -77,39 +81,64 @@ window.editLetter = function(letterID) {
 	}
 
 	let letter = getLetter(letterID);
-	let showCaseVariant = conlangtionary.project.settings.caseVariants ? 'block' : 'none';
+	let displayCase = conlangtionary.project.settings.hasCases ? 'block' : 'none';
 	letter.placeholderGlyph = letter.placeholderGlyph? letter.placeholderGlyph : new PlaceholderGlyph();
 
 	openDialog(`
 		<h2>${letter.name}</h2>
 		<h3>Letter ID: ${letter.id}</h3>
 		<div class="settingsGrid">
-			<label class="name">Name:</label>
+			<label class="name">${nbsp('Name:')}</label>
 			<span class="value">
 				<input type="text" value="${letter.name}" onchange="updateLetter('${letterID}', 'name', this.value);"/>
 			</span>
 			<span class="description">${letterDescriptions.name}</span>
 
-			<label class="name">Rank:</label>
+			<label class="name">${nbsp('Rank:')}</label>
 			<span class="value">
 				<input type="text" value="${letter.rank}" onchange="updateLetter('${letterID}', 'rank', this.value);"/>
 			</span>
 			<span class="description">${letterDescriptions.rank}</span>
 
-			<label class="name">Romanized&nbsp;translation:</label>
+			<label class="name">${nbsp('Romanized translation:')}</label>
 			<span class="value">
 				<input type="text" value="${letter.romanCharacter}" onchange="updateLetter('${letterID}', 'romanCharacter', this.value);"/>
 			</span>
 			<span class="description">${letterDescriptions.romanCharacter}</span>
 
-			<label class="name">IPA&nbsp;characters:</label>
+			<label class="name">${nbsp('Type:')}</label>
+			<span class="value">
+				<select onchange="updateLetter('${letterID}', 'type', this.value);">
+					<option value="vowel" ${letter.type === 'vowel'? 'selected' : ''}>Vowel</option>
+					<option value="consonant" ${letter.type === 'consonant'? 'selected' : ''}>Consonant</option>
+					<option value="letter" ${letter.type === 'letter'? 'selected' : ''}>Letter</option>
+					<option value="numeral" ${letter.type === 'numeral'? 'selected' : ''}>Numeral</option>
+					<option value="punctuation" ${letter.type === 'punctuation'? 'selected' : ''}>Punctuation</option>
+					<option value="accent" ${letter.type === 'accent'? 'selected' : ''}>Accent</option>
+					<option value="symbol" ${letter.type === 'symbol'? 'selected' : ''}>Symbol</option>
+					<option value="other" ${letter.type === 'other'? 'selected' : ''}>Other</option>
+				</select>
+			</span>
+			<span class="description">${letterDescriptions.type}</span>
+
+			<label class="name">${nbsp('IPA characters:')}</label>
 			<span class="value">
 				<input type="text" value="${letter.ipaCharacters}" onchange="updateLetter('${letterID}', 'ipaCharacters', this.value);"/>
 			</span>
 			<span class="description">${letterDescriptions.ipaCharacters}</span>
 
-			<div class="rowWrapper" style="display:${showCaseVariant};">
-				<label class="name">Case&nbsp;variant:</label>
+			<div class="rowWrapper" style="display:${displayCase} !important;">
+				<label class="name">${nbsp('Case:')}</label>
+				<span class="value">
+					<select onchange="updateLetter('${letterID}', 'caseValue', this.value);">
+						<option value="upper" ${letter.caseValue === 'upper'? 'selected' : ''}>Upper Case</option>
+						<option value="lower" ${letter.caseValue === 'lower'? 'selected' : ''}>Lower Case</option>
+						<option value="na" ${letter.caseValue === 'na'? 'selected' : ''}>Not applicable</option>
+					</select>
+				</span>
+				<span class="description">${letterDescriptions.caseValue}</span>
+
+				<label class="name">${nbsp('Case variant:')}</label>
 				<span class="value">
 					<input type="text" value="${letter.caseVariant}" onchange="updateLetter('${letterID}', 'caseVariant', this.value);"/>
 				</span>

@@ -241,6 +241,8 @@ button:hover {
 .grid .rowWrapper:hover div {
 	border-top-color: var(--accent-60);
 	border-bottom-color: var(--accent-60);
+	border-left-color: var(--accent-90);
+	border-right-color: var(--accent-90);
 	background-color: var(--accent-90);
 	cursor: pointer;
 }
@@ -265,6 +267,7 @@ button:hover {
 .gridHeader {
 	grid-row: 1;
 	background-color: var(--gray-80) !important;
+	border-color: var(--gray-80) !important;
 	color: var(--gray-40) !important;
 	font-size: 0.8em !important;
 	font-style: italic;
@@ -288,14 +291,24 @@ button:hover {
 	text-align: left;
 }
 
+.settingsGrid input,
+.settingsGrid select {
+	padding: 4px 8px;
+}
+
 .settingsGrid .value input[type=text],
-.settingsGrid .value input[type=number] {
+.settingsGrid .value input[type=number],
+.settingsGrid .value select {
 	position: relative; 
 	top: -4px;
 }
 
-.settingsGrid input {
-	padding: 4px 8px;
+.settingsGrid .value select {
+	width: 100%;
+}
+
+select:hover {
+	cursor: pointer;
 }
 
 .settingsGrid .description {
