@@ -1,4 +1,4 @@
-import Letter from "./Letter.js";
+import Character from "./Character.js";
 
 export default class Project {
 	constructor({
@@ -16,7 +16,7 @@ export default class Project {
 		this.alphabet = {};
 		for(let id in alphabet) {
 			if(alphabet.hasOwnProperty(id)) {
-				this.alphabet[id] = new Letter(alphabet[id]);
+				this.alphabet[id] = new Character(alphabet[id]);
 			}
 		}	
 	}

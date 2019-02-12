@@ -1,6 +1,6 @@
-import PlaceholderGlyph, { sampleGlyph6by10 } from './PlaceholderGlyph.js';
-import { openDialog, nbsp } from './main.js';
-import Letter, { letterDescriptions } from './Letter.js';
+import PlaceholderGlyph, { sampleGlyph6by10 } from '../objects/PlaceholderGlyph.js';
+import { openDialog, nbsp } from '../main.js';
+import Character, { letterDescriptions } from '../objects/Character.js';
 
 export default class PageAlphabet {
 	constructor() {
@@ -23,12 +23,12 @@ export default class PageAlphabet {
 		<h1>
 			Alphabet
 			&nbsp;
-			<button onclick="editLetter('create_new_letter');">Add Letter</button>
+			<button onclick="editLetter('create_new_letter');">Add Character</button>
 		</h1>
 		<div class="grid">
 			<div class="gridHeader firstColumn">${nbsp('Name')}</div>
 			<div class="gridHeader">${nbsp('Placeholder')}</div>
-			<div class="gridHeader">${nbsp('Letter ID')}</div>
+			<div class="gridHeader">${nbsp('Character ID')}</div>
 			<div class="gridHeader">${nbsp('Rank')}</div>
 			<div class="gridHeader">${nbsp('Romanized')}</div>
 			<div class="gridHeader">${nbsp('Type')}</div>
@@ -76,17 +76,17 @@ function generateNewLetterID() {
 window.editLetter = function(letterID) {
 	if(letterID === 'create_new_letter') {
 		letterID = generateNewLetterID();
-		conlangtionary.project.alphabet[letterID] = new Letter({id: letterID});
+		conlangtionary.project.alphabet[letterID] = new Character({id: letterID});
 		document.getElementById('app').innerHTML = conlangtionary.nav.pages.alphabet.load();
 	}
 
 	let letter = getLetter(letterID);
-	let displayCase = conlangtionary.project.settings.hasCases ? 'block' : 'none';
+	let displayCase = conlangtionary.project.settings.hasCases ? 'contents' : 'none';
 	letter.placeholderGlyph = letter.placeholderGlyph? letter.placeholderGlyph : new PlaceholderGlyph();
 
 	openDialog(`
 		<h2>${letter.name}</h2>
-		<h3>Letter ID: ${letter.id}</h3>
+		<h3>Character ID: ${letter.id}</h3>
 		<div class="settingsGrid">
 			<label class="name">${nbsp('Name:')}</label>
 			<span class="value">
@@ -111,7 +111,7 @@ window.editLetter = function(letterID) {
 				<select onchange="updateLetter('${letterID}', 'type', this.value);">
 					<option value="vowel" ${letter.type === 'vowel'? 'selected' : ''}>Vowel</option>
 					<option value="consonant" ${letter.type === 'consonant'? 'selected' : ''}>Consonant</option>
-					<option value="letter" ${letter.type === 'letter'? 'selected' : ''}>Letter</option>
+					<option value="letter" ${letter.type === 'letter'? 'selected' : ''}>Character</option>
 					<option value="numeral" ${letter.type === 'numeral'? 'selected' : ''}>Numeral</option>
 					<option value="punctuation" ${letter.type === 'punctuation'? 'selected' : ''}>Punctuation</option>
 					<option value="accent" ${letter.type === 'accent'? 'selected' : ''}>Accent</option>

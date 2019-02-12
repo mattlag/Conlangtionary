@@ -1,5 +1,5 @@
-import { settingsDescriptions } from "./Project.js";
-import { nbsp } from "./main.js";
+import { settingsDescriptions } from "../objects/Project.js";
+import { nbsp } from "../main.js";
 
 export default class PageSettings {
 	constructor() {

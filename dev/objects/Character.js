@@ -3,9 +3,9 @@ import PlaceholderGlyph from "./PlaceholderGlyph.js";
 /**
  * Represents a single letter in the Conlang Alphabet
  */
-export default class Letter {
+export default class Character {
 	/**
-	 * Initialize a Letter
+	 * Initialize a Character
 	 * @param {string} id - Unique identifier for this letter
 	 * @param {string} name - Name of this letter
 	 * @param {PlaceholderGlyph} placeholderGlyph - lowfi representation of this letter
@@ -16,11 +16,11 @@ export default class Letter {
 	 *								  could be pronounced as
 	 * @param {string} type - vowel, consonant, letter, numeral, punctuation, accent, symbol, other
 	 * @param {string} caseValue - upper, lower, na
-	 * @param {string} caseVariant - Letter ID for the capital or lowercase variant of this letter
+	 * @param {string} caseVariant - Character ID for the capital or lowercase variant of this letter
 	 */
 	constructor({
 		id = false,
-		name = 'Letter Name',
+		name = 'Character Name',
 		placeholderGlyph = false,
 		rank = 0,
 		romanCharacter = '',
@@ -43,7 +43,7 @@ export default class Letter {
 
 export const letterDescriptions = {
 	id: 'Unique ID for this letter',
-	name: 'Letter Name',
+	name: 'Character Name',
 	rank: 'Sort order for alphabetization',
 	romanCharacter: 'Translate this letter to Basic Latin letter(s)',
 	type: 'Type of character this is, like vowel / consonant, numeral, punctuation, etc...',

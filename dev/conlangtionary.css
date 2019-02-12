@@ -296,15 +296,16 @@ button:hover {
 	padding: 4px 8px;
 }
 
-.settingsGrid .value input[type=text],
-.settingsGrid .value input[type=number],
+.settingsGrid .value input[type="text"],
+.settingsGrid .value input[type="number"],
 .settingsGrid .value select {
 	position: relative; 
 	top: -4px;
 }
 
-.settingsGrid .value select {
-	width: 100%;
+.settingsGrid .value select,
+.settingsGrid .value input[type="number"] {
+	width: 100% !important;
 }
 
 select:hover {

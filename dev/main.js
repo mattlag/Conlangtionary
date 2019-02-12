@@ -1,10 +1,9 @@
-import ChooserIPA from './ChooserIPA.js';
-import PageAlphabet from './PageAlphabet.js';
-import PageDictionary from './PageDictionary.js';
-import PageSettings from './PageSettings.js';
-import PageHelp from './PageHelp.js';
-import Project, { latinProject } from './Project.js';
-import PageWelcome from './pageWelcome.js';
+import PageWelcome from './pages/Welcome.js';
+import PageAlphabet from './pages/Alphabet.js';
+import PageDictionary from './pages/Dictionary.js';
+import PageSettings from './pages/Settings.js';
+import PageHelp from './pages/Help.js';
+import Project, { latinProject } from './objects/Project.js';
 
 function initiate() {
 	window.conlangtionary = {
