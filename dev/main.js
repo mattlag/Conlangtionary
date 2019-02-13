@@ -85,38 +85,6 @@ function clearNavButtonSelectedStates() {
 	});
 }
 
-export function openDialog(content) {
-	document.getElementById('dialogContent').innerHTML = makeCloseButton('closeDialog();') + content;
-	document.getElementById('dialogControl').style.display = 'grid';
-	window.setTimeout(function () {
-		document.getElementById('dialogControl').style.opacity = '1';
-		document.getElementById('dialogContent').style.opacity = '1';
-	}, 10);
-}
-
-window.nothing = function(event) {
-	// console.log(event);
-	event.stopPropagation();
-}
-
-function makeCloseButton(func) {
-	return `<div class="closeButtonWrapper"><button onclick="${func}" class="closeButton" title="Close">⨉</button></div>`;
-}
-
-window.closeDialog = function() {
-	document.getElementById('dialogContent').style.opacity = '0';
-
-	window.setTimeout(function () {
-		document.getElementById('dialogControl').style.opacity = '0';
-
-		window.setTimeout(function () {
-			document.getElementById('dialogControl').style.display = 'none';
-			document.getElementById('dialogContent').innerHTML = '';
-		}, 150);
-
-	}, 350);
-};
-
 export function nbsp(text) {
 	text = text.replace(/\s+/gi, '&nbsp;');
 	return text;

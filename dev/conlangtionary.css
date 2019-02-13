@@ -146,7 +146,7 @@ nav button:focus {
 	z-index: 1;
 }
 
-#dialogControl {
+.dialogControl {
 	display: none;
 	position: absolute;
 	top: 0;
@@ -162,7 +162,7 @@ nav button:focus {
 	transition: opacity 100ms ease-in-out;
 }
 
-#dialogContent {
+.dialogContent {
 	padding: 0px 20px 30px 30px;
 	margin: auto;
 	width: min-content;
@@ -175,16 +175,16 @@ nav button:focus {
 	text-align: left;
 	border: 1px solid var(--gray-70);
 	box-shadow: 2px 2px 4px var(--gray-10-transparent);
-	opacity: 0;
+	/* opacity: 0;
 	transition: opacity 200ms ease-in-out;
-	transition-delay: 100ms;
+	transition-delay: 100ms; */
 }
 
-#dialogContent h2 {
+.dialogContent h2 {
 	margin-bottom: 4px !important;
 }
 
-#dialogContent h3 {
+.dialogContent h3 {
 	margin-bottom: 4px !important;
 }
 

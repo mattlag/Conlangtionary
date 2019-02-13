@@ -1,5 +1,6 @@
 import PlaceholderGlyph, { sampleGlyph6by10 } from '../objects/PlaceholderGlyph.js';
-import { openDialog, nbsp } from '../main.js';
+import { nbsp } from '../main.js';
+import { openDialog } from '../dialogs/Dialog.js';
 import Character, { letterDescriptions } from '../objects/Character.js';
 
 export default class PageAlphabet {
