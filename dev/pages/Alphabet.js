@@ -1,4 +1,5 @@
-import { nbsp } from '../main.js';
+import { nbsp } from '../common.js';
+import {editCharacter} from '../dialogs/editCharacter.js';
 
 export default class PageAlphabet {
 	constructor() {

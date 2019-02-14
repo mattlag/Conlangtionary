@@ -1,22 +1,28 @@
-import PlaceholderGlyph, { sampleGlyph6by10 } from '../objects/PlaceholderGlyph.js';
+import PlaceholderGlyph from '../objects/PlaceholderGlyph.js';
 import Character, { letterDescriptions } from '../objects/Character.js';
-import { openDialog } from '../main.js';
+import { openDialog } from '../dialogs/Dialog.js';
+import { nbsp } from '../common.js';
 
 /**
  * Edit or Create New character
  * on the Alphabet page
  */
 
-window.editCharacter = function(letterID) {
+export function editCharacter(letterID) {
+	console.log(`editCharacter dialog passed ${letterID}`);
 	if(letterID === 'create_new_letter') {
 		letterID = generateNewLetterID();
 		conlangtionary.project.alphabet[letterID] = new Character({id: letterID});
 		document.getElementById('app').innerHTML = conlangtionary.nav.pages.alphabet.load();
 	}
 
+	if(!letterID) return;
+
 	let letter = getLetter(letterID);
+	console.log(letter);
+	if(!letter.placeholderGlyph) letter.placeholderGlyph = new PlaceholderGlyph();
+	
 	let displayCase = conlangtionary.project.settings.hasCases ? 'contents' : 'none';
-	letter.placeholderGlyph = letter.placeholderGlyph? letter.placeholderGlyph : new PlaceholderGlyph();
 
 	openDialog(`
 		<h2>${letter.name}</h2>

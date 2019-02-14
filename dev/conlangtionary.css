@@ -141,7 +141,7 @@ nav button:focus {
 	grid-row: 2;
 	padding: 20px;
 	height: 100%;
-	overflow-x: hidden;
+	overflow-x: auto;
 	overflow-y: scroll;
 	z-index: 1;
 }
@@ -230,7 +230,7 @@ button:hover {
 	grid-template-columns: auto;
 	grid-row-gap: 1px;
 	grid-column-gap: 1px;
-	margin: 12px 24px 24px 0px;
+	margin: 12px 0px 24px 0px;
 }
 
 .grid .rowWrapper,

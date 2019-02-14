@@ -6,6 +6,7 @@ export default class Project {
 		alphabet = {},
 	} = {}) {
 		this.settings = {
+			id: settings.id || genProjectID(),
 			languageName: settings.languageName || 'Language Name',
 			author: settings.author || '',
 			hasCases: true,
@@ -30,10 +31,22 @@ export const settingsDescriptions = {
 	spaceWidth: 'Width of a space character between placeholder glyphs',
 };
 
-export const latinProject = {
+function genProjectID() {
+	var j = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+	var re = 'c_';
+
+	for(var i=0; i<10; i++){
+		re += j.charAt(Math.floor(Math.round(Math.random()*j.length)));
+	}
+
+	return re;
+}
+
+export const sampleProject = {
 	settings : {
-		languageName: 'Basic Latin',
-		author: 'Author',
+		id: 'c_sampleProject',
+		languageName: 'Ligida',
+		author: 'Matt LaG',
 	},
 
 	alphabet : {

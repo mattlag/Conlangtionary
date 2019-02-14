@@ -3,7 +3,9 @@ import PageAlphabet from './pages/Alphabet.js';
 import PageDictionary from './pages/Dictionary.js';
 import PageSettings from './pages/Settings.js';
 import PageHelp from './pages/Help.js';
-import Project, { latinProject } from './objects/Project.js';
+import Project, { sampleProject } from './objects/Project.js';
+import { editCharacter } from './dialogs/editCharacter.js';
+import { saveFile } from './common.js';
 
 function initiate() {
 	window.conlangtionary = {
@@ -14,7 +16,9 @@ function initiate() {
 		letterPrefix: 'letter',
 	};
 
-	window.conlangtionary.project = new Project(latinProject);
+	window.conlangtionary.project = new Project(sampleProject);
+	window.editCharacter = editCharacter;
+	document.querySelector('.saveButton').onclick = saveProject;
 
 	window.navigate = navigate;
 	navigate('alphabet');
@@ -85,9 +89,18 @@ function clearNavButtonSelectedStates() {
 	});
 }
 
-export function nbsp(text) {
-	text = text.replace(/\s+/gi, '&nbsp;');
-	return text;
+function saveProject() {
+	let d = new Date();
+	let yr = d.getFullYear();
+	let mo = d.getMonth()+1;
+	let day = d.getDate();
+	let hr = d.getHours();
+	let min = (d.getMinutes()<10? '0' : '') + d.getMinutes();
+	let sec = (d.getSeconds()<10? '0' : '') + d.getSeconds();
+
+	let suffix = (''+yr+'.'+mo+'.'+day+'-'+hr+'.'+min+'.'+sec);
+
+	saveFile(`${conlangtionary.project.settings.languageName} - conlangtionary - ${suffix}.txt`, JSON.stringify(conlangtionary.project));
 }
 
 initiate();
