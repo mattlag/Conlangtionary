@@ -158,7 +158,7 @@ export default class PlaceholderGlyph {
 		return con;
 	}
 	
-	makeEditGrid(size = 1, gap = 0, color = 'black', bgColor = 'transparent', letterID) {
+	makeEditGrid(size = 1, gap = 0, color = 'black', bgColor = 'transparent', charID) {
 		let pixValue;
 		
 		let con = `<div class="pixelGridWrapper" style="">
@@ -185,8 +185,8 @@ export default class PlaceholderGlyph {
 						height: ${size}px;
 					"
 					class="${pixValue? 'selected' : 'unselected'}"
-					onclick="togglePixel('${letterID}', ${row}, ${col});"
-					onmouseover="hoverPixel(event, '${letterID}', ${row}, ${col});"
+					onclick="togglePixel('${charID}', ${row}, ${col});"
+					onmouseover="hoverPixel(event, '${charID}', ${row}, ${col});"
 				></span>`;
 			}
 		}

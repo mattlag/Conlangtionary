@@ -33,7 +33,7 @@ export function openDialog(content) {
 		}, 100);
 	};
 
-	console.log(dialogElement);
+	// console.log(dialogElement);
 
 	document.body.appendChild(dialogElement);
 	

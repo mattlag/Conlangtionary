@@ -6,6 +6,7 @@ import PageHelp from './pages/Help.js';
 import Project, { sampleProject } from './objects/Project.js';
 import { editCharacter } from './dialogs/editCharacter.js';
 import { saveFile } from './common.js';
+import { chooserIPA } from './dialogs/ChooserIPA.js';
 
 function initiate() {
 	window.conlangtionary = {
@@ -13,11 +14,12 @@ function initiate() {
 			currentPage: 'welcome',
 			pages: {}
 		},
-		letterPrefix: 'letter',
+		charIDPrefix: 'char',
 	};
 
 	window.conlangtionary.project = new Project(sampleProject);
 	window.editCharacter = editCharacter;
+	window.chooserIPA = chooserIPA;
 	document.querySelector('.saveButton').onclick = saveProject;
 
 	window.navigate = navigate;

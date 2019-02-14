@@ -21,6 +21,15 @@ export default class Project {
 			}
 		}	
 	}
+
+	getCharacter(charID) {
+		if(this.alphabet[charID]) {
+			return this.alphabet[charID];
+		}
+
+		// console.warn(`Could not find letter with id: ${charID}`);
+		return false;
+	}
 }
 
 export const settingsDescriptions = {

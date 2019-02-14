@@ -2,85 +2,86 @@ import PlaceholderGlyph from '../objects/PlaceholderGlyph.js';
 import Character, { letterDescriptions } from '../objects/Character.js';
 import { openDialog } from '../dialogs/Dialog.js';
 import { nbsp } from '../common.js';
+import { chooserLetterID } from './ChooserCharacterID.js';
 
 /**
  * Edit or Create New character
  * on the Alphabet page
  */
 
-export function editCharacter(letterID) {
-	console.log(`editCharacter dialog passed ${letterID}`);
-	if(letterID === 'create_new_letter') {
-		letterID = generateNewLetterID();
-		conlangtionary.project.alphabet[letterID] = new Character({id: letterID});
+export function editCharacter(charID) {
+	console.log(`editCharacter dialog passed ${charID}`);
+	if(charID === 'create_new_letter') {
+		charID = generateNewLetterID();
+		conlangtionary.project.alphabet[charID] = new Character({id: charID});
 		document.getElementById('app').innerHTML = conlangtionary.nav.pages.alphabet.load();
 	}
 
-	if(!letterID) return;
+	if(!charID) return;
 
-	let letter = getLetter(letterID);
-	// console.log(letter);
-	if(!letter.placeholderGlyph) letter.placeholderGlyph = new PlaceholderGlyph();
+	let char = conlangtionary.project.getCharacter(charID);
+	// console.log(char);
+	if(!char.placeholderGlyph) char.placeholderGlyph = new PlaceholderGlyph();
 	
 	let displayCase = conlangtionary.project.settings.hasCases ? 'contents' : 'none';
 
 	openDialog(`
-		<h2>${letter.name}</h2>
-		<h3>Character ID: ${letter.id}</h3>
+		<h2>${char.name}</h2>
+		<h3>Character ID: ${char.id}</h3>
 		<div class="settingsGrid">
 			<label class="name">${nbsp('Name:')}</label>
 			<span class="value">
-				<input type="text" value="${letter.name}" onchange="updateLetter('${letterID}', 'name', this.value);"/>
+				<input type="text" value="${char.name}" onchange="updateCharacter('${charID}', 'name', this.value);"/>
 			</span>
 			<span class="description">${letterDescriptions.name}</span>
 
 			<label class="name">${nbsp('Rank:')}</label>
 			<span class="value">
-				<input type="text" value="${letter.rank}" onchange="updateLetter('${letterID}', 'rank', this.value);"/>
+				<input type="text" value="${char.rank}" onchange="updateCharacter('${charID}', 'rank', this.value);"/>
 			</span>
 			<span class="description">${letterDescriptions.rank}</span>
 
 			<label class="name">${nbsp('Romanized translation:')}</label>
 			<span class="value">
-				<input type="text" value="${letter.romanCharacter}" onchange="updateLetter('${letterID}', 'romanCharacter', this.value);"/>
+				<input type="text" value="${char.romanCharacter}" onchange="updateCharacter('${charID}', 'romanCharacter', this.value);"/>
 			</span>
 			<span class="description">${letterDescriptions.romanCharacter}</span>
 
 			<label class="name">${nbsp('Type:')}</label>
 			<span class="value">
-				<select onchange="updateLetter('${letterID}', 'type', this.value);">
-					<option value="vowel" ${letter.type === 'vowel'? 'selected' : ''}>Vowel</option>
-					<option value="consonant" ${letter.type === 'consonant'? 'selected' : ''}>Consonant</option>
-					<option value="letter" ${letter.type === 'letter'? 'selected' : ''}>Character</option>
-					<option value="numeral" ${letter.type === 'numeral'? 'selected' : ''}>Numeral</option>
-					<option value="punctuation" ${letter.type === 'punctuation'? 'selected' : ''}>Punctuation</option>
-					<option value="accent" ${letter.type === 'accent'? 'selected' : ''}>Accent</option>
-					<option value="symbol" ${letter.type === 'symbol'? 'selected' : ''}>Symbol</option>
-					<option value="other" ${letter.type === 'other'? 'selected' : ''}>Other</option>
+				<select onchange="updateCharacter('${charID}', 'type', this.value);">
+					<option value="vowel" ${char.type === 'vowel'? 'selected' : ''}>Vowel</option>
+					<option value="consonant" ${char.type === 'consonant'? 'selected' : ''}>Consonant</option>
+					<option value="char" ${char.type === 'char'? 'selected' : ''}>Character</option>
+					<option value="numeral" ${char.type === 'numeral'? 'selected' : ''}>Numeral</option>
+					<option value="punctuation" ${char.type === 'punctuation'? 'selected' : ''}>Punctuation</option>
+					<option value="accent" ${char.type === 'accent'? 'selected' : ''}>Accent</option>
+					<option value="symbol" ${char.type === 'symbol'? 'selected' : ''}>Symbol</option>
+					<option value="other" ${char.type === 'other'? 'selected' : ''}>Other</option>
 				</select>
 			</span>
 			<span class="description">${letterDescriptions.type}</span>
 
 			<label class="name">${nbsp('IPA characters:')}</label>
 			<span class="value">
-				<input type="text" value="${letter.ipaCharacters}" onchange="updateLetter('${letterID}', 'ipaCharacters', this.value);"/>
+				<input type="text" value="${char.ipaCharacters}" onclick="chooserIPA();" onchange="updateCharacter('${charID}', 'ipaCharacters', this.value);"/>
 			</span>
 			<span class="description">${letterDescriptions.ipaCharacters}</span>
 
 			<div class="rowWrapper" style="display:${displayCase} !important;">
 				<label class="name">${nbsp('Case:')}</label>
 				<span class="value">
-					<select onchange="updateLetter('${letterID}', 'caseValue', this.value);">
-						<option value="upper" ${letter.caseValue === 'upper'? 'selected' : ''}>Upper Case</option>
-						<option value="lower" ${letter.caseValue === 'lower'? 'selected' : ''}>Lower Case</option>
-						<option value="na" ${letter.caseValue === 'na'? 'selected' : ''}>Not applicable</option>
+					<select onchange="updateCharacter('${charID}', 'caseValue', this.value);">
+						<option value="upper" ${char.caseValue === 'upper'? 'selected' : ''}>Upper Case</option>
+						<option value="lower" ${char.caseValue === 'lower'? 'selected' : ''}>Lower Case</option>
+						<option value="na" ${char.caseValue === 'na'? 'selected' : ''}>Not applicable</option>
 					</select>
 				</span>
 				<span class="description">${letterDescriptions.caseValue}</span>
 
 				<label class="name">${nbsp('Case variant:')}</label>
 				<span class="value">
-					<input type="text" value="${letter.caseVariant}" onchange="updateLetter('${letterID}', 'caseVariant', this.value);"/>
+					${chooserLetterID('caseVariant', charID)}
 				</span>
 				<span class="description">${letterDescriptions.caseVariant}</span>
 			</div>
@@ -95,11 +96,11 @@ export function editCharacter(letterID) {
 		<br><br>
 		<div class="grid">
 			<span style="grid-column: 1;" id="edit-placeholderGlyph">
-				${letter.placeholderGlyph.makeEditGrid(10, 1, 'black', 'white', letterID)}
+				${char.placeholderGlyph.makeEditGrid(10, 1, 'black', 'white', charID)}
 			</span>
 			<span style="grid-column: 2;">
-				<button style="width: 80px; margin-bottom: 6px;" onclick="updateLetterWidth('${letter.id}', true);">width +</button><br>
-				<button style="width: 80px; margin-bottom: 6px;" onclick="updateLetterWidth('${letter.id}', false);">width -</button><br>
+				<button style="width: 80px; margin-bottom: 6px;" onclick="updateLetterWidth('${char.id}', true);">width +</button><br>
+				<button style="width: 80px; margin-bottom: 6px;" onclick="updateLetterWidth('${char.id}', false);">width -</button><br>
 			</span>
 			<span class="description" style="grid-column: 3;">
 				Click a square to toggle between black and white.<br>
@@ -117,10 +118,10 @@ function generateNewLetterID() {
 
 	while(true) {
 		if(suffix < 10) {
-			newID = '' + conlangtionary.letterPrefix + '0' + suffix;
+			newID = '' + conlangtionary.charIDPrefix + '0' + suffix;
 			if(!conlangtionary.project.alphabet[newID]) return newID;
 		} else {
-			newID = '' + conlangtionary.letterPrefix + suffix;
+			newID = '' + conlangtionary.charIDPrefix + suffix;
 			if(!conlangtionary.project.alphabet[newID]) return newID;
 		}
 
@@ -128,22 +129,11 @@ function generateNewLetterID() {
 	}
 }
 
-function getLetter(letterID) {
-	if(conlangtionary.project.alphabet[letterID]) {
-		return conlangtionary.project.alphabet[letterID];
-	}
+window.updateCharacter = function(charID, prop, value) {
+	let char = conlangtionary.project.getCharacter(charID);
+	if(char) char[prop] = value;
 
-	// console.warn(`Could not find letter with id: ${letterID}`);
-	return false;
-}
-
-window.updateLetter = function(id, prop, value) {
-	let letter = getLetter(id);
-	if(letter) {
-		letter[prop] = value;
-	}
-
-	let gridval = document.getElementById('alphabet-grid-'+id+'-'+prop);
+	let gridval = document.getElementById('alphabet-grid-'+charID+'-'+prop);
 	// console.log(gridval);
 	
 	if(gridval) {
@@ -151,33 +141,33 @@ window.updateLetter = function(id, prop, value) {
 	}
 };
 
-window.updateLetterWidth = function(id, increase) {
-	let letter = getLetter(id);
+window.updateLetterWidth = function(charID, increase) {
+	let char = conlangtionary.project.getCharacter(charID);
 
-	if(increase) letter.placeholderGlyph.increaseWidth();
-	else letter.placeholderGlyph.decreaseWidth();
+	if(increase) char.placeholderGlyph.increaseWidth();
+	else char.placeholderGlyph.decreaseWidth();
 
-	updatePlaceholderGrids(id, letter);
+	updatePlaceholderGrids(charID, char);
 };
 
-function updatePlaceholderGrids(id, letter) {
-	let gridval = document.getElementById('alphabet-grid-'+id+'-placeholderGlyph');
-	if(gridval) gridval.innerHTML = letter.placeholderGlyph.makePixelGrid(2, 0);
+function updatePlaceholderGrids(charID, char) {
+	let gridval = document.getElementById('alphabet-grid-'+charID+'-placeholderGlyph');
+	if(gridval) gridval.innerHTML = char.placeholderGlyph.makePixelGrid(2, 0);
 
 	let editval = document.getElementById('edit-placeholderGlyph');
-	if(editval) editval.innerHTML = letter.placeholderGlyph.makeEditGrid(10, 1, 'black', 'white', id);
+	if(editval) editval.innerHTML = char.placeholderGlyph.makeEditGrid(10, 1, 'black', 'white', charID);
 }
 
-window.togglePixel = function(id, row, col) {
-	// console.log(`window.togglePixel ${id}, ${row}, ${col}`);
-	let letter = getLetter(id);
-	letter.placeholderGlyph.togglePixelAt(row, col);
+window.togglePixel = function(charID, row, col) {
+	// console.log(`window.togglePixel ${charID}, ${row}, ${col}`);
+	let char = conlangtionary.project.getCharacter(charID);
+	char.placeholderGlyph.togglePixelAt(row, col);
 
-	updatePlaceholderGrids(id, letter);
+	updatePlaceholderGrids(charID, char);
 };
 
-window.hoverPixel = function (event, id, row, col) {
-	// console.log(`window.togglePixel ${id}, ${row}, ${col}`);
+window.hoverPixel = function (event, charID, row, col) {
+	// console.log(`window.togglePixel ${charID}, ${row}, ${col}`);
 	event = event || window.event;
 	let brush;
 	
@@ -185,8 +175,8 @@ window.hoverPixel = function (event, id, row, col) {
 	else if(event.ctrlKey) brush = 0;
 	else return;
 	
-	let letter = getLetter(id);
-	letter.placeholderGlyph.setPixelAt(row, col, brush);
+	let char = conlangtionary.project.getCharacter(charID);
+	char.placeholderGlyph.setPixelAt(row, col, brush);
 	
-	updatePlaceholderGrids(id, letter);
+	updatePlaceholderGrids(charID, char);
 };
