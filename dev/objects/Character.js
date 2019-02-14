@@ -46,7 +46,7 @@ export const letterDescriptions = {
 	name: 'Character Name',
 	rank: 'Sort order for alphabetization',
 	romanCharacter: 'Translate this letter to Basic Latin letter(s)',
-	type: 'Type of character this is, like vowel / consonant, numeral, punctuation, etc...',
+	type: 'Type of character this is',
 	ipaCharacters: 'List of IPA points',
 	caseValue: 'Whether this letter is uppercase or lowercase (or neither)',
 	caseVariant: 'ID of the uppercase or lowercase variant of this letter',

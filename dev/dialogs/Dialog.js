@@ -2,8 +2,30 @@
 
 export function openDialog(content) {
 	let dialogID = getNewDialogID();
+
+	let dialogHTML = `
+		<div class="dialogContent" onclick="event.stopPropagation();">
+			<div style="width: 100%; text-align: right;">
+				<button 
+					class="closeButton" 
+					style="
+						border-radius: 0 0 0 4px !important;
+						width: 2em; height: 2em;
+						position: relative;
+						top: -1px; left: 29px;
+					"
+				>⨉</button>
+			</div>
+			${content}
+		</div>
+	`;
 	
-	let closeDialogControl = function() {
+	let dialogElement = document.createElement('div');
+	dialogElement.setAttribute('class', 'dialog');
+	dialogElement.setAttribute('id', dialogID);
+	dialogElement.innerHTML = dialogHTML;
+
+	let closeDialog = function() {
 		let dialog = document.getElementById(dialogID);
 		dialog.style.opacity = '0';
 		window.setTimeout(function () {
@@ -11,37 +33,18 @@ export function openDialog(content) {
 		}, 100);
 	};
 
-	let dialogContent = document.createElement('div');
-	dialogContent.setAttribute('class', 'dialogContent');
-	dialogContent.setAttribute('onclick', 'event.stopPropagation();');
+	console.log(dialogElement);
 
-	let closeButton = document.createElement('button');
-	closeButton.setAttribute('class', 'closeButton');
-	closeButton.setAttribute('title', 'Close');
-	closeButton.innerHTML = '⨉';
-	closeButton.onclick = closeDialogControl;
-
-	let closeDialogWrapper = document.createElement('div');
-	closeDialogWrapper.setAttribute('class', 'closeButtonWrapper');
-	closeDialogWrapper.appendChild(closeButton);
-
-	let contentWrapper = document.createElement('div');
-	contentWrapper.innerHTML = content;
-
-	dialogContent.appendChild(closeDialogWrapper);
-	dialogContent.appendChild(contentWrapper);
-
-	let dialogControl = document.createElement('div');
-	dialogControl.setAttribute('class', 'dialogControl');
-	dialogControl.setAttribute('id', dialogID);
-	dialogControl.setAttribute('style', 'opacity: 0');
-	dialogControl.onclick = closeDialogControl;
-
-	dialogControl.appendChild(dialogContent);
-
-	document.body.appendChild(dialogControl);
+	document.body.appendChild(dialogElement);
+	
+	dialogElement.querySelector('.closeButton').onclick = closeDialog;
+	dialogElement.onclick = closeDialog;
+	
 	window.setTimeout(function () {
-		dialogControl.setAttribute('style', 'opacity: 1; display: grid;');
+		dialogElement.setAttribute('style', 'opacity: 1; display: grid;');
+		window.setTimeout(function(){
+			dialogElement.querySelector('.dialogContent').setAttribute('style', 'opacity: 1; display: block;');
+		}, 110);
 	}, 100);
 }
 

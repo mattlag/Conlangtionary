@@ -19,7 +19,7 @@ export function editCharacter(letterID) {
 	if(!letterID) return;
 
 	let letter = getLetter(letterID);
-	console.log(letter);
+	// console.log(letter);
 	if(!letter.placeholderGlyph) letter.placeholderGlyph = new PlaceholderGlyph();
 	
 	let displayCase = conlangtionary.project.settings.hasCases ? 'contents' : 'none';
