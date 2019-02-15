@@ -1,11 +1,12 @@
 import { openDialog } from "./Dialog.js";
+import { nbsp } from '../common.js';
 
 export function chooserIPA() {
 	openDialog(`
-		<h1>Consonants (pulmonic)</h1>
+		<h3>Consonants (pulmonic)</h3>
 		${makeConsonantsPulmonic()}
 		<br><br>
-		<h1>Vowels</h1>
+		<h3>Vowels</h3>
 		${makeVowels()}
 	`);
 }
@@ -31,7 +32,7 @@ function makeConsonantsPulmonic() {
 		</thead>
 		<tbody>
 		<tr>
-			<th class="manner">Plosive</th>
+			<th class="manner">${nbsp('Plosive')}</th>
 			<td>
 				<span class="voiceless">p</span>
 				<span class="voiced">b</span>
@@ -70,7 +71,7 @@ function makeConsonantsPulmonic() {
 			</td>
 		</tr>
 		<tr>
-			<th class="manner">Nasal</th>
+			<th class="manner">${nbsp('Nasal')}</th>
 			<td>
 				<span class="voiced">m</span>
 			</td>
@@ -98,7 +99,7 @@ function makeConsonantsPulmonic() {
 			<td class="impossible"></td>
 		</tr>
 		<tr>
-			<th class="manner">Trill</th>
+			<th class="manner">${nbsp('Trill')}</th>
 			<td>
 				<span class="voiced">ʙ</span>
 			</td>
@@ -118,7 +119,7 @@ function makeConsonantsPulmonic() {
 			<td class="impossible"></td>
 		</tr>
 		<tr>
-			<th class="manner">Tap or Flap</th>
+			<th class="manner">${nbsp('Tap or Flap')}</th>
 			<td></td>
 			<td>
 				<span class="voiced">ⱱ</span>
@@ -139,7 +140,7 @@ function makeConsonantsPulmonic() {
 			<td class="impossible"></td>
 		</tr>
 		<tr>
-			<th class="manner">Fricative</th>
+			<th class="manner">${nbsp('Fricative')}</th>
 			<td>
 				<span class="voiceless">ɸ</span>
 				<span class="voiced">β</span>
@@ -189,7 +190,7 @@ function makeConsonantsPulmonic() {
 			</td>
 		</tr>
 		<tr>
-			<th class="manner">Lateral fricative</th>
+			<th class="manner">${nbsp('Lateral fricative')}</th>
 			<td class="impossible"></td>
 			<td class="impossible"></td>
 			<td></td>
@@ -207,7 +208,7 @@ function makeConsonantsPulmonic() {
 			<td class="impossible"></td>
 		</tr>
 		<tr>
-			<th class="manner">Approximant</th>
+			<th class="manner">${nbsp('Approximant')}</th>
 			<td></td>
 			<td>
 				<span class="voiced">ʋ</span>
@@ -231,7 +232,7 @@ function makeConsonantsPulmonic() {
 			<td class="impossible"></td>
 		</tr>
 		<tr>
-			<th class="manner">Lateral approximant</th>
+			<th class="manner">${nbsp('Lateral approximant')}</th>
 			<td class="impossible"></td>
 			<td class="impossible"></td>
 			<td></td>
@@ -274,7 +275,7 @@ function makeVowels() {
 		<th class="place" colspan="2">Back</th>
 	</tr>
 	<tr>
-		<th>Close</th>
+		<th class="manner">${nbsp('Close')}</th>
 		<td>i</td>
 		<td>y</td>
 		<td></td>
@@ -310,7 +311,7 @@ function makeVowels() {
 		<td></td>
 	</tr>
 	<tr>
-		<th>Close-mid</th>
+		<th class="manner">${nbsp('Close-mid')}</th>
 		<td></td>
 		<td></td>
 		<td>e</td>
@@ -346,7 +347,7 @@ function makeVowels() {
 		<td></td>
 	</tr>
 	<tr>
-		<th>Open-mid</th>
+		<th class="manner">${nbsp('Open-mid')}</th>
 		<td></td>
 		<td></td>
 		<td></td>
@@ -382,7 +383,7 @@ function makeVowels() {
 		<td></td>
 	</tr>
 	<tr>
-		<th>Open</th>
+		<th class="manner">${nbsp('Open')}</th>
 		<td></td>
 		<td></td>
 		<td></td>

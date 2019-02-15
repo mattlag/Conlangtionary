@@ -27,7 +27,8 @@ export default class Project {
 			return this.alphabet[charID];
 		}
 
-		// console.warn(`Could not find letter with id: ${charID}`);
+		console.warn(`Could not find letter with id: ${charID}`);
+		console.log(this.alphabet);
 		return false;
 	}
 }
@@ -59,16 +60,16 @@ export const sampleProject = {
 	},
 
 	alphabet : {
-		letter01: {id: 'letter01', name: 'Capital A', rank: 1, romanCharacter: 'A', caseValue: 'upper', type: 'vowel', placeholderGlyph: {
+		char01: {id: 'char01', name: 'Capital A', rank: 1, romanCharacter: 'A', caseValue: 'upper', type: 'vowel', placeholderGlyph: {
 			data: '100000110000011000001100000110000011000011000011111111111110',
 			width: 6, height: 10,
 		}},
-		letter02: {id: 'letter05', name: 'Capital E', rank: 2, romanCharacter: 'E', caseValue: 'upper', type: 'vowel'},
-		letter03: {id: 'letter09', name: 'Capital I', rank: 3, romanCharacter: 'I', caseValue: 'upper', type: 'vowel', placeholderGlyph: {
+		char02: {id: 'char02', name: 'Capital E', rank: 2, romanCharacter: 'E', caseValue: 'upper', type: 'vowel'},
+		char03: {id: 'char03', name: 'Capital I', rank: 3, romanCharacter: 'I', caseValue: 'upper', type: 'vowel', placeholderGlyph: {
 			data: '100000110000011000001100000110000011000011000011111111111110',
 			width: 6, height: 10,
 		}},
-		letter04: {id: 'letter15', name: 'Capital O', rank: 4, romanCharacter: 'O', caseValue: 'upper', type: 'vowel'},
-		letter05: {id: 'letter21', name: 'Capital U', rank: 5, romanCharacter: 'U', caseValue: 'upper', type: 'vowel'},
+		char04: {id: 'char04', name: 'Capital O', rank: 4, romanCharacter: 'O', caseValue: 'upper', type: 'vowel'},
+		char05: {id: 'char05', name: 'Capital U', rank: 5, romanCharacter: 'U', caseValue: 'upper', type: 'vowel'},
 	}
 };

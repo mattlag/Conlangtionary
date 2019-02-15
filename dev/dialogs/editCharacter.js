@@ -20,7 +20,7 @@ export function editCharacter(charID) {
 	if(!charID) return;
 
 	let char = conlangtionary.project.getCharacter(charID);
-	// console.log(char);
+	console.log(char);
 	if(!char.placeholderGlyph) char.placeholderGlyph = new PlaceholderGlyph();
 	
 	let displayCase = conlangtionary.project.settings.hasCases ? 'contents' : 'none';
@@ -64,9 +64,12 @@ export function editCharacter(charID) {
 
 			<label class="name">${nbsp('IPA characters:')}</label>
 			<span class="value">
-				<input type="text" value="${char.ipaCharacters}" onclick="chooserIPA();" onchange="updateCharacter('${charID}', 'ipaCharacters', this.value);"/>
+				<input type="text" value="${char.ipaCharacters}" onchange="updateCharacter('${charID}', 'ipaCharacters', this.value);"/>
 			</span>
-			<span class="description">${letterDescriptions.ipaCharacters}</span>
+			<span class="description">
+				<button onclick="chooserIPA();" title="Show IPA Table\nto copy/paste symbols">▦</button>
+				${letterDescriptions.ipaCharacters}
+			</span>
 
 			<div class="rowWrapper" style="display:${displayCase} !important;">
 				<label class="name">${nbsp('Case:')}</label>
