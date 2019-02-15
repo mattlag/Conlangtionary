@@ -52,24 +52,4 @@ function genProjectID() {
 	return re;
 }
 
-export const sampleProject = {
-	settings : {
-		id: 'c_sampleProject',
-		languageName: 'Dadarejode',
-		author: 'Matt LaG',
-	},
-
-	alphabet : {
-		char01: {id: 'char01', name: 'Capital A', rank: 1, romanCharacter: 'A', caseValue: 'upper', type: 'vowel', placeholderGlyph: {
-			data: '100000110000011000001100000110000011000011000011111111111110',
-			width: 6, height: 10,
-		}},
-		char02: {id: 'char02', name: 'Capital E', rank: 2, romanCharacter: 'E', caseValue: 'upper', type: 'vowel'},
-		char03: {id: 'char03', name: 'Capital I', rank: 3, romanCharacter: 'I', caseValue: 'upper', type: 'vowel', placeholderGlyph: {
-			data: '100000110000011000001100000110000011000011000011111111111110',
-			width: 6, height: 10,
-		}},
-		char04: {id: 'char04', name: 'Capital O', rank: 4, romanCharacter: 'O', caseValue: 'upper', type: 'vowel'},
-		char05: {id: 'char05', name: 'Capital U', rank: 5, romanCharacter: 'U', caseValue: 'upper', type: 'vowel'},
-	}
-};
+export const sampleProject = {"settings":{"id":"c_sampleProject","languageName":"Dadarejode","author":"Matt LaG","hasCases":true,"placeholderGlyphHeight":10,"spaceWidth":4},"alphabet":{"char01":{"id":"char01","name":"Capital U","placeholderGlyph":{"data":"11111111111100000000000000000000000000000001111000000000000","width":6},"rank":"1","romanCharacter":"U","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""},"char02":{"id":"char02","name":"Capital O","placeholderGlyph":{"data":"11111111111111001111001100000000000000000001111000000000000","width":6},"rank":"2","romanCharacter":"O","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""},"char03":{"id":"char03","name":"Capital A","placeholderGlyph":{"data":"001100011110110011100001000000000000000000001100000000000000","width":6},"rank":"3","romanCharacter":"A","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""},"char04":{"id":"char04","name":"Capital E","placeholderGlyph":{"data":"01111101111101100001100001100000000000000001111000000000000","width":6},"rank":"4","romanCharacter":"E","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""},"char05":{"id":"char05","name":"Capital I","placeholderGlyph":{"data":"001100001100001100001100000000000000000000011110000000000000","width":6},"rank":"5","romanCharacter":"I","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""}}};

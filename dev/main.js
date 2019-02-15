@@ -102,7 +102,9 @@ function saveProject() {
 
 	let suffix = (''+yr+'.'+mo+'.'+day+'-'+hr+'.'+min+'.'+sec);
 
-	saveFile(`${conlangtionary.project.settings.languageName} - conlangtionary - ${suffix}.txt`, JSON.stringify(conlangtionary.project));
+	let data = JSON.stringify(conlangtionary.project);
+
+	saveFile(`${conlangtionary.project.settings.languageName} - conlangtionary - ${suffix}.txt`, data);
 }
 
 initiate();

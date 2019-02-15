@@ -13,6 +13,13 @@ export default class PlaceholderGlyph {
 		this.width = width;
 	}
 
+	toJSON() {
+		return {
+			data: this.data,
+			width: this.width,
+		};
+	}
+	
 	get data() {
 		if (!this._data){
 			this._data = '';
