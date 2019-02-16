@@ -391,8 +391,10 @@ select:hover {
 	width: 24px;
 	height: 24px;
 	text-align: center;
-	border: 1px solid var(--gray-80);
+	background-color: var(--gray-95);
+	border: 1px solid var(--gray-90);
 }
+
 #tableConsonantsPulmonic td {
 	width: 50px;
 }
@@ -405,4 +407,8 @@ select:hover {
 	text-align: right !important;
 	padding-right: 20px;
 	width: 150px;
+}
+
+.impossible {
+	background-color: var(--gray-90) !important;
 }

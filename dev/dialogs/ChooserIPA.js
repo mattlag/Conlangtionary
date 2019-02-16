@@ -61,13 +61,12 @@ function makeConsonantsPulmonic() {
 				<span class="voiced">ɢ</span>
 			</td>
 			<td>
-				<span
-				class="voiceless"></span>
-				<span class="voiced impossible">&nbsp;</span>
+				<span class="voiceless" style="display: inline-block; width: 44%">&nbsp;</span>
+				<span class="voiced impossible" style="display: inline-block; width: 44%">&nbsp;</span>
 			</td>
 			<td>
-				<span class="voiceless">ʔ</span>
-				<span class="voiced impossible">&nbsp;</span>
+				<span class="voiceless" style="display: inline-block; width: 44%">ʔ</span>
+				<span class="voiced impossible" style="display: inline-block; width: 44%">&nbsp;</span>
 			</td>
 		</tr>
 		<tr>
