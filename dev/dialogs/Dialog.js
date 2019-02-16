@@ -33,7 +33,7 @@ export function openDialog(content) {
 		}, 100);
 	};
 
-	// console.log(dialogElement);
+	// conlog(dialogElement);
 
 	document.body.appendChild(dialogElement);
 	
@@ -68,7 +68,7 @@ export function showToast(msg, dur, fn) {
 	msgdiv.innerHTML = msg || 'Howdy!';
 
 	// debug('\t Typeof fn: ' + typeof fn);
-	// console.log(fn);
+	// conlog(fn);
 
 	if(fn && typeof fn === 'function') {
 		// debug('\t CALLING FUNCTION NOW');

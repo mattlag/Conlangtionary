@@ -30,7 +30,7 @@ export default class PlaceholderGlyph {
 	
 	set data(binary) {
 		this._data = (''+binary).replace(/\s+/gi, '');
-		// console.log(`set binary data\t${this.data}`);
+		// conlog(`set binary data\t${this.data}`);
 	}
 
 	get height() {
@@ -46,7 +46,7 @@ export default class PlaceholderGlyph {
 			}
 
 			let result = !!parseInt(this.data.charAt(index));
-			// console.log(`getPixelAt ${row}, ${col} returning ${result}`);
+			// conlog(`getPixelAt ${row}, ${col} returning ${result}`);
 			return result;
 		}
 
@@ -55,21 +55,21 @@ export default class PlaceholderGlyph {
 
 	setPixelAt(row = 0, col = 0, val = 0) {
 		if(!isNaN(row) && !isNaN(col)) {
-			// console.log(`togglePixelAt ${row}, ${col}`)
+			// conlog(`togglePixelAt ${row}, ${col}`)
 			let index = (row*this.width) + col;
 			
 			if(this.data.length < index) {
 				for(let i=this.data.length; i<index; i++) this.data += '0';
 			}
 
-			// console.log(`binary data before\t${this.data}`);
+			// conlog(`binary data before\t${this.data}`);
 			this.data = this.data.substr(0,index) + val + this.data.substr(index+1);
 		}
 	}
 
 	togglePixelAt(row, col) {
 		if(!isNaN(row) && !isNaN(col)) {
-			// console.log(`togglePixelAt ${row}, ${col}`);
+			// conlog(`togglePixelAt ${row}, ${col}`);
 			let val = this.getPixelAt(row, col);
 			let newval = val? '0' : '1';
 			let index = (row*this.width) + col;
@@ -78,7 +78,7 @@ export default class PlaceholderGlyph {
 				for(let i=this.data.length; i<index; i++) this.data += '0';
 			}
 
-			// console.log(`binary data before\t${this.data}`);
+			// conlog(`binary data before\t${this.data}`);
 			this.data = this.data.substr(0,index) + newval + this.data.substr(index+1);
 		}
 	}
@@ -94,7 +94,7 @@ export default class PlaceholderGlyph {
 			newData += '' + char;
 
 			if((index+1) % this.width === 0) {
-				// console.log(`Extra zero at ${index}`)
+				// conlog(`Extra zero at ${index}`)
 				newData += '0';
 			}
 
@@ -102,7 +102,7 @@ export default class PlaceholderGlyph {
 			char = this.data.charAt(index);
 		}
 
-		// console.log(`new / old data\n${newData}\n${this.data}`);
+		// conlog(`new / old data\n${newData}\n${this.data}`);
 		this.data = newData;
 		this.width += 1;
 	}
@@ -118,14 +118,14 @@ export default class PlaceholderGlyph {
 			if((index+1) % this.width !== 0) {
 				newData += char;
 			} else {
-				// console.log(`Not putting zero at ${index}`);
+				// conlog(`Not putting zero at ${index}`);
 			}
 
 			index++;
 			char = this.data.charAt(index);
 		}
 
-		// console.log(`new / old data\n${newData}\n${this.data}`);
+		// conlog(`new / old data\n${newData}\n${this.data}`);
 		this.data = newData;
 		this.width -= 1;
 	}
@@ -147,7 +147,7 @@ export default class PlaceholderGlyph {
 		for(let row = 0; row < this.height; row++) {
 			for(let col = 0; col < this.width; col++) {
 				pixValue = this.getPixelAt(row, col);
-				// console.log(`makePixelGrid at ${row}, ${col} found ${pixValue}`);
+				// conlog(`makePixelGrid at ${row}, ${col} found ${pixValue}`);
 				con += `
 					<span style="
 						grid-row: ${row+1};
@@ -183,7 +183,7 @@ export default class PlaceholderGlyph {
 		for(let row = 0; row < this.height; row++) {
 			for(let col = 0; col < this.width; col++) {
 				pixValue = this.getPixelAt(row, col);
-				// console.log(`makeEditGrid at ${row}, ${col} found ${pixValue}`);
+				// conlog(`makeEditGrid at ${row}, ${col} found ${pixValue}`);
 				con += `
 					<span style="
 						grid-row: ${row+1};
@@ -246,9 +246,9 @@ function B36toB02(base36) {
 }
 
 function B02toB36(binary) {
-	// console.log(`B02toB36 - passed \n${binary}`);
+	// conlog(`B02toB36 - passed \n${binary}`);
 	binary = (''+binary).replace(/\s\s+/gi, '');
-	// console.log(`B02toB36 - sanitized \n${binary}`);
+	// conlog(`B02toB36 - sanitized \n${binary}`);
 	return parseInt('' + binary, 2).toString(36);
 }
 */

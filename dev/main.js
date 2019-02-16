@@ -10,6 +10,7 @@ import { chooserIPA } from './dialogs/ChooserIPA.js';
 
 function initiate() {
 	window.conlangtionary = {
+		devMode: true,
 		nav: {
 			currentPage: 'welcome',
 			pages: {}
@@ -20,6 +21,7 @@ function initiate() {
 	window.conlangtionary.project = new Project(sampleProject);
 	window.editCharacter = editCharacter;
 	window.chooserIPA = chooserIPA;
+	window.conlog = conlog;
 	document.querySelector('.saveButton').onclick = saveProject;
 
 	window.navigate = navigate;
@@ -36,7 +38,7 @@ function navigate(page) {
 
 	if(page === 'welcome') {
 		document.getElementById('navButtonWelcome').setAttribute('selected', 'true');
-		console.log(`loading page: welcome`);
+		conlog(`loading page: welcome`);
 		if(!pages.welcome) {
 			pages.welcome = new PageWelcome();
 		}
@@ -45,7 +47,7 @@ function navigate(page) {
 
 	if(page === 'alphabet') {
 		document.getElementById('navButtonAlphabet').setAttribute('selected', 'true');
-		console.log(`loading page: alphabet`);
+		conlog(`loading page: alphabet`);
 		if(!pages.alphabet) {
 			pages.alphabet = new PageAlphabet();
 		}
@@ -54,7 +56,7 @@ function navigate(page) {
 
 	if(page === 'dictionary') {
 		document.getElementById('navButtonDictionary').setAttribute('selected', 'true');
-		console.log(`loading page: dictionary`);
+		conlog(`loading page: dictionary`);
 		if(!pages.dictionary) {
 			pages.dictionary = new PageDictionary();
 		}
@@ -63,7 +65,7 @@ function navigate(page) {
 
 	if(page === 'settings') {
 		document.getElementById('navButtonSettings').setAttribute('selected', 'true');
-		console.log(`loading page: settings`);
+		conlog(`loading page: settings`);
 		if(!pages.settings) {
 			pages.settings = new PageSettings();
 		}
@@ -72,19 +74,19 @@ function navigate(page) {
 
 	if(page === 'help') {
 		document.getElementById('navButtonHelp').setAttribute('selected', 'true');
-		console.log(`loading page: help`);
+		conlog(`loading page: help`);
 		if(!pages.help) {
 			pages.help = new PageHelp();
 		}
 		target.innerHTML = pages.help.load();
 	}
 
-	console.log(`page load complete`);
+	conlog(`page load complete`);
 }
 
 function clearNavButtonSelectedStates() {
 	let navButtons = document.querySelectorAll('#nav button');
-	// console.log(navButtons);
+	// conlog(navButtons);
 
 	navButtons.forEach(element => {
 		element.removeAttribute('selected');
@@ -105,6 +107,12 @@ function saveProject() {
 	let data = JSON.stringify(conlangtionary.project);
 
 	saveFile(`${conlangtionary.project.settings.languageName} - conlangtionary - ${suffix}.txt`, data);
+}
+
+function conlog(msg) {
+	if(conlangtionary.devMode){
+		console.log(msg);
+	}
 }
 
 initiate();

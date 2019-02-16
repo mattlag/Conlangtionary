@@ -25,7 +25,7 @@ export default class Character {
 		rank = 0,
 		romanCharacter = '',
 		type = 'other',
-		ipaCharacters = [],
+		ipaCharacters = '',
 		caseValue = 'na',
 		caseVariant = '',
 	} = {}) {

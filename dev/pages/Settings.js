@@ -49,6 +49,6 @@ export default class PageSettings {
 }
 
 window.updateSettings = function(prop, value) {
-	console.log(`setting ${prop} to ${typeof value} ${value}`);
+	conlog(`setting ${prop} to ${typeof value} ${value}`);
 	conlangtionary.project.settings[prop] = value;
 };

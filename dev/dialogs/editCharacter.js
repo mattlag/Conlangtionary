@@ -10,7 +10,7 @@ import { chooserLetterID } from './ChooserCharacterID.js';
  */
 
 export function editCharacter(charID) {
-	console.log(`editCharacter dialog passed ${charID}`);
+	conlog(`editCharacter dialog passed ${charID}`);
 	if(charID === 'create_new_letter') {
 		charID = generateNewLetterID();
 		conlangtionary.project.alphabet[charID] = new Character({id: charID});
@@ -20,7 +20,7 @@ export function editCharacter(charID) {
 	if(!charID) return;
 
 	let char = conlangtionary.project.getCharacter(charID);
-	console.log(char);
+	conlog(char);
 	if(!char.placeholderGlyph) char.placeholderGlyph = new PlaceholderGlyph();
 	
 	let displayCase = conlangtionary.project.settings.hasCases ? 'contents' : 'none';
@@ -137,7 +137,7 @@ window.updateCharacter = function(charID, prop, value) {
 	if(char) char[prop] = value;
 
 	let gridval = document.getElementById('alphabet-grid-'+charID+'-'+prop);
-	// console.log(gridval);
+	// conlog(gridval);
 	
 	if(gridval) {
 		gridval.innerHTML = value;
@@ -162,7 +162,7 @@ function updatePlaceholderGrids(charID, char) {
 }
 
 window.togglePixel = function(charID, row, col) {
-	// console.log(`window.togglePixel ${charID}, ${row}, ${col}`);
+	// conlog(`window.togglePixel ${charID}, ${row}, ${col}`);
 	let char = conlangtionary.project.getCharacter(charID);
 	char.placeholderGlyph.togglePixelAt(row, col);
 
@@ -170,7 +170,7 @@ window.togglePixel = function(charID, row, col) {
 };
 
 window.hoverPixel = function (event, charID, row, col) {
-	// console.log(`window.togglePixel ${charID}, ${row}, ${col}`);
+	// conlog(`window.togglePixel ${charID}, ${row}, ${col}`);
 	event = event || window.event;
 	let brush;
 	
