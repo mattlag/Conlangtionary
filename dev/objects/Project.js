@@ -10,7 +10,8 @@ export default class Project {
 			languageName: settings.languageName || 'Language Name',
 			author: settings.author || '',
 			hasCases: true,
-			placeholderGlyphHeight: settings.placeholderGlyphHeight || 10,
+			placeholderGlyphHeight: settings.placeholderGlyphHeight || 12,
+			defaultPlaceholderGlyphWidth: settings.defaultPlaceholderGlyphWidth || 8,
 			spaceWidth: 4,
 		};
 
@@ -38,6 +39,7 @@ export const settingsDescriptions = {
 	author: 'Name of the person who created this language',
 	hasCases: 'Does this language have Upper and Lower cases.<br>Used to enable the Case and Case Variant property of letters.',
 	placeholderGlyphHeight: 'Height of all the placeholder glyphs in your alphabet',
+	defaultPlaceholderGlyphWidth: 'Default width of newly-created placeholder glyphs',
 	spaceWidth: 'Width of a space character between placeholder glyphs',
 };
 
@@ -46,6 +48,7 @@ export const settingsNames = {
 	author: 'Author',
 	hasCases: 'Has cases',
 	placeholderGlyphHeight: 'Placeholder Glyph height',
+	defaultPlaceholderGlyphWidth: 'Default Placeholder Glyph width',
 	spaceWidth: 'Space width',
 };
 
@@ -60,4 +63,6 @@ function genProjectID() {
 	return re;
 }
 
-export const sampleProject = {"settings":{"id":"c_sampleProject","languageName":"Dadarejode","author":"Matt LaG","hasCases":true,"placeholderGlyphHeight":"12","spaceWidth":4},"alphabet":{"char01":{"id":"char01","name":"Capital U","placeholderGlyph":{"data":"111111111111111100011110001111000111100011110000011000001100000110000011000001100000","width":7},"rank":"1","romanCharacter":"U","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char02":{"id":"char02","name":"Capital O","placeholderGlyph":{"data":"111111111111111100000110000011000001100000110000011000001100000110000011000001100000","width":7},"rank":"2","romanCharacter":"O","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char03":{"id":"char03","name":"Capital A","placeholderGlyph":{"data":"110000011100001111000111110011011101100111110001111000011100000110000011000001100000","width":7},"rank":"3","romanCharacter":"A","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char04":{"id":"char04","name":"Capital E","placeholderGlyph":{"data":"110001111000111100011110001111111111111111110000011000001100000110000011000001100000","width":7},"rank":"4","romanCharacter":"E","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char05":{"id":"char05","name":"Capital I","placeholderGlyph":{"data":"110000011000001100000110000011111111111111110000011000001100000110000011000001100000","width":7},"rank":"5","romanCharacter":"I","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char06":{"id":"char06","name":"Capital H","placeholderGlyph":{"data":"110000011000001100000110000011000001100000110000011000001100001110001111111111111110","width":7},"rank":"6","romanCharacter":"H","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""}}};
+export const sampleProject = {"settings":{"id":"c_sampleProject","languageName":"Dadarejode","author":"Matt LaG","hasCases":true,"placeholderGlyphHeight":"12","defaultPlaceholderGlyphWidth":8,"spaceWidth":4},"alphabet":{"char01":{"id":"char01","name":"Capital U","placeholderGlyph":{"width":7,"zeroPad":66,"pixelData":"4yoh"},"rank":"1","romanized":"U","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char02":{"id":"char02","name":"Capital O","placeholderGlyph":{"width":7,"zeroPad":66,"pixelData":"5b80"},"rank":"2","romanized":"O","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char03":{"id":"char03","name":"Capital A","placeholderGlyph":{"width":7,"zeroPad":65,"pixelData":"5pcg"},"rank":"3","romanized":"A","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char04":{"id":"char04","name":"Capital E","placeholderGlyph":{"width":7,"zeroPad":65,"pixelData":"5nv3"},"rank":"4","romanized":"E","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char05":{"id":"char05","name":"Capital I","placeholderGlyph":{"width":7,"zeroPad":65,"pixelData":"60lq"},"rank":"5","romanized":"I","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char06":{"id":"char06","name":"Capital H","placeholderGlyph":{"width":7,"zeroPad":6,"pixelData":"ozxxwxz3prghbeo"},"rank":"6","romanized":"H","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""}}};
+
+// {"settings":{"id":"c_sampleProject","languageName":"Dadarejode","author":"Matt LaG","hasCases":true,"placeholderGlyphHeight":"12","defaultPlaceholderGlyphWidth":8,"spaceWidth":4},"alphabet":{"char01":{"id":"char01","name":"Capital U","placeholderGlyph":{"data":"000000000000000000000000000000000000000000000000000000000000000000111000100010010001","width":7},"rank":"1","romanized":"U","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char02":{"id":"char02","name":"Capital O","placeholderGlyph":{"data":"000000000000000000000000000000000000000000000000000000000000000000111100100000010000","width":7},"rank":"2","romanized":"O","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char03":{"id":"char03","name":"Capital A","placeholderGlyph":{"data":"000000000000000000000000000000000000000000000000000000000000000001000000111110010000","width":7},"rank":"3","romanized":"A","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char04":{"id":"char04","name":"Capital E","placeholderGlyph":{"data":"000000000000000000000000000000000000000000000000000000000000000001000000100000001111","width":7},"rank":"4","romanized":"E","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char05":{"id":"char05","name":"Capital I","placeholderGlyph":{"data":"000000000000000000000000000000000000000000000000000000000000000001000100100010001110","width":7},"rank":"5","romanized":"I","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""},"char06":{"id":"char06","name":"Capital H","placeholderGlyph":{"data":"000000100000100000100000000000000000000000000000000000000000000001000000111110010000","width":7},"rank":"6","romanized":"H","type":"vowel","ipaSymbols":"","caseValue":"upper","caseVariant":""}}};

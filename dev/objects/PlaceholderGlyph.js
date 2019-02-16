@@ -6,20 +6,39 @@
 export default class PlaceholderGlyph {
 	
 	constructor({
-		data = 0,
-		width = 6,
+		width = 8,
+		zeroPad = 0,
+		pixelData = 0,
+		data = false,
 	} = {}) {
-		this.data = data;
+		this.data = data? data : this.extractData(zeroPad, pixelData);
 		this.width = width;
 	}
 
 	toJSON() {
+		let cdata = this.compressData();
 		return {
-			data: this.data,
 			width: this.width,
+			zeroPad: cdata.zeroPad,
+			pixelData: cdata.pixelData,
 		};
 	}
 	
+	compressData() {
+		return {
+			zeroPad: this.data.indexOf('1'),
+			pixelData: parseInt(this.data, 2).toString(36),
+		};
+	}
+
+	extractData(zeroPad, pixelData) {
+		let data = '' + parseInt(''+pixelData, 36).toString(2);
+
+		for(let i=0; i<zeroPad; i++) data = '0' + data;
+
+		return data;
+	}
+
 	get data() {
 		if (!this._data){
 			this._data = '';
@@ -130,15 +149,15 @@ export default class PlaceholderGlyph {
 		this.width -= 1;
 	}
 
-	makeDisplayChar(size = 1) {
-		let width = this.width * size;
-		let height = this.height * size;
+	makeDisplayChar(charHeight = 20) {
+		let pxSize = charHeight / this.height;
+		let charWidth = this.width * pxSize;
 
 		var con = `
 		<svg version="1.1" 
 		xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-		x="0px" y="0px" width="${width}px" height="${height}px" viewBox="0 0 ${width} ${height}"> 
-		<rect fill="transparent" width="${width}" height="${height}" 
+		x="0px" y="0px" width="${charWidth}px" height="${charHeight}px" viewBox="0 0 ${charWidth} ${charHeight}"> 
+		<rect fill="transparent" width="${charWidth}" height="${charHeight}" 
 		/><g>
 		`;
 		
@@ -150,9 +169,9 @@ export default class PlaceholderGlyph {
 				if(pixValue) {
 					con += `
 						<rect
-							x="${col * size}" y="${row * size}" 
-							width="${size}" height="${size}" 
-							rx="${size / 4}" ry="${size / 4}"
+							x="${col * pxSize}" y="${row * pxSize}" 
+							width="${pxSize}" height="${pxSize}" 
+							rx="${pxSize / 4}" ry="${pxSize / 4}"
 						/>`;
 				}
 			}

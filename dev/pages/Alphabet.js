@@ -30,7 +30,7 @@ export default class PageAlphabet {
 				alphabetList.map((char, index) => `
 					<div onclick="editCharacter('${char.id}');" class="rowWrapper">
 						<div id="alphabet-grid-${char.id}-name" style="grid-row: ${index+2};" class="firstColumn">${nbsp(char.name)}</div>
-						<div id="alphabet-grid-${char.id}-placeholderGlyph" style="grid-row: ${index+2};">${char.placeholderGlyph.makeDisplayChar? char.placeholderGlyph.makeDisplayChar(2) : ''}</div>
+						<div id="alphabet-grid-${char.id}-placeholderGlyph" style="grid-row: ${index+2};">${char.placeholderGlyph.makeDisplayChar? char.placeholderGlyph.makeDisplayChar() : ''}</div>
 						<div id="alphabet-grid-${char.id}-id" style="grid-row: ${index+2};">${char.id}</div>
 						<div id="alphabet-grid-${char.id}-rank" style="grid-row: ${index+2};">${char.rank}</div>
 						<div id="alphabet-grid-${char.id}-romanized" style="grid-row: ${index+2};">${char.romanized}</div>

@@ -157,7 +157,7 @@ window.updateLetterWidth = function(charID, increase) {
 
 function updatePlaceholderGrids(charID, char) {
 	let gridval = document.getElementById('alphabet-grid-'+charID+'-placeholderGlyph');
-	if(gridval) gridval.innerHTML = char.placeholderGlyph.makeDisplayChar(2);
+	if(gridval) gridval.innerHTML = char.placeholderGlyph.makeDisplayChar();
 
 	let editval = document.getElementById('edit-placeholderGlyph');
 	if(editval) editval.innerHTML = char.placeholderGlyph.makeEditGrid(10, 1, charID);

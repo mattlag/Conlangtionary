@@ -31,17 +31,23 @@ export default class PageSettings {
 				<h3>Alphabet</h3>
 			</span>
 
+			<label class="name">${nbsp(`${settingsNames.hasCases}:`)}</label>
+			<span class="value">
+				<input type="checkbox" ${project.settings.hasCases? 'checked' : ''} onchange="updateSettings('hasCases', !!this.checked);"/>
+			</span>
+			<span class="description">${settingsDescriptions.hasCases}</span>
+
 			<label class="name">${nbsp(`${settingsNames.placeholderGlyphHeight}:`)}</label>
 			<span class="value">
 				<input type="number" value="${project.settings.placeholderGlyphHeight}" onchange="updateSettings('placeholderGlyphHeight', this.value);"/>
 			</span>
 			<span class="description">${settingsDescriptions.placeholderGlyphHeight}</span>
 
-			<label class="name">${nbsp(`${settingsNames.hasCases}:`)}</label>
+			<label class="name">${nbsp(`${settingsNames.defaultPlaceholderGlyphWidth}:`)}</label>
 			<span class="value">
-				<input type="checkbox" ${project.settings.hasCases? 'checked' : ''} onchange="updateSettings('hasCases', !!this.checked);"/>
+				<input type="number" value="${project.settings.defaultPlaceholderGlyphWidth}" onchange="updateSettings('defaultPlaceholderGlyphWidth', this.value);"/>
 			</span>
-			<span class="description">${settingsDescriptions.hasCases}</span>
+			<span class="description">${settingsDescriptions.defaultPlaceholderGlyphWidth}</span>
 
 		</div>
 		`;
