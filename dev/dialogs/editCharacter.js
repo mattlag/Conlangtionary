@@ -99,7 +99,7 @@ export function editCharacter(charID) {
 		<br><br>
 		<div class="grid">
 			<span style="grid-column: 1;" id="edit-placeholderGlyph">
-				${char.placeholderGlyph.makeEditGrid(10, 1, 'black', 'white', charID)}
+				${char.placeholderGlyph.makeEditGrid(10, 1, charID)}
 			</span>
 			<span style="grid-column: 2;">
 				<button style="width: 80px; margin-bottom: 6px;" onclick="updateLetterWidth('${char.id}', true);">width +</button><br>
@@ -157,10 +157,10 @@ window.updateLetterWidth = function(charID, increase) {
 
 function updatePlaceholderGrids(charID, char) {
 	let gridval = document.getElementById('alphabet-grid-'+charID+'-placeholderGlyph');
-	if(gridval) gridval.innerHTML = char.placeholderGlyph.makePixelGrid(2, 0);
+	if(gridval) gridval.innerHTML = char.placeholderGlyph.makeDisplayChar(2);
 
 	let editval = document.getElementById('edit-placeholderGlyph');
-	if(editval) editval.innerHTML = char.placeholderGlyph.makeEditGrid(10, 1, 'black', 'white', charID);
+	if(editval) editval.innerHTML = char.placeholderGlyph.makeEditGrid(10, 1, charID);
 }
 
 window.togglePixel = function(charID, row, col) {

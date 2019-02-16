@@ -130,42 +130,40 @@ export default class PlaceholderGlyph {
 		this.width -= 1;
 	}
 
-	makePixelGrid(size = 1, gap = 0, color = 'black', bgColor = 'transparent') {
-		let pixValue;
+	makeDisplayChar(size = 1) {
+		let width = this.width * size;
+		let height = this.height * size;
 
-		let con = `<div class="pixelGridWrapper">
-			<div class="pixelGrid"
-				style="
-					display: grid; 
-					grid-template-columns: repeat(${this.width}, ${size}px);
-					grid-template-rows: repeat(${this.height}, ${size}px);
-					grid-column-gap: ${gap}px;
-					grid-row-gap: ${gap}px;
-				"
-			>`;
-	
+		var con = `
+		<svg version="1.1" 
+		xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+		x="0px" y="0px" width="${width}px" height="${height}px" viewBox="0 0 ${width} ${height}"> 
+		<rect fill="transparent" width="${width}" height="${height}" 
+		/><g>
+		`;
+		
+		let pixValue;
 		for(let row = 0; row < this.height; row++) {
 			for(let col = 0; col < this.width; col++) {
 				pixValue = this.getPixelAt(row, col);
-				// conlog(`makePixelGrid at ${row}, ${col} found ${pixValue}`);
-				con += `
-					<span style="
-						grid-row: ${row+1};
-						grid-column: ${col+1};
-						width: ${size}px;
-						height: ${size}px;
-					"
-					class="${pixValue? 'selected' : 'unselected'}"
-				></span>`;
+				// conlog(`makeDisplayChar at ${row}, ${col} found ${pixValue}`);
+				if(pixValue) {
+					con += `
+						<rect
+							x="${col * size}" y="${row * size}" 
+							width="${size}" height="${size}" 
+							rx="${size / 4}" ry="${size / 4}"
+						/>`;
+				}
 			}
 		}
 		
-		con += '</div></div>';
+		con += '</g></svg>';
 		
 		return con;
 	}
 	
-	makeEditGrid(size = 1, gap = 0, color = 'black', bgColor = 'transparent', charID) {
+	makeEditGrid(size = 1, gap = 0, charID = false) {
 		let pixValue;
 		
 		let con = `<div class="pixelGridWrapper" style="">
