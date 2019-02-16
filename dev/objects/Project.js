@@ -41,6 +41,14 @@ export const settingsDescriptions = {
 	spaceWidth: 'Width of a space character between placeholder glyphs',
 };
 
+export const settingsNames = {
+	languageName: 'Language name',
+	author: 'Author',
+	hasCases: 'Has cases',
+	placeholderGlyphHeight: 'Placeholder Glyph height',
+	spaceWidth: 'Space width',
+};
+
 function genProjectID() {
 	var j = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
 	var re = 'c_';
@@ -52,4 +60,4 @@ function genProjectID() {
 	return re;
 }
 
-export const sampleProject = {"settings":{"id":"c_sampleProject","languageName":"Dadarejode","author":"Matt LaG","hasCases":true,"placeholderGlyphHeight":10,"spaceWidth":4},"alphabet":{"char01":{"id":"char01","name":"Capital U","placeholderGlyph":{"data":"11111111111100000000000000000000000000000001111000000000000","width":6},"rank":"1","romanCharacter":"U","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""},"char02":{"id":"char02","name":"Capital O","placeholderGlyph":{"data":"11111111111111001111001100000000000000000001111000000000000","width":6},"rank":"2","romanCharacter":"O","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""},"char03":{"id":"char03","name":"Capital A","placeholderGlyph":{"data":"001100011110110011100001000000000000000000001100000000000000","width":6},"rank":"3","romanCharacter":"A","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""},"char04":{"id":"char04","name":"Capital E","placeholderGlyph":{"data":"01111101111101100001100001100000000000000001111000000000000","width":6},"rank":"4","romanCharacter":"E","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""},"char05":{"id":"char05","name":"Capital I","placeholderGlyph":{"data":"001100001100001100001100000000000000000000011110000000000000","width":6},"rank":"5","romanCharacter":"I","type":"vowel","ipaCharacters":[],"caseValue":"upper","caseVariant":""}}};
+export const sampleProject = {"settings":{"id":"c_sampleProject","languageName":"Dadarejode","author":"Matt LaG","hasCases":true,"placeholderGlyphHeight":10,"spaceWidth":4},"alphabet":{"char01":{"id":"char01","name":"Capital U","placeholderGlyph":{"data":"11111111111100000000000000000000000000000001111000000000000","width":6},"rank":"1","romanized":"U","type":"vowel","ipaSymbols":[],"caseValue":"upper","caseVariant":""},"char02":{"id":"char02","name":"Capital O","placeholderGlyph":{"data":"11111111111111001111001100000000000000000001111000000000000","width":6},"rank":"2","romanized":"O","type":"vowel","ipaSymbols":[],"caseValue":"upper","caseVariant":""},"char03":{"id":"char03","name":"Capital A","placeholderGlyph":{"data":"001100011110110011100001000000000000000000001100000000000000","width":6},"rank":"3","romanized":"A","type":"vowel","ipaSymbols":[],"caseValue":"upper","caseVariant":""},"char04":{"id":"char04","name":"Capital E","placeholderGlyph":{"data":"01111101111101100001100001100000000000000001111000000000000","width":6},"rank":"4","romanized":"E","type":"vowel","ipaSymbols":[],"caseValue":"upper","caseVariant":""},"char05":{"id":"char05","name":"Capital I","placeholderGlyph":{"data":"001100001100001100001100000000000000000000011110000000000000","width":6},"rank":"5","romanized":"I","type":"vowel","ipaSymbols":[],"caseValue":"upper","caseVariant":""}}};

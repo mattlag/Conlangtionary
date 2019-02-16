@@ -10,9 +10,9 @@ export default class Character {
 	 * @param {string} name - Name of this letter
 	 * @param {PlaceholderGlyph} placeholderGlyph - lowfi representation of this letter
 	 * @param {number} rank - alphabetical order for this letter
-	 * @param {string} romanCharacter - The roman character or characters to use
+	 * @param {string} romanized - The roman character or characters to use
 	 *								  when displaying this letter
-	 * @param {array} ipaCharacters - Collection of IPA characters that this letter
+	 * @param {array} ipaSymbols - Collection of IPA characters that this letter
 	 *								  could be pronounced as
 	 * @param {string} type - vowel, consonant, letter, numeral, punctuation, accent, symbol, other
 	 * @param {string} caseValue - upper, lower, na
@@ -23,9 +23,9 @@ export default class Character {
 		name = 'Character Name',
 		placeholderGlyph = false,
 		rank = 0,
-		romanCharacter = '',
+		romanized = '',
 		type = 'other',
-		ipaCharacters = [],
+		ipaSymbols = [],
 		caseValue = 'na',
 		caseVariant = '',
 	} = {}) {
@@ -33,22 +33,34 @@ export default class Character {
 		this.name = name;
 		this.placeholderGlyph = placeholderGlyph? new PlaceholderGlyph(placeholderGlyph) : false;
 		this.rank = rank;
-		this.romanCharacter = romanCharacter;
+		this.romanized = romanized;
 		this.type = type;
-		this.ipaCharacters = ipaCharacters;
+		this.ipaSymbols = ipaSymbols;
 		this.caseValue = caseValue;
 		this.caseVariant = caseVariant;
 	}
 }
 
-export const letterDescriptions = {
+export const propertyDescriptions = {
 	id: 'Unique ID for this letter',
 	name: 'Character Name',
 	rank: 'Sort order for alphabetization',
-	romanCharacter: 'Translate this letter to Basic Latin letter(s)',
+	romanized: 'Translate this letter to Basic Latin letter(s)',
 	type: 'Type of character this is',
-	ipaCharacters: 'List of IPA points',
+	ipaSymbols: 'List of IPA symbols',
 	caseValue: 'Whether this letter is uppercase or lowercase (or neither)',
 	caseVariant: 'ID of the uppercase or lowercase variant of this letter',
-	placeholderGlyph: 'A very simple representation of this glyph in your conlang.',
+	placeholderGlyph: 'A very simple representation of this glyph in your conlang',
+};
+
+export const propertyNames = {
+	id: 'ID',
+	name: 'Name',
+	rank: 'Rank',
+	romanized: 'Romanized',
+	type: 'Type',
+	ipaSymbols: 'IPA symbols',
+	caseValue: 'Case',
+	caseVariant: 'Case variant',
+	placeholderGlyph: 'Placeholder glyph',
 };

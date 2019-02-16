@@ -63,19 +63,22 @@ export function showToast(msg, dur, fn) {
 	var stepmax = 20;
 	var timestep = 10;
 	var divisor = 5;
-	var msgdiv = getEditDocument().getElementById('toast');
+	var msgdiv = document.getElementById('toast');
 	var durration = dur || 3000;
+	
+	if(!msgdiv) {
+		msgdiv = document.createElement('div');
+		msgdiv.setAttribute('id', 'toast');
+		msgdiv = document.body.appendChild(msgdiv);
+	}
 	msgdiv.innerHTML = msg || 'Howdy!';
-
-	// debug('\t Typeof fn: ' + typeof fn);
-	// console.log(fn);
 
 	if(fn && typeof fn === 'function') {
 		// debug('\t CALLING FUNCTION NOW');
 		setTimeout(fn, 100);
 	}
 
-	if(_UI.toasttimeout){
+	if(conlangtionary.toasttimeout){
 		msgdiv.innerHTML = msg;
 		appearFinish();
 		return;
@@ -134,9 +137,9 @@ export function showToast(msg, dur, fn) {
 			msgdiv.style.marginTop = '-50px;';
 			msgdiv.style.opacity = '0.0';
 			msgdiv.innerHTML = '0_o';
-			if(_UI.toasttimeout) {
-				clearTimeout(_UI.toasttimeout);
-				_UI.toasttimeout = false;
+			if(conlangtionary.toasttimeout) {
+				clearTimeout(conlangtionary.toasttimeout);
+				conlangtionary.toasttimeout = false;
 			}
 
 		} else {
@@ -156,6 +159,6 @@ export function showToast(msg, dur, fn) {
 }
 
 function setToastTimeout(fn, dur) {
-	if(_UI.toasttimeout) clearTimeout(_UI.toasttimeout);
-	_UI.toasttimeout = setTimeout(fn, dur);
+	if(conlangtionary.toasttimeout) clearTimeout(conlangtionary.toasttimeout);
+	conlangtionary.toasttimeout = setTimeout(fn, dur);
 }
