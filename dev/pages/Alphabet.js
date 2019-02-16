@@ -33,9 +33,9 @@ export default class PageAlphabet {
 						<div id="alphabet-grid-${char.id}-placeholderGlyph" style="grid-row: ${index+2};">${char.placeholderGlyph.makePixelGrid? char.placeholderGlyph.makePixelGrid(2, 0) : ''}</div>
 						<div id="alphabet-grid-${char.id}-id" style="grid-row: ${index+2};">${char.id}</div>
 						<div id="alphabet-grid-${char.id}-rank" style="grid-row: ${index+2};">${char.rank}</div>
-						<div id="alphabet-grid-${char.id}-romanCharacter" style="grid-row: ${index+2};">${char.romanCharacter}</div>
+						<div id="alphabet-grid-${char.id}-romanized" style="grid-row: ${index+2};">${char.romanized}</div>
 						<div id="alphabet-grid-${char.id}-type" style="grid-row: ${index+2};">${char.type}</div>
-						<div id="alphabet-grid-${char.id}-ipaCharacters" style="grid-row: ${index+2};">${char.ipaCharacters}</div>
+						<div id="alphabet-grid-${char.id}-ipaSymbols" style="grid-row: ${index+2};">${char.ipaSymbols}</div>
 						<div id="alphabet-grid-${char.id}-caseValue" style="grid-row: ${index+2}; display: ${displayCase};">${char.caseValue ? char.caseValue : ''}</div>
 						<div id="alphabet-grid-${char.id}-caseVariant" style="grid-row: ${index+2}; display: ${displayCase};">${char.caseVariant ? char.caseVariant : ''}</div>
 					</div>

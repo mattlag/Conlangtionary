@@ -189,6 +189,22 @@ nav button:focus {
 	margin-bottom: 12px !important;
 }
 
+#toast {
+	display: none;
+	width:300px;
+	position: absolute;
+	right:20px;
+	bottom: 20px;
+	margin: -50px 0px 0px 0px;
+	background-color: var(--gray-15);
+	color: var(--accent-80);
+	box-shadow: 2px 2px 4px var(--gray-10-transparent);
+	padding:10px 12px;
+	z-index: 1010;
+	text-align: center;
+	border-radius: 2px;
+}
+
 h1, h2, h3 {
 	font-family: 'Noto Serif', serif;
 	color: var(--brown-30);

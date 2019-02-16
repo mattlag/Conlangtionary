@@ -1,5 +1,6 @@
-import { settingsDescriptions } from "../objects/Project.js";
+import { settingsDescriptions, settingsNames } from "../objects/Project.js";
 import { nbsp } from "../common.js";
+import { showToast } from "../dialogs/Dialog.js";
 
 export default class PageSettings {
 	constructor() {
@@ -13,15 +14,15 @@ export default class PageSettings {
 		<h1>Project Settings</h1>
 		<div class="settingsGrid">
 
-			<label class="name">${nbsp('Constructed Language Name:')}</label>
+			<label class="name">${nbsp(`${settingsNames.languageName}:`)}</label>
 			<span class="value">
-				<input type="text" value="${project.settings.languageName}" onchange="updateMetadata('languageName', this.value);"/>
+				<input type="text" value="${project.settings.languageName}" onchange="updateSettings('languageName', this.value);"/>
 			</span>
 			<span class="description">${settingsDescriptions.languageName}</span>
 
-			<label class="name">${nbsp('Author:')}</label>
+			<label class="name">${nbsp(`${settingsNames.author}:`)}</label>
 			<span class="value">
-				<input type="text" value="${project.settings.author}" onchange="updateMetadata('author', this.value);"/>
+				<input type="text" value="${project.settings.author}" onchange="updateSettings('author', this.value);"/>
 			</span>
 			<span class="description">${settingsDescriptions.author}</span>
 		
@@ -30,13 +31,13 @@ export default class PageSettings {
 				<h3>Alphabet</h3>
 			</span>
 
-			<label class="name">${nbsp('Placeholder glyph height:')}</label>
+			<label class="name">${nbsp(`${settingsNames.placeholderGlyphHeight}:`)}</label>
 			<span class="value">
 				<input type="number" value="${project.settings.placeholderGlyphHeight}" onchange="updateSettings('placeholderGlyphHeight', this.value);"/>
 			</span>
 			<span class="description">${settingsDescriptions.placeholderGlyphHeight}</span>
 
-			<label class="name">${nbsp('Has Cases:')}</label>
+			<label class="name">${nbsp(`${settingsNames.hasCases}:`)}</label>
 			<span class="value">
 				<input type="checkbox" ${project.settings.hasCases? 'checked' : ''} onchange="updateSettings('hasCases', !!this.checked);"/>
 			</span>
@@ -51,4 +52,5 @@ export default class PageSettings {
 window.updateSettings = function(prop, value) {
 	conlog(`setting ${prop} to ${typeof value} ${value}`);
 	conlangtionary.project.settings[prop] = value;
+	showToast(`Updated ${settingsNames[prop]}`);
 };

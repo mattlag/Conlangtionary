@@ -1,6 +1,6 @@
 import PlaceholderGlyph from '../objects/PlaceholderGlyph.js';
-import Character, { letterDescriptions } from '../objects/Character.js';
-import { openDialog } from '../dialogs/Dialog.js';
+import Character, { propertyDescriptions, propertyNames } from '../objects/Character.js';
+import { openDialog, showToast } from '../dialogs/Dialog.js';
 import { nbsp } from '../common.js';
 import { chooserLetterID } from './ChooserCharacterID.js';
 
@@ -29,25 +29,25 @@ export function editCharacter(charID) {
 		<h2>${char.name}</h2>
 		<h3>Character ID: ${char.id}</h3>
 		<div class="settingsGrid">
-			<label class="name">${nbsp('Name:')}</label>
+			<label class="name">${nbsp(`${propertyNames.name}:`)}</label>
 			<span class="value">
 				<input type="text" value="${char.name}" onchange="updateCharacter('${charID}', 'name', this.value);"/>
 			</span>
-			<span class="description">${letterDescriptions.name}</span>
+			<span class="description">${propertyDescriptions.name}</span>
 
-			<label class="name">${nbsp('Rank:')}</label>
+			<label class="name">${nbsp(`${propertyNames.rank}:`)}</label>
 			<span class="value">
 				<input type="text" value="${char.rank}" onchange="updateCharacter('${charID}', 'rank', this.value);"/>
 			</span>
-			<span class="description">${letterDescriptions.rank}</span>
+			<span class="description">${propertyDescriptions.rank}</span>
 
-			<label class="name">${nbsp('Romanized translation:')}</label>
+			<label class="name">${nbsp(`${propertyNames.romanized}:`)}</label>
 			<span class="value">
-				<input type="text" value="${char.romanCharacter}" onchange="updateCharacter('${charID}', 'romanCharacter', this.value);"/>
+				<input type="text" value="${char.romanized}" onchange="updateCharacter('${charID}', 'romanized', this.value);"/>
 			</span>
-			<span class="description">${letterDescriptions.romanCharacter}</span>
+			<span class="description">${propertyDescriptions.romanized}</span>
 
-			<label class="name">${nbsp('Type:')}</label>
+			<label class="name">${nbsp(`${propertyNames.type}:`)}</label>
 			<span class="value">
 				<select onchange="updateCharacter('${charID}', 'type', this.value);">
 					<option value="vowel" ${char.type === 'vowel'? 'selected' : ''}>Vowel</option>
@@ -60,19 +60,19 @@ export function editCharacter(charID) {
 					<option value="other" ${char.type === 'other'? 'selected' : ''}>Other</option>
 				</select>
 			</span>
-			<span class="description">${letterDescriptions.type}</span>
+			<span class="description">${propertyDescriptions.type}</span>
 
-			<label class="name">${nbsp('IPA characters:')}</label>
+			<label class="name">${nbsp(`${propertyNames.ipaSymbols}:`)}</label>
 			<span class="value">
-				<input type="text" value="${char.ipaCharacters}" onchange="updateCharacter('${charID}', 'ipaCharacters', this.value);"/>
+				<input type="text" value="${char.ipaSymbols}" onchange="updateCharacter('${charID}', 'ipaSymbols', this.value);"/>
 			</span>
 			<span class="description">
 				<button onclick="chooserIPA();" title="Show IPA Table\nto copy/paste symbols">▦</button>
-				${letterDescriptions.ipaCharacters}
+				${propertyDescriptions.ipaSymbols}
 			</span>
 
 			<div class="rowWrapper" style="display:${displayCase} !important;">
-				<label class="name">${nbsp('Case:')}</label>
+				<label class="name">${nbsp(`${propertyNames.caseValue}:`)}</label>
 				<span class="value">
 					<select onchange="updateCharacter('${charID}', 'caseValue', this.value);">
 						<option value="upper" ${char.caseValue === 'upper'? 'selected' : ''}>Upper Case</option>
@@ -80,13 +80,13 @@ export function editCharacter(charID) {
 						<option value="na" ${char.caseValue === 'na'? 'selected' : ''}>Not applicable</option>
 					</select>
 				</span>
-				<span class="description">${letterDescriptions.caseValue}</span>
+				<span class="description">${propertyDescriptions.caseValue}</span>
 
-				<label class="name">${nbsp('Case variant:')}</label>
+				<label class="name">${nbsp(`${propertyNames.caseVariant}:`)}</label>
 				<span class="value">
 					${chooserLetterID('caseVariant', charID)}
 				</span>
-				<span class="description">${letterDescriptions.caseVariant}</span>
+				<span class="description">${propertyDescriptions.caseVariant}</span>
 			</div>
 		</div>
 		<br><br>
@@ -142,6 +142,8 @@ window.updateCharacter = function(charID, prop, value) {
 	if(gridval) {
 		gridval.innerHTML = value;
 	}
+
+	showToast(`${char.name}<br>updated ${propertyNames[prop]}`);
 };
 
 window.updateLetterWidth = function(charID, increase) {
