@@ -74,6 +74,15 @@ export default class Project {
 		return editCharacter(charID);
 	}
 
+	createNewCharacter(copyChar = {}) {
+		charID = generateNewLetterID();
+		let char = new Character(copyChar);
+		char.id = charID;
+		app.project.alphabet[charID] = char;
+		document.getElementById('content').innerHTML = app.nav.pages.alphabet.load();
+		return charID;
+	}
+
 	updateSetting(prop, value) {
 		conlog(`setting ${prop} to ${typeof value} ${value}`);
 		this.settings[prop] = value;
@@ -120,7 +129,7 @@ export default class Project {
 		updatePlaceholderGrids(charID, char);
 	}
 
-	hoverPixel (event, charID, row, col) {
+	hoverPixel(event, charID, row, col) {
 		// conlog(`togglePixel ${charID}, ${row}, ${col}`);
 		event = event || window.event;
 		let brush;
@@ -133,6 +142,14 @@ export default class Project {
 		char.placeholderGlyph.setPixelAt(row, col, brush);
 		
 		updatePlaceholderGrids(charID, char);
+	}
+
+	deleteChar(charID) {
+		delete this.alphabet[charID];
+	}
+
+	duplicateChar(charID) {
+		let newChar = clone(this.getCharacter(charID));
 	}
 
 	getSortedAlphabetArray() {

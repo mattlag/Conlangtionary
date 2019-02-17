@@ -12,12 +12,6 @@ import { app } from '../main.js';
 
 export function editCharacter(charID) {
 	conlog(`editCharacter dialog passed ${charID}`);
-	if(charID === 'create_new_letter') {
-		charID = generateNewLetterID();
-		app.project.alphabet[charID] = new Character({id: charID});
-		document.getElementById('content').innerHTML = app.nav.pages.alphabet.load();
-	}
-
 	if(!charID) return;
 
 	let char = app.project.getCharacter(charID);
