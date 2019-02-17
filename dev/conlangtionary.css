@@ -136,7 +136,7 @@ nav button:focus {
 	opacity: 1;
 }
 
-#app {
+#content {
 	background-color: var(--gray-90);
 	grid-column: 2;
 	grid-row: 2;

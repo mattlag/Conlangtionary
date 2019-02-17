@@ -34,15 +34,15 @@
 		<h1 id="langNameTitle"></h1>
 	</span>
 	<nav id="nav">
-		<button tabindex="0" id="navButtonWelcome" onclick="navigate('welcome');">Welcome</button>
-		<button tabindex="0" id="navButtonDictionary" onclick="navigate('dictionary');">Dictionary</button>
-		<button tabindex="0" id="navButtonAlphabet" onclick="navigate('alphabet');">Alphabet</button>
-		<button tabindex="0" id="navButtonSettings" onclick="navigate('settings');">Settings</button>
-		<button tabindex="0" id="navButtonHelp" onclick="navigate('help');">Help</button>
-		<span class="saveButton">🖫 Save</span>
+		<button tabindex="0" id="navButtonWelcome" onclick="app.navigate('welcome');">Welcome</button>
+		<button tabindex="0" id="navButtonDictionary" onclick="app.navigate('dictionary');">Dictionary</button>
+		<button tabindex="0" id="navButtonAlphabet" onclick="app.navigate('alphabet');">Alphabet</button>
+		<button tabindex="0" id="navButtonSettings" onclick="app.navigate('settings');">Settings</button>
+		<button tabindex="0" id="navButtonHelp" onclick="app.navigate('help');">Help</button>
+		<span tabindex="0" class="saveButton" onclick="app.project.save();">🖫 Save</span>
 		<span></span>
 	</nav>
-	<span id="app">
+	<span id="content">
 		<h1>Welcome to conlangtionary</h1>
 		This tool aims to help build a constructed language from the ground up.  Starting with 
 		defining letters, and working up through creating an alphabet, and finally creating an 

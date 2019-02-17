@@ -1,3 +1,4 @@
+import { app } from '../main.js';
 
 /**
  * A basic, font-free way to define and display
@@ -17,6 +18,8 @@ export default class PlaceholderGlyph {
 
 	toJSON() {
 		let cdata = this.compressData();
+		if(cdata.zeroPad === -1) return false;
+
 		return {
 			width: this.width,
 			zeroPad: cdata.zeroPad,
@@ -53,7 +56,7 @@ export default class PlaceholderGlyph {
 	}
 
 	get height() {
-		return window.conlangtionary.project.settings.placeholderGlyphHeight;
+		return app.project.settings.placeholderGlyphHeight;
 	}
 
 	getPixelAt(row = 0, col = 0) {
@@ -209,8 +212,8 @@ export default class PlaceholderGlyph {
 						height: ${size}px;
 					"
 					class="${pixValue? 'selected' : 'unselected'}"
-					onclick="togglePixel('${charID}', ${row}, ${col});"
-					onmouseover="hoverPixel(event, '${charID}', ${row}, ${col});"
+					onclick="app.project.update.togglePixel('${charID}', ${row}, ${col});"
+					onmouseover="app.project.update.hoverPixel(event, '${charID}', ${row}, ${col});"
 				></span>`;
 			}
 		}

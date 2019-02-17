@@ -78,7 +78,7 @@ export function showToast(msg, dur, fn) {
 		setTimeout(fn, 100);
 	}
 
-	if(conlangtionary.toasttimeout){
+	if(app.toasttimeout){
 		msgdiv.innerHTML = msg;
 		appearFinish();
 		return;
@@ -137,9 +137,9 @@ export function showToast(msg, dur, fn) {
 			msgdiv.style.marginTop = '-50px;';
 			msgdiv.style.opacity = '0.0';
 			msgdiv.innerHTML = '0_o';
-			if(conlangtionary.toasttimeout) {
-				clearTimeout(conlangtionary.toasttimeout);
-				conlangtionary.toasttimeout = false;
+			if(app.toasttimeout) {
+				clearTimeout(app.toasttimeout);
+				app.toasttimeout = false;
 			}
 
 		} else {
@@ -159,6 +159,6 @@ export function showToast(msg, dur, fn) {
 }
 
 function setToastTimeout(fn, dur) {
-	if(conlangtionary.toasttimeout) clearTimeout(conlangtionary.toasttimeout);
-	conlangtionary.toasttimeout = setTimeout(fn, dur);
+	if(app.toasttimeout) clearTimeout(app.toasttimeout);
+	app.toasttimeout = setTimeout(fn, dur);
 }
