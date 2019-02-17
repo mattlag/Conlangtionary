@@ -212,8 +212,8 @@ export default class PlaceholderGlyph {
 						height: ${size}px;
 					"
 					class="${pixValue? 'selected' : 'unselected'}"
-					onclick="app.project.update.togglePixel('${charID}', ${row}, ${col});"
-					onmouseover="app.project.update.hoverPixel(event, '${charID}', ${row}, ${col});"
+					onclick="app.project.togglePixel('${charID}', ${row}, ${col});"
+					onmouseover="app.project.hoverPixel(event, '${charID}', ${row}, ${col});"
 				></span>`;
 			}
 		}

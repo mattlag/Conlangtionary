@@ -21,7 +21,7 @@ export function editCharacter(charID) {
 	if(!charID) return;
 
 	let char = app.project.getCharacter(charID);
-	conlog(char);
+	// conlog(char);
 	if(!char.placeholderGlyph) char.placeholderGlyph = new PlaceholderGlyph();
 	
 	let displayCase = app.project.settings.hasCases ? 'contents' : 'none';
