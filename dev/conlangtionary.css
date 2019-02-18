@@ -169,7 +169,7 @@ nav button:focus {
 	margin: auto;
 	width: min-content;
 	grid-row: 1;
-	min-width: 600px;
+	/* min-width: 600px; */
 	max-width: 80%;
 	position: relative;
 	top: -24px;
@@ -206,7 +206,7 @@ nav button:focus {
 }
 
 h1, h2, h3 {
-	font-family: 'Noto Serif', serif;
+	font-family: Georgia, serif;
 	color: var(--brown-30);
 	margin-bottom: 16px;
 }

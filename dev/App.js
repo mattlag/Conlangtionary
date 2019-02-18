@@ -1,9 +1,11 @@
+import Project, { sampleProject } from './objects/Project.js';
 import PageWelcome from './pages/Welcome.js';
 import PageAlphabet from './pages/Alphabet.js';
 import PageDictionary from './pages/Dictionary.js';
 import PageSettings from './pages/Settings.js';
 import PageHelp from './pages/Help.js';
-import Project, { sampleProject } from './objects/Project.js';
+import {editCharacter} from './dialogs/editCharacter.js';
+import { openDialog, showToast } from './dialogs/Dialog.js';
 
 export default class App {
 	constructor() {
@@ -11,67 +13,69 @@ export default class App {
 		this.devMode =true;
 		this.nav = {
 			currentPage: 'welcome',
-			pages: {}
+			pages: {
+				welcome: new PageWelcome(this),
+				alphabet: new PageAlphabet(this),
+				dictionary: new PageDictionary(this),
+				settings: new PageSettings(this),
+				help: new PageHelp(this),
+			}
 		};
 		this.project = new Project(sampleProject);
+		this.dialogCloseFunctions = [];
 		window.conlog = conlog;
 		conlog('App - end');
 	}
 
-	navigate(page) {
-		let target = document.getElementById('content');
-		let pages = this.nav.pages;
+	navigate(page = 'welcome') {
+		conlog(`loading page: ${page}`);
+
+		this.nav.currentPage = page;
+
+		clearNavButtonSelectedStates();		
+		document.getElementById('navButton-'+page).setAttribute('selected', 'true');
 		
-		document.getElementById('langNameTitle').innerHTML = this.project.settings.languageName;
-		
-		clearNavButtonSelectedStates();
-
-		if(page === 'welcome') {
-			document.getElementById('navButtonWelcome').setAttribute('selected', 'true');
-			conlog(`loading page: welcome`);
-			if(!pages.welcome) {
-				pages.welcome = new PageWelcome(this);
-			}
-			target.innerHTML = pages.welcome.load();
-		}
-
-		if(page === 'alphabet') {
-			document.getElementById('navButtonAlphabet').setAttribute('selected', 'true');
-			conlog(`loading page: alphabet`);
-			if(!pages.alphabet) {
-				pages.alphabet = new PageAlphabet(this);
-			}
-			target.innerHTML = pages.alphabet.load();
-		}
-
-		if(page === 'dictionary') {
-			document.getElementById('navButtonDictionary').setAttribute('selected', 'true');
-			conlog(`loading page: dictionary`);
-			if(!pages.dictionary) {
-				pages.dictionary = new PageDictionary(this);
-			}
-			target.innerHTML = pages.dictionary.load();
-		}
-
-		if(page === 'settings') {
-			document.getElementById('navButtonSettings').setAttribute('selected', 'true');
-			conlog(`loading page: settings`);
-			if(!pages.settings) {
-				pages.settings = new PageSettings(this);
-			}
-			target.innerHTML = pages.settings.load();
-		}
-
-		if(page === 'help') {
-			document.getElementById('navButtonHelp').setAttribute('selected', 'true');
-			conlog(`loading page: help`);
-			if(!pages.help) {
-				pages.help = new PageHelp(this);
-			}
-			target.innerHTML = pages.help.load();
-		}
+		this.reloadContent();
 
 		conlog(`page load complete`);
+	}
+
+	closeAllDialogs() {
+		let fun = this.dialogCloseFunctions;
+		for(let key in fun) {
+			if(fun.hasOwnProperty(key)) {
+				fun[key]();
+			}
+		}
+	}
+
+	reloadContent() {
+		let con = document.getElementById('content');
+		if(con) {
+			// conlog(`reloadContent - loading ${this.nav.currentPage}`);
+			con.innerHTML = this.nav.pages[this.nav.currentPage].load();	
+			document.getElementById('langNameTitle').innerHTML = this.project.settings.languageName;
+		}
+	}
+
+	openEditCharacterDialog(charID) {
+		return editCharacter(charID);
+	}
+
+	showDeleteCharConfirmDialog(charID) {
+		openDialog(`
+			<h3>Delete ${this.project.getCharacter(charID).name}?&emsp;&emsp;</h3>
+			<button onclick="app.deleteCharacter('${charID}');">Delete</button>
+			<button class="closeButton">Cancel</button>
+		`);
+	}
+
+	deleteCharacter(charID) {
+		let name = this.project.getCharacter(charID).name;
+		this.project.deleteChar(charID);
+		this.reloadContent();
+		this.closeAllDialogs();
+		showToast(`Deleted ${name}`);
 	}
 }
 

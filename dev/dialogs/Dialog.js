@@ -1,6 +1,6 @@
 
 
-export function openDialog(content) {
+export function openDialog(content = '', addCloseButton = false) {
 	let dialogID = getNewDialogID();
 
 	let dialogHTML = `
@@ -25,8 +25,9 @@ export function openDialog(content) {
 	dialogElement.setAttribute('id', dialogID);
 	dialogElement.innerHTML = dialogHTML;
 
-	let closeDialog = function() {
+	app.dialogCloseFunctions[dialogID] = function() {
 		let dialog = document.getElementById(dialogID);
+		delete app.dialogCloseFunctions[dialogID];
 		dialog.style.opacity = '0';
 		window.setTimeout(function () {
 			dialog.parentElement.removeChild(dialog);
@@ -37,8 +38,10 @@ export function openDialog(content) {
 
 	document.body.appendChild(dialogElement);
 	
-	dialogElement.querySelector('.closeButton').onclick = closeDialog;
-	dialogElement.onclick = closeDialog;
+	let closeButtons = dialogElement.querySelectorAll('.closeButton');
+	closeButtons.forEach(element => element.onclick = app.dialogCloseFunctions[dialogID]);
+	
+	dialogElement.onclick = app.dialogCloseFunctions[dialogID];
 	
 	window.setTimeout(function () {
 		dialogElement.setAttribute('style', 'opacity: 1; display: grid;');

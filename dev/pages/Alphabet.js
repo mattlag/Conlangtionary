@@ -1,5 +1,4 @@
 import { nbsp } from '../common.js';
-import {editCharacter} from '../dialogs/editCharacter.js';
 
 export default class PageAlphabet {
 	constructor(app) {
@@ -15,7 +14,7 @@ export default class PageAlphabet {
 		<h1>
 			Alphabet
 			&nbsp;
-			<button onclick="app.project.editCharacter(app.project.createCharacter());">Add Character</button>
+			<button onclick="app.openEditCharacterDialog(app.project.createNewCharacter());">Add Character</button>
 		</h1>
 		<div class="grid">
 			<div class="gridHeader firstColumn">${nbsp('Name')}</div>
@@ -29,7 +28,7 @@ export default class PageAlphabet {
 			<div class="gridHeader" style="display: ${displayCase};">${nbsp('Case Variant')}</div>
 			${
 				alphabetList.map((char, index) => `
-					<div onclick="app.project.editCharacter('${char.id}');" class="rowWrapper">
+					<div onclick="app.openEditCharacterDialog('${char.id}');" class="rowWrapper">
 						<div id="alphabet-grid-${char.id}-name" style="grid-row: ${index+2};" class="firstColumn">${nbsp(char.name)}</div>
 						<div id="alphabet-grid-${char.id}-placeholderGlyph" style="grid-row: ${index+2};">${char.placeholderGlyph.makeDisplayChar? char.placeholderGlyph.makeDisplayChar() : ''}</div>
 						<div id="alphabet-grid-${char.id}-id" style="grid-row: ${index+2};">${char.id}</div>

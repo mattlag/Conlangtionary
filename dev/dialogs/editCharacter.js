@@ -84,6 +84,8 @@ export function editCharacter(charID) {
 				<span class="description">${propertyDescriptions.caseVariant}</span>
 			</div>
 		</div>
+		<br>
+		<button onclick="app.showDeleteCharConfirmDialog('${charID}');">Delete this character</button>
 		<br><br>
 
 		<h3>Placeholder glyph</h3>
@@ -108,21 +110,4 @@ export function editCharacter(charID) {
 		</div>
 
 	`);
-};
-
-function generateNewLetterID() {
-	let newID = '';
-	let suffix = 1;
-
-	while(true) {
-		if(suffix < 10) {
-			newID = '' + app.charIDPrefix + '0' + suffix;
-			if(!app.project.alphabet[newID]) return newID;
-		} else {
-			newID = '' + app.charIDPrefix + suffix;
-			if(!app.project.alphabet[newID]) return newID;
-		}
-
-		suffix++;
-	}
 }

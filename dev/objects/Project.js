@@ -70,12 +70,8 @@ export default class Project {
 	// Methods for UI interaction
 	// ----------------------------
 
-	editCharacter(charID) {
-		return editCharacter(charID);
-	}
-
 	createNewCharacter(copyChar = {}) {
-		charID = generateNewLetterID();
+		let charID = generateNewCharID();
 		let char = new Character(copyChar);
 		char.id = charID;
 		app.project.alphabet[charID] = char;
@@ -150,6 +146,8 @@ export default class Project {
 
 	duplicateChar(charID) {
 		let newChar = clone(this.getCharacter(charID));
+		newChar.name += ' copy';
+		newChar.id = generateNewCharID();
 	}
 
 	getSortedAlphabetArray() {
@@ -164,6 +162,23 @@ export default class Project {
 		alphabetList.sort(function (a, b) { return a.rank - b.rank; });
 	
 		return alphabetList;
+	}
+}
+
+function generateNewCharID() {
+	let newID = '';
+	let suffix = 1;
+
+	while(true) {
+		if(suffix < 10) {
+			newID = '' + app.project.charIDPrefix + '0' + suffix;
+			if(!app.project.alphabet[newID]) return newID;
+		} else {
+			newID = '' + app.project.charIDPrefix + suffix;
+			if(!app.project.alphabet[newID]) return newID;
+		}
+
+		suffix++;
 	}
 }
 
