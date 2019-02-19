@@ -39,6 +39,23 @@ export default class Character {
 		this.caseValue = caseValue;
 		this.caseVariant = caseVariant;
 	}
+
+	toJSON() {
+		let re = {
+			id: this.id,
+			name: this.name,
+		};
+
+		if(this.placeholderGlyph !== false) re.placeholderGlyph = this.placeholderGlyph;
+		if(this.rank !== 0) re.rank = this.rank;
+		if(this.romanized) re.romanized = this.romanized;
+		if(this.type !== 'other') re.type = this.type;
+		if(this.ipaSymbols) re.ipaSymbols = this.ipaSymbols;
+		if(this.caseValue !== 'na') re.caseValue = this.caseValue;
+		if(this.caseVariant) re.caseVariant = this.caseVariant;
+	
+		return re;
+	}
 }
 
 export const propertyDescriptions = {

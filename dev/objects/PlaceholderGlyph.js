@@ -8,36 +8,67 @@ export default class PlaceholderGlyph {
 	
 	constructor({
 		width = 8,
-		zeroPad = 0,
-		pixelData = 0,
+		compressedData = '[]',
 		data = false,
 	} = {}) {
-		this.data = data? data : this.extractData(zeroPad, pixelData);
+		this.data = data? data : this.decompressData(compressedData);
 		this.width = width;
 	}
 
 	toJSON() {
-		let cdata = this.compressData();
-		if(cdata.zeroPad === -1) return false;
+		let cdata = this.compressData(this.data);
 
-		return {
-			width: this.width,
-			zeroPad: cdata.zeroPad,
-			pixelData: cdata.pixelData,
-		};
+		if(cdata) {
+			return {
+				width: this.width,
+				compressedData: this.compressData(this.data),
+			};
+		} else {
+			return false;
+		}
 	}
 	
-	compressData() {
-		return {
-			zeroPad: this.data.indexOf('1'),
-			pixelData: parseInt(this.data, 2).toString(36),
-		};
+	compressData(cdata) {
+		let compressed = [];
+		let counter;
+
+		while(cdata.length) {
+			// Zeros
+			counter = cdata.indexOf('1');
+			if(counter === -1) {
+				compressed.push(cdata.length);
+				if(compressed.length < 2) return false;
+				else return JSON.stringify(compressed);
+			} else {
+				compressed.push(counter);
+				cdata = cdata.substring(counter);
+			}
+
+			// Ones
+			counter = cdata.indexOf('0');
+			if(counter === -1) {
+				compressed.push(cdata.length);
+				if(compressed.length < 2) return false;
+				else return JSON.stringify(compressed);
+			} else {
+				compressed.push(counter);
+				cdata = cdata.substring(counter);
+			}
+		}
 	}
 
-	extractData(zeroPad, pixelData) {
-		let data = '' + parseInt(''+pixelData, 36).toString(2);
+	decompressData(cdata) {
+		cdata = JSON.parse(cdata);
+		let data = '';
+		let point;
 
-		for(let i=0; i<zeroPad; i++) data = '0' + data;
+		for(let i=0; i<cdata.length; i++) {
+			point = (i % 2 === 0)? '0' : '1';
+
+			for(let count=0; count < cdata[i]; count++) {
+				data += point;
+			}
+		}
 
 		return data;
 	}
