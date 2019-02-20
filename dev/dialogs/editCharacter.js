@@ -103,8 +103,11 @@ export function editCharacter(charID) {
 				${char.placeholderGlyph.makeEditGrid(10, 1, charID)}
 			</span>
 			<span style="grid-column: 2;">
-				<button style="width: 80px; margin-bottom: 6px;" onclick="app.project.letterWidth('${char.id}', true);">width +</button><br>
-				<button style="width: 80px; margin-bottom: 6px;" onclick="app.project.letterWidth('${char.id}', false);">width -</button><br>
+				<button style="width: 80px; margin-bottom: 6px;" onclick="app.letterWidth('${char.id}', true);">width +</button><br>
+				<button style="width: 80px; margin-bottom: 6px;" onclick="app.letterWidth('${char.id}', false);">width -</button><br>
+				<button style="width: 80px; margin-bottom: 6px;" onclick="app.copyPlaceholderGlyphData('${char.id}');">Copy data</button><br>
+				<button style="width: 80px; margin-bottom: 6px;" onclick="app.pastePlaceholderGlyphData('${char.id}');"${app.clipboard? '' : ' disabled'}>Paste data</button><br>
+				
 			</span>
 			<span class="description" style="grid-column: 3;">
 				Click a square to toggle between black and white.<br>

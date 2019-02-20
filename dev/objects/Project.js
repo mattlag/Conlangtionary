@@ -72,9 +72,13 @@ export default class Project {
 
 	createNewCharacter(copyChar = {}) {
 		let charID = generateNewCharID();
+		let newRank = this.getHighestRank();
 		let char = new Character(copyChar);
+
 		char.id = charID;
+		char.rank = newRank + 1;
 		app.project.alphabet[charID] = char;
+
 		return charID;
 	}
 
@@ -107,38 +111,6 @@ export default class Project {
 		showToast(`Linked case variants<br>${char1.name} : ${char2.name}`);
 	}
 
-	letterWidth(charID, increase) {
-		let char = this.getCharacter(charID);
-
-		if(increase) char.placeholderGlyph.increaseWidth();
-		else char.placeholderGlyph.decreaseWidth();
-
-		updatePlaceholderGrids(charID, char);
-	}
-
-	togglePixel(charID, row, col) {
-		// conlog(`togglePixel ${charID}, ${row}, ${col}`);
-		let char = this.getCharacter(charID);
-		char.placeholderGlyph.togglePixelAt(row, col);
-		
-		updatePlaceholderGrids(charID, char);
-	}
-
-	hoverPixel(event, charID, row, col) {
-		// conlog(`togglePixel ${charID}, ${row}, ${col}`);
-		event = event || window.event;
-		let brush;
-		
-		if(event.shiftKey) brush = 2;
-		else if(event.ctrlKey) brush = 0;
-		else return;
-		
-		let char = this.getCharacter(charID);
-		char.placeholderGlyph.setPixelAt(row, col, brush);
-		
-		updatePlaceholderGrids(charID, char);
-	}
-
 	deleteChar(charID) {
 		delete this.alphabet[charID];
 	}
@@ -162,6 +134,18 @@ export default class Project {
 	
 		return alphabetList;
 	}
+
+	getHighestRank() {
+		let max = 0;
+
+		for(let key in this.alphabet) {
+			if(this.alphabet.hasOwnProperty(key)) {
+				max = Math.max(max, this.alphabet[key].rank);
+			}
+		}
+
+		return max;
+	}
 }
 
 function generateNewCharID() {
@@ -179,14 +163,6 @@ function generateNewCharID() {
 
 		suffix++;
 	}
-}
-
-function updatePlaceholderGrids(charID, char) {
-	let gridval = document.getElementById('alphabet-grid-'+charID+'-placeholderGlyph');
-	if(gridval) gridval.innerHTML = char.placeholderGlyph.makeDisplayChar();
-
-	let editval = document.getElementById('edit-placeholderGlyph');
-	if(editval) editval.innerHTML = char.placeholderGlyph.makeEditGrid(10, 1, charID);
 }
 
 export function saveFile(fname, buffer, ftype) {
@@ -234,4 +210,4 @@ function genProjectID() {
 	return re;
 }
 
-export const sampleProject = {"settings":{"id":"c_sampleProject","languageName":"Dadareshjode","author":"Matt LaG","hasCases":true,"placeholderGlyphHeight":"12","defaultPlaceholderGlyphWidth":8,"spaceWidth":4},"alphabet":{"char01":{"id":"char01","name":"Capital U","placeholderGlyph":{"width":7,"compressedData":"[63,1,5,1,1,1,3,1,3,3,2]"},"rank":"1","romanized":"U","type":"vowel","ipaSymbols":"u","caseValue":"upper"},"char02":{"id":"char02","name":"Capital O","placeholderGlyph":{"width":7,"compressedData":"[69,1,6,7,1]"},"rank":"2","romanized":"O","type":"vowel","ipaSymbols":"ɔ","caseValue":"upper"},"char03":{"id":"char03","name":"Capital A","placeholderGlyph":{"width":7,"compressedData":"[63,1,5,9,5,1]"},"rank":"3","romanized":"A","type":"vowel","ipaSymbols":"a","caseValue":"upper"},"char04":{"id":"char04","name":"Capital E","placeholderGlyph":{"width":7,"compressedData":"[64,7,6,1,6]"},"rank":"4","romanized":"E","type":"vowel","ipaSymbols":"ɛ","caseValue":"upper"},"char05":{"id":"char05","name":"Capital I","placeholderGlyph":{"width":7,"compressedData":"[65,3,3,1,3,1,1,1,5,1]"},"rank":"5","romanized":"I","type":"vowel","ipaSymbols":"i","caseValue":"upper"},"char06":{"id":"char06","name":"Capital H","placeholderGlyph":false,"rank":"6","romanized":"H","type":"consonant","ipaSymbols":"h","caseValue":"upper"},"char07":{"id":"char07","name":"Capital B","placeholderGlyph":false,"rank":"8","romanized":"B","type":"consonant","ipaSymbols":"b","caseValue":"upper"},"char08":{"id":"char08","name":"Capital P","placeholderGlyph":false,"rank":"8","romanized":"P","type":"consonant","ipaSymbols":"p","caseValue":"upper"},"char09":{"id":"char09","name":"Capital M","placeholderGlyph":false,"rank":"9","romanized":"M","type":"consonant","ipaSymbols":"m","caseValue":"upper"},"char10":{"id":"char10","name":"Capital V","placeholderGlyph":false,"rank":"10","romanized":"V","type":"consonant","ipaSymbols":"v","caseValue":"upper"},"char11":{"id":"char11","name":"Capital F","placeholderGlyph":false,"rank":"11","romanized":"F","type":"consonant","ipaSymbols":"f","caseValue":"upper"},"char12":{"id":"char12","name":"Capital THJ","placeholderGlyph":false,"rank":"12","romanized":"THJ","type":"consonant","ipaSymbols":"ð","caseValue":"upper"},"char13":{"id":"char13","name":"Capital TH","placeholderGlyph":false,"rank":"13","romanized":"TH","type":"consonant","ipaSymbols":"θ","caseValue":"upper"},"char14":{"id":"char14","name":"Capital D","rank":"14","romanized":"D","type":"consonant","ipaSymbols":"d","caseValue":"upper"},"char15":{"id":"char15","name":"Capital T","placeholderGlyph":false,"rank":"15","romanized":"T","type":"consonant","ipaSymbols":"t","caseValue":"upper"},"char16":{"id":"char16","name":"Capital N","placeholderGlyph":false,"rank":"16","romanized":"N","type":"consonant","ipaSymbols":"n","caseValue":"upper"},"char17":{"id":"char17","name":"Capital Z","placeholderGlyph":false,"rank":"17","romanized":"Z","type":"consonant","ipaSymbols":"z","caseValue":"upper"},"char18":{"id":"char18","name":"Capital S","placeholderGlyph":false,"rank":"18","romanized":"S","type":"consonant","ipaSymbols":"s","caseValue":"upper"},"char19":{"id":"char19","name":"Capital R","rank":"19","romanized":"R","type":"consonant","ipaSymbols":"ɹ","caseValue":"upper"},"char20":{"id":"char20","name":"Capital L","placeholderGlyph":false,"rank":"20","romanized":"L","type":"consonant","ipaSymbols":"l","caseValue":"upper"},"char21":{"id":"char21","name":"Capital SHJ","placeholderGlyph":false,"rank":"21","romanized":"SHJ","type":"consonant","ipaSymbols":"ʒ","caseValue":"upper"},"char22":{"id":"char22","name":"Capital SH","rank":"22","romanized":"SH","type":"consonant","ipaSymbols":"ʃ","caseValue":"upper"},"char23":{"id":"char23","name":"Capital G","rank":"23","romanized":"G","type":"consonant","ipaSymbols":"ɡ","caseValue":"upper"},"char24":{"id":"char24","name":"Capital K","rank":"24","romanized":"K","type":"consonant","ipaSymbols":"k","caseValue":"upper"}}};
+export const sampleProject = {"settings":{"id":"c_sampleProject","languageName":"Dadateshjode","author":"Matt LaG","hasCases":true,"placeholderGlyphHeight":"12","defaultPlaceholderGlyphWidth":8,"spaceWidth":4},"alphabet":{"char01":{"id":"char01","name":"Capital U","placeholderGlyph":{"width":7,"compressedData":"[63,1,5,1,1,1,3,1,3,3,2]"},"rank":"1","romanized":"U","type":"vowel","ipaSymbols":"u"},"char02":{"id":"char02","name":"Capital O","placeholderGlyph":{"width":7,"compressedData":"[69,1,6,7,1]"},"rank":"2","romanized":"O","type":"vowel","ipaSymbols":"ɔ"},"char03":{"id":"char03","name":"Capital A","placeholderGlyph":{"width":7,"compressedData":"[63,1,5,9,5,1]"},"rank":"3","romanized":"A","type":"vowel","ipaSymbols":"a"},"char04":{"id":"char04","name":"Capital E","placeholderGlyph":{"width":7,"compressedData":"[64,7,6,1,6]"},"rank":"4","romanized":"E","type":"vowel","ipaSymbols":"ɛ"},"char05":{"id":"char05","name":"Capital I","placeholderGlyph":{"width":7,"compressedData":"[65,3,3,1,3,1,1,1,5,1]"},"rank":"5","romanized":"I","type":"vowel","ipaSymbols":"i"},"char10":{"id":"char10","name":"Capital V","placeholderGlyph":{"width":7,"compressedData":"[16,3,3,1,3,1,1,1,5,2,5,2,5,1,1,1,3,1,3,3,23]"},"rank":"10","romanized":"V","type":"consonant","ipaSymbols":"v","caseValue":"upper"},"char11":{"id":"char11","name":"Capital F","placeholderGlyph":{"width":7,"compressedData":"[1,5,10,3,3,1,3,1,1,1,5,2,5,2,5,1,1,1,3,1,3,3,23]"},"rank":"11","romanized":"F","type":"consonant","ipaSymbols":"f","caseValue":"upper"},"char12":{"id":"char12","name":"Capital THJ","placeholderGlyph":{"width":8,"compressedData":"[18,2,5,1,2,1,3,1,3,1,2,2,3,1,1,1,1,1,3,2,3,1,2,1,5,2,28]"},"rank":"12","romanized":"THJ","type":"consonant","ipaSymbols":"ð","caseValue":"upper"},"char13":{"id":"char13","name":"Capital TH","placeholderGlyph":{"width":8,"compressedData":"[1,6,11,2,5,1,2,1,3,1,3,1,2,2,3,1,1,1,1,1,3,2,3,1,2,1,5,2,28]"},"rank":"13","romanized":"TH","type":"consonant","ipaSymbols":"θ","caseValue":"upper"},"char14":{"id":"char14","name":"Capital D","placeholderGlyph":{"width":8,"compressedData":"[20,1,7,1,6,1,1,1,4,1,3,1,2,1,5,2,6,2,6,1,24]"},"rank":"14","romanized":"D","type":"consonant","ipaSymbols":"d","caseValue":"upper"},"char15":{"id":"char15","name":"Capital T","placeholderGlyph":{"width":8,"compressedData":"[1,6,13,1,7,1,6,1,1,1,4,1,3,1,2,1,5,2,6,2,6,1,24]"},"rank":"15","romanized":"T","type":"consonant","ipaSymbols":"t","caseValue":"upper"},"char17":{"id":"char17","name":"Capital Z","placeholderGlyph":{"width":8,"compressedData":"[24,7,8,1,3,1,3,1,2,1,4,1,2,1,3,1,3,4,26]"},"rank":"17","romanized":"Z","type":"consonant","ipaSymbols":"z","caseValue":"upper"},"char18":{"id":"char18","name":"Capital S","placeholderGlyph":{"width":8,"compressedData":"[1,6,17,7,8,1,3,1,3,1,2,1,4,1,2,1,3,1,3,4,26]"},"rank":"18","romanized":"S","type":"consonant","ipaSymbols":"s","caseValue":"upper"},"char21":{"id":"char21","name":"Capital SHJ","placeholderGlyph":{"width":7,"compressedData":"[16,4,2,1,4,2,5,2,4,3,3,1,1,2,2,1,2,2,2,1,2,1,21]"},"rank":"21","romanized":"SHJ","type":"consonant","ipaSymbols":"ʒ","caseValue":"upper"},"char22":{"id":"char22","name":"Capital SH","placeholderGlyph":{"width":7,"compressedData":"[1,5,10,4,2,1,4,2,5,2,4,3,3,1,1,2,2,1,2,2,2,1,2,1,21]"},"rank":"22","romanized":"SH","type":"consonant","ipaSymbols":"ʃ","caseValue":"upper"}}};

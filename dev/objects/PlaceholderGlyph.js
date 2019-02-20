@@ -183,6 +183,20 @@ export default class PlaceholderGlyph {
 		this.width -= 1;
 	}
 
+	mergeData(otherData) {
+		let newData = '';
+
+		for(let i=0; i<otherData.length; i++) {
+			if(otherData.charAt(i) === '1' || this.data.charAt(i) === '1') {
+				newData += '1';
+			} else {
+				newData += '0';
+			}
+		}
+
+		this.data = newData;
+	}
+
 	makeDisplayChar(charHeight = 20) {
 		let pxSize = charHeight / this.height;
 		let charWidth = this.width * pxSize;
@@ -243,8 +257,8 @@ export default class PlaceholderGlyph {
 						height: ${size}px;
 					"
 					class="${pixValue? 'selected' : 'unselected'}"
-					onclick="app.project.togglePixel('${charID}', ${row}, ${col});"
-					onmouseover="app.project.hoverPixel(event, '${charID}', ${row}, ${col});"
+					onclick="app.pixelClick('${charID}', ${row}, ${col});"
+					onmouseover="app.pixelHover(event, '${charID}', ${row}, ${col});"
 				></span>`;
 			}
 		}

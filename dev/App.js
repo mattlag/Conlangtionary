@@ -7,6 +7,7 @@ import PageHelp from './pages/Help.js';
 import {editCharacter} from './dialogs/editCharacter.js';
 import { openDialog, showToast } from './dialogs/Dialog.js';
 import { clone } from './common.js';
+import { app } from './main.js';
 
 export default class App {
 	constructor() {
@@ -69,6 +70,56 @@ export default class App {
 		return editCharacter(charID);
 	}
 
+	pixelClick(charID, row, col) {
+		// conlog(`pixelClick ${charID}, ${row}, ${col}`);
+		let char = this.project.getCharacter(charID);
+		char.placeholderGlyph.togglePixelAt(row, col);
+		
+		updatePlaceholderGrids(charID, char);
+	}
+
+	pixelHover(event, charID, row, col) {
+		// conlog(`pixelHover ${charID}, ${row}, ${col}`);
+		event = event || window.event;
+		let brush;
+		
+		if(event.shiftKey) brush = 1;
+		else if(event.ctrlKey) brush = 0;
+		else return;
+		
+		let char = this.project.getCharacter(charID);
+		char.placeholderGlyph.setPixelAt(row, col, brush);
+		
+		updatePlaceholderGrids(charID, char);
+	}
+
+	letterWidth(charID, increase) {
+		let char = this.project.getCharacter(charID);
+
+		if(increase) char.placeholderGlyph.increaseWidth();
+		else char.placeholderGlyph.decreaseWidth();
+
+		updatePlaceholderGrids(charID, char);
+	}
+
+	copyPlaceholderGlyphData(charID) {
+		this.clipboard = this.project.getCharacter(charID).placeholderGlyph;
+		showToast('Placeholder Glyph data<br>copied to clipboard')
+	}
+
+	pastePlaceholderGlyphData(charID) {
+		if(this.clipboard) {
+			let char = this.project.getCharacter(charID);
+			if(char.placeholderGlyph.width === app.clipboard.width) {
+				char.placeholderGlyph.mergeData(this.clipboard.data);
+				updatePlaceholderGrids(charID, char);
+				showToast('Placeholder Glyph data pasted');
+			} else {
+				showToast('Error:<br>The two Placeholder Glyphs<br>are different widths');
+			}
+		}
+	}
+
 	showDeleteCharConfirmDialog(charID) {
 		openDialog(`
 			<h3>Delete ${this.project.getCharacter(charID).name}?&emsp;&emsp;</h3>
@@ -113,6 +164,14 @@ export default class App {
 
 		this.openEditCharacterDialog(newCharID);
 	}
+}
+
+function updatePlaceholderGrids(charID, char) {
+	let gridval = document.getElementById('alphabet-grid-'+charID+'-placeholderGlyph');
+	if(gridval) gridval.innerHTML = char.placeholderGlyph.makeDisplayChar();
+
+	let editval = document.getElementById('edit-placeholderGlyph');
+	if(editval) editval.innerHTML = char.placeholderGlyph.makeEditGrid(10, 1, charID);
 }
 
 function clearNavButtonSelectedStates() {
