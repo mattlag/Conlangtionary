@@ -86,6 +86,10 @@ export function editCharacter(charID) {
 		</div>
 		<br>
 		<button onclick="app.showDeleteCharConfirmDialog('${charID}');">Delete this character</button>
+		<button onclick="app.duplicateCharacter('${charID}');">Duplicate this character</button>
+		<button onclick="app.duplicateCharacter('${charID}', true);">Create a case variant of this character</button>
+		<br><br>
+		<hr>
 		<br><br>
 
 		<h3>Placeholder glyph</h3>
