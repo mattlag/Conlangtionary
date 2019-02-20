@@ -14,7 +14,7 @@ export default class PageAlphabet {
 		<h1>
 			Alphabet
 			&nbsp;
-			<button onclick="app.openEditCharacterDialog(app.project.createNewCharacter());">Add Character</button>
+			<button onclick="app.createNewCharacter();">Add Character</button>
 		</h1>
 		<div class="grid">
 			<div class="gridHeader firstColumn">${nbsp('Name')}</div>

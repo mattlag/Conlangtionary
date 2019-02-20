@@ -75,7 +75,6 @@ export default class Project {
 		let char = new Character(copyChar);
 		char.id = charID;
 		app.project.alphabet[charID] = char;
-		document.getElementById('content').innerHTML = app.nav.pages.alphabet.load();
 		return charID;
 	}
 

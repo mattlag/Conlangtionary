@@ -6,6 +6,7 @@ import PageSettings from './pages/Settings.js';
 import PageHelp from './pages/Help.js';
 import {editCharacter} from './dialogs/editCharacter.js';
 import { openDialog, showToast } from './dialogs/Dialog.js';
+import { clone } from './common.js';
 
 export default class App {
 	constructor() {
@@ -58,6 +59,12 @@ export default class App {
 		}
 	}
 
+	createNewCharacter(newChar = {}) {
+		newChar = this.project.createNewCharacter(newChar);
+		this.openEditCharacterDialog(newChar);
+		this.reloadContent();
+	}
+
 	openEditCharacterDialog(charID) {
 		return editCharacter(charID);
 	}
@@ -76,6 +83,35 @@ export default class App {
 		this.reloadContent();
 		this.closeAllDialogs();
 		showToast(`Deleted ${name}`);
+	}
+
+	duplicateCharacter(charID, caseVariant) {
+		this.closeAllDialogs();
+		let newChar = JSON.parse(JSON.stringify(this.project.getCharacter(charID)));
+		let newCharID = this.project.createNewCharacter(newChar);
+		newChar = this.project.getCharacter(newCharID);
+		
+		if(caseVariant) {
+			if(newChar.caseValue === 'upper') {
+				newChar.caseValue = 'lower';
+				newChar.name = newChar.name.replace(/Uppercase/i, 'Lowercase');
+				newChar.name = newChar.name.replace(/Capital/i, 'Lowercase');
+			} else if(newChar.caseValue === 'lower') {
+				newChar.caseValue = 'upper';
+				newChar.name = newChar.name.replace(/Lowercase/i, 'Uppercase');
+				newChar.name = newChar.name.replace(/Small/i, 'Uppercase');
+			} else {
+				newChar.name += ' copy';
+			}
+
+			this.project.caseVariant(charID, newCharID);
+		} else {
+			newChar.name += ' copy';
+		}
+		
+		this.reloadContent();
+
+		this.openEditCharacterDialog(newCharID);
 	}
 }
 
