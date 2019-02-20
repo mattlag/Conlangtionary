@@ -225,8 +225,8 @@ export default class PlaceholderGlyph {
 }
 
 export const sampleGlyph12by20 = `
-1 0 0 0 0 0 0 0 0 0 0 0 
-1 1 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 
 0 1 1 0 0 0 0 0 0 0 0 0 
 0 0 1 1 0 0 0 0 0 0 0 0 
 0 0 0 1 1 0 0 0 0 0 0 0 
