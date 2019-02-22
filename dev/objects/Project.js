@@ -121,7 +121,7 @@ export default class Project {
 		newChar.id = generateNewCharID();
 	}
 
-	getSortedAlphabetArray() {
+	getSortedAlphabetArray(sortBy = 'rank') {
 		let alphabetList = [];
 	
 		for(let key in this.alphabet) {
@@ -130,7 +130,13 @@ export default class Project {
 			}
 		}
 	
-		alphabetList.sort(function (a, b) { return a.rank - b.rank; });
+		alphabetList.sort(function (a, b) { 
+			if(sortBy === 'rank') {
+				return parseInt(a.rank) - parseInt(b.rank);
+			} else {
+				return a[sortBy].localeCompare(b[sortBy]);
+			}		
+		});
 	
 		return alphabetList;
 	}

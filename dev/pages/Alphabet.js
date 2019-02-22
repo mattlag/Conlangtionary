@@ -1,14 +1,15 @@
 import { nbsp } from '../common.js';
+import { propertyNames } from '../objects/Character.js';
 
 export default class PageAlphabet {
 	constructor(app) {
 		this.app = app;
+		this.sortBy = 'rank';
 	}
 
 	load() {
-		let alphabetList = this.app.project.getSortedAlphabetArray();
-
-		let displayCase = this.app.project.settings.hasCases ? 'block' : 'none';
+		let alphabetList = this.app.project.getSortedAlphabetArray(this.sortBy);
+		let hasCases = this.app.project.settings.hasCases;
 
 		let content = `
 		<h1>
@@ -17,15 +18,16 @@ export default class PageAlphabet {
 			<button onclick="app.createNewCharacter();">Add Character</button>
 		</h1>
 		<div class="grid">
-			<div class="gridHeader firstColumn">${nbsp('Name')}</div>
-			<div class="gridHeader">${nbsp('Placeholder')}</div>
-			<div class="gridHeader">${nbsp('Character ID')}</div>
-			<div class="gridHeader">${nbsp('Rank')}</div>
-			<div class="gridHeader">${nbsp('Romanized')}</div>
-			<div class="gridHeader">${nbsp('Type')}</div>
-			<div class="gridHeader">${nbsp('IPA')}</div>
-			<div class="gridHeader" style="display: ${displayCase};">${nbsp('Case')}</div>
-			<div class="gridHeader" style="display: ${displayCase};">${nbsp('Case Variant')}</div>
+			${this.header('name')}
+			${this.header('placeholderGlyph', 'rank')}
+			${this.header('id')}
+			${this.header('rank')}
+			${this.header('romanized')}
+			${this.header('type')}
+			${this.header('ipaSymbols')}
+			${this.header('caseValue', 'caseValue', hasCases)}
+			${this.header('caseVariant', 'caseVariant', hasCases)}
+
 			${
 				alphabetList.map((char, index) => `
 					<div onclick="app.openEditCharacterDialog('${char.id}');" class="rowWrapper">
@@ -36,13 +38,39 @@ export default class PageAlphabet {
 						<div id="alphabet-grid-${char.id}-romanized" style="grid-row: ${index+2};">${char.romanized}</div>
 						<div id="alphabet-grid-${char.id}-type" style="grid-row: ${index+2};">${char.type}</div>
 						<div id="alphabet-grid-${char.id}-ipaSymbols" style="grid-row: ${index+2};">${char.ipaSymbols}</div>
-						<div id="alphabet-grid-${char.id}-caseValue" style="grid-row: ${index+2}; display: ${displayCase};">${char.caseValue ? char.caseValue : ''}</div>
-						<div id="alphabet-grid-${char.id}-caseVariant" style="grid-row: ${index+2}; display: ${displayCase};">${char.caseVariant ? char.caseVariant : ''}</div>
+						<div id="alphabet-grid-${char.id}-caseValue" style="grid-row: ${index+2}; display: ${hasCases? 'block' : 'none'};">${char.caseValue ? char.caseValue : ''}</div>
+						<div id="alphabet-grid-${char.id}-caseVariant" style="grid-row: ${index+2}; display: ${hasCases? 'block' : 'none'};">${char.caseVariant ? char.caseVariant : ''}</div>
 					</div>
 				`).join('')
 			}
 		</div>
 		`;
 		return content;
+	}
+
+	header(value, sortValue, show = true) {
+		sortValue = sortValue || value;
+
+		if(show) {
+			let sortable = this.app.nav.pages.alphabet.sortBy !== value;
+			return `
+				<div 
+					${sortable? `onclick="app.nav.pages.alphabet.sortColumnsBy('${sortValue}');" ` : ''}
+					${sortable? 'class="gridHeader sortable"' : 'class="gridHeader sorted"'} 
+				>
+					${nbsp(
+						propertyNames[value] + 
+						(sortable? '&emsp;&thinsp;' : ' ⯆')
+					)}
+				</div>
+			`;
+		}
+
+		return '';
+	}
+
+	sortColumnsBy(value) {
+		this.sortBy = value;
+		this.app.reloadContent();
 	}
 }

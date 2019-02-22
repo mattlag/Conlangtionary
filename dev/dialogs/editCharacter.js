@@ -62,7 +62,7 @@ export function editCharacter(charID) {
 				<input type="text" value="${char.ipaSymbols}" onchange="app.project.character('${charID}', 'ipaSymbols', this.value);"/>
 			</span>
 			<span class="description">
-				<button onclick="chooserIPA();" title="Show IPA Table\nto copy/paste symbols">▦</button>
+				<button onclick="app.openIPAChooserDialog();" title="Show IPA Table\nto copy/paste symbols">▦</button>
 				${propertyDescriptions.ipaSymbols}
 			</span>
 

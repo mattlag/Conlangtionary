@@ -8,6 +8,7 @@ import {editCharacter} from './dialogs/editCharacter.js';
 import { openDialog, showToast } from './dialogs/Dialog.js';
 import { clone } from './common.js';
 import { app } from './main.js';
+import { chooserIPA } from './dialogs/ChooserIPA.js';
 
 export default class App {
 	constructor() {
@@ -70,6 +71,10 @@ export default class App {
 		return editCharacter(charID);
 	}
 
+	openIPAChooserDialog(){
+		return chooserIPA();
+	}
+	
 	pixelClick(charID, row, col) {
 		// conlog(`pixelClick ${charID}, ${row}, ${col}`);
 		let char = this.project.getCharacter(charID);

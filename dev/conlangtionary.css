@@ -272,7 +272,19 @@ button:hover {
 	border-color: var(--gray-80) !important;
 	color: var(--gray-40) !important;
 	font-size: 0.8em !important;
-	font-style: italic;
+	line-height: 1.2em;
+	cursor: default;
+	user-select: none;
+}
+
+.gridHeader.sorted {
+	color:var(--gray-20) !important;
+}
+
+.gridHeader.sortable:hover {
+	cursor: pointer;
+	color: var(--gray-20) !important;
+	border-color: var(--gray-70) !important;
 }
 
 .settingsGrid {
