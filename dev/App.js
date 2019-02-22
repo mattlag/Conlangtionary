@@ -2,6 +2,7 @@ import Project, { sampleProject } from './objects/Project.js';
 import PageWelcome from './pages/Welcome.js';
 import PageAlphabet from './pages/Alphabet.js';
 import PageDictionary from './pages/Dictionary.js';
+import PageCompose from './pages/Compose.js';
 import PageSettings from './pages/Settings.js';
 import PageHelp from './pages/Help.js';
 import {editCharacter} from './dialogs/editCharacter.js';
@@ -13,13 +14,14 @@ import { chooserIPA } from './dialogs/ChooserIPA.js';
 export default class App {
 	constructor() {
 		conlog('App - start');
-		this.devMode =true;
+		this.devMode = true;
 		this.nav = {
 			currentPage: 'welcome',
 			pages: {
 				welcome: new PageWelcome(this),
 				alphabet: new PageAlphabet(this),
 				dictionary: new PageDictionary(this),
+				compose: new PageCompose(this),
 				settings: new PageSettings(this),
 				help: new PageHelp(this),
 			}
@@ -61,6 +63,10 @@ export default class App {
 		}
 	}
 
+	/*
+		Page Alphabet
+	*/
+
 	createNewCharacter(newChar = {}) {
 		newChar = this.project.createNewCharacter(newChar);
 		this.openEditCharacterDialog(newChar);
@@ -74,7 +80,7 @@ export default class App {
 	openIPAChooserDialog(){
 		return chooserIPA();
 	}
-	
+
 	pixelClick(charID, row, col) {
 		// conlog(`pixelClick ${charID}, ${row}, ${col}`);
 		let char = this.project.getCharacter(charID);

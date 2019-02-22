@@ -1,5 +1,4 @@
 import Character from './Character.js';
-import { editCharacter } from '../dialogs/editCharacter.js';
 import { showToast } from '../dialogs/Dialog.js';
 import { propertyNames } from '../objects/Character.js';
 
@@ -15,8 +14,9 @@ export default class Project {
 			author: settings.author || '',
 			hasCases: true,
 			placeholderGlyphHeight: settings.placeholderGlyphHeight || 12,
+			lineSpacingHeight: settings.lineSpacingHeight || 4,
 			defaultPlaceholderGlyphWidth: settings.defaultPlaceholderGlyphWidth || 8,
-			spaceWidth: 4,
+			spaceWidth: settings.spaceWidth || 4,
 		};
 
 		this.charIDPrefix = 'char';
@@ -40,16 +40,6 @@ export default class Project {
 		};
 	}
 
-	getCharacter(charID) {
-		if(this.alphabet[charID]) {
-			return this.alphabet[charID];
-		}
-
-		console.warn(`Could not find letter with id: ${charID}`);
-		conlog(this.alphabet);
-		return false;
-	}
-
 	save() {
 		let d = new Date();
 		let yr = d.getFullYear();
@@ -66,9 +56,33 @@ export default class Project {
 		saveFile(`${this.settings.languageName} - conlangtionary - ${suffix}.txt`, data);
 	}
 
-	// ----------------------------
-	// Methods for UI interaction
-	// ----------------------------
+	getCharacter(charID) {
+		if(this.alphabet[charID]) {
+			return this.alphabet[charID];
+		}
+
+		console.warn(`Could not find letter with id: ${charID}`);
+		conlog(this.alphabet);
+		return false;
+	}
+
+	getCharacterByRomanized(char) {
+		for(let charID in this.alphabet) {
+			if(this.alphabet.hasOwnProperty(charID)) {
+				if(this.alphabet[charID].romanized === char) {
+					return this.alphabet[charID];
+				}
+			}
+		}
+
+		// console.warn(`Could not find letter with romanized: ${char}`);
+		return false;
+	}
+
+
+	/*
+		Page Alphabet
+	*/
 
 	createNewCharacter(copyChar = {}) {
 		let charID = generateNewCharID();
@@ -82,6 +96,40 @@ export default class Project {
 		return charID;
 	}
 
+	/*
+		Page Compose
+	*/
+	getCharacterArray(string) {
+		let alphabet = this.getSortedAlphabetArray('romanized');
+		let result = [];
+		let romanized;
+		let match = false;
+
+		while(string.length) {
+			match = false;
+			for(let c = alphabet.length-1; c > -1; c--) {
+				romanized = alphabet[c].romanized;
+
+				if(romanized === string.substring(0, romanized.length)) {
+					result.push(string.substring(0, romanized.length));
+					string = string.substring(romanized.length);
+					match = true;
+					break;
+				}
+			}
+
+			if(!match) {
+				result.push(string.substring(0, 1));
+				string = string.substring(1);
+			}
+		}
+
+		return result;
+	}
+
+	/*
+		Page Settings
+	*/
 	updateSetting(prop, value) {
 		conlog(`setting ${prop} to ${typeof value} ${value}`);
 		this.settings[prop] = value;

@@ -11,4 +11,4 @@ window.conlog = function(msg) {
 export var app = new App();
 window.app = app;
 
-app.navigate('alphabet');
+app.navigate('compose');
