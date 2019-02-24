@@ -67,6 +67,37 @@ export default class App {
 		Page Alphabet
 	*/
 
+	showAlphabetActionsDropdown(element) {
+		conlog(element);
+		
+		let actions = `
+			<div onclick="app.makeAbugida();">Generate Abugida</div>
+			<div>Find + Replace character names</div>
+			<div>Create lower-case characters based on upper-case</div>
+			<div>Create upper-case characters based on lower-case</div>
+		`;
+
+		let dropdown = document.createElement('div');
+		dropdown.setAttribute('id', 'alphabetActionsDropdown');
+		dropdown.innerHTML = actions;
+		dropdown.style.position = 'absolute';
+		dropdown.style.top = '' + (element.offsetTop + element.offsetHeight) + 'px';
+		dropdown.style.left = '' + (element.offsetLeft) + 'px';
+
+		element.innerHTML = 'More actions ⯅';
+		element.setAttribute('onclick', 'app.hideAlphabetActionsDropdown(this);');
+		document.body.appendChild(dropdown);
+	}
+
+	hideAlphabetActionsDropdown(element) {
+		let dd = document.getElementById('alphabetActionsDropdown');
+		if(dd) {
+			document.body.removeChild(dd);
+			element.setAttribute('onclick', 'app.showAlphabetActionsDropdown(this);');
+			element.innerHTML = 'More actions ⯆';
+		}
+	}
+
 	createNewCharacter(newChar = {}) {
 		newChar = this.project.createNewCharacter(newChar);
 		this.openEditCharacterDialog(newChar);

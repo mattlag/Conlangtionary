@@ -16,6 +16,7 @@ export default class PageAlphabet {
 			Alphabet
 			&nbsp;
 			<button onclick="app.createNewCharacter();">Add Character</button>
+			<button onclick="app.showAlphabetActionsDropdown(this);">More actions ⯆</button>
 		</h1>
 		<div class="grid">
 			${this.header('name')}
